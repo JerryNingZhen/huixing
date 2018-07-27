@@ -1,0 +1,52 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/view_group_parent">
+
+    <com.android.base.widget.TitleView
+        android:id="@+id/title_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+    <!-- 各模块视图 -->
+
+    <FrameLayout
+        android:id="@+id/view_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/view_line"
+        android:layout_below="@+id/title_view" />
+
+    <View
+        android:id="@+id/view_line"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_above="@+id/radiogroup"
+        android:background="@color/line_grey_light" />
+
+    <RadioGroup
+        android:id="@+id/radiogroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/main_radio_btn_index"
+            style="@style/radio_btn_main_style"
+            android:checked="true"
+            android:text="首页"
+            android:drawableTop="@drawable/radio_main_home_selector" />
+
+        <RadioButton
+            android:id="@+id/main_radio_btn_order"
+            style="@style/radio_btn_main_style"
+            android:text="发布"
+            android:drawableTop="@drawable/radio_main_article_selector" />
+
+        <RadioButton
+            android:id="@+id/main_radio_btn_mine"
+            style="@style/radio_btn_main_style"
+            android:text="我的"
+            android:drawableTop="@drawable/radio_main_mine_selector" />
+    </RadioGroup>
+
+</RelativeLayout>

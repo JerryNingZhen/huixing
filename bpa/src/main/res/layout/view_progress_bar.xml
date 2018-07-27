@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/custom_view_progressbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <com.amos.custom.progress.CustomProgressView
+            android:id="@+id/progress_view"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center"
+            app:cpv_animAutostart="true"
+            app:cpv_color="@color/font_blue"
+            app:cpv_indeterminate="true"
+            app:cpv_thickness="2dp"/>
+
+        <ProgressBar
+            android:id="@+id/progressbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminateDrawable="@drawable/shape_pro_loading_new"
+            android:indeterminateDuration="1200"
+            android:padding="5dp"
+            android:visibility="gone"/>
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/distance_15"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/custom_dialog_txt_progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/process_handle_wait"
+                android:textColor="@color/font_blue"
+                android:textSize="@dimen/font_size_normal"/>
+
+            <TextView
+                android:id="@+id/txt_point"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:layout_toRightOf="@+id/custom_dialog_txt_progress"
+                android:minWidth="@dimen/distance_15"
+                android:textColor="@color/font_blue"
+                android:textSize="15sp"
+                android:text="···"
+                android:textStyle="bold"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+</RelativeLayout>

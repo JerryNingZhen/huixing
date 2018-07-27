@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    style="@style/view_group_parent"
+    android:background="@color/default_background"
+    android:orientation="vertical">
+
+    <com.android.base.widget.TitleView
+        android:id="@+id/title_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp">
+
+        <ImageView
+            android:id="@+id/iv_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@drawable/user_image" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_nickname"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/account_manager_ll_item"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/distance_20"
+            android:drawableLeft="@drawable/bell_big"
+            android:drawablePadding="@dimen/distance_10"
+            android:text="昵称"
+            android:textColor="@color/font_gray"
+            android:textSize="@dimen/font_size_little" />
+
+        <TextView
+            android:id="@+id/tv_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/distance_20"
+            android:drawablePadding="@dimen/distance_5"
+            android:textColor="@color/font_gray"
+            android:textSize="@dimen/font_size_little" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/line_grey_light" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/tv_self_intro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:drawableLeft="@drawable/qr_money"
+            android:drawablePadding="@dimen/distance_10"
+            android:gravity="center_vertical"
+            android:minHeight="@dimen/distance_50"
+            android:paddingLeft="@dimen/distance_20"
+            android:paddingRight="@dimen/distance_20"
+            android:text="@string/self_intro"
+            android:textColor="@color/font_black"
+            android:textSize="@dimen/font_size_little" />
+
+        <TextView
+            android:id="@+id/tv_des"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:singleLine="true"
+            android:layout_marginRight="@dimen/distance_20"
+            android:drawablePadding="@dimen/distance_5"
+            android:textColor="@color/font_gray"
+            android:textSize="@dimen/font_size_little" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/line_grey_light" />
+
+</LinearLayout>

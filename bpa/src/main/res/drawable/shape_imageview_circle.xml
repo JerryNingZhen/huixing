@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval"
+    android:useLevel="false" >
+
+    <!-- 圆 -->
+    <!-- android:useLevel boolean值，如果当做是LevelListDrawable使用时值为true，否则为false -->
+
+
+    <!-- 圆环 -->
+    <solid android:color="@color/transparent" />
+    <!-- 描边： 边框线的颜色和宽度 -->
+    <stroke
+        android:width="3dp"
+        android:color="@color/title_bg_color" />
+
+</shape>

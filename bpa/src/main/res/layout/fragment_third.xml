@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/default_background"
+    android:orientation="vertical">
+
+    <com.amos.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refresh_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.amos.smartrefresh.layout.header.ClassicsHeader
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <ScrollView
+            android:id="@+id/activity_account_manager_sv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:fadingEdge="none"
+            android:fillViewport="true"
+            android:scrollbars="none">
+
+            <RelativeLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:id="@+id/persona_info_ll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/content_blue"
+                    android:minHeight="150dp"
+                    android:paddingLeft="30dp">
+
+                    <ImageView
+                        android:id="@+id/iv_user_head"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/user_image" />
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="5dp"
+                        android:layout_toRightOf="@id/iv_user_head">
+
+                        <TextView
+                            android:id="@+id/tv_third_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="谭谭"
+                            android:textColor="@color/font_white"
+                            android:textSize="@dimen/font_size_normal" />
+
+                        <TextView
+                            android:id="@+id/tv_level"
+                            android:background="@drawable/shape_level"
+                            android:layout_marginLeft="3dp"
+                            android:layout_toRightOf="@+id/tv_third_name"
+                            android:textSize="@dimen/font_size_little"
+                            android:gravity="center"
+                            android:textColor="@color/content_blue"
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:id="@+id/tv_power"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/tv_third_name"
+                            android:layout_marginTop="3dp"
+                            android:text="体力值:100/120"
+                            android:textColor="@color/font_white"
+                            android:textSize="@dimen/font_size_least" />
+
+                        <TextView
+                            android:id="@+id/tv_experience"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/tv_power"
+                            android:text="经验值:80/180"
+                            android:textColor="@color/font_white"
+                            android:textSize="@dimen/font_size_least" />
+
+                    </RelativeLayout>
+
+                    <Button
+                        android:id="@+id/btn_setting"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/distance_20"
+                        android:layout_marginTop="@dimen/distance_20"
+                        android:background="@drawable/setting" />
+
+                    <RelativeLayout
+                        android:id="@+id/rl_sign"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/btn_setting"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/button_bg_sign"
+                        android:minHeight="20dp"
+                        android:minWidth="60dp">
+
+                        <TextView
+                            android:id="@+id/tv_sign"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:drawableLeft="@drawable/sign"
+                            android:drawablePadding="@dimen/distance_5"
+                            android:text="签到"
+                            android:textColor="@color/content_blue"
+                            android:textSize="@dimen/font_size_little" />
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/ll_follows"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/persona_info_ll"
+                    android:background="@color/white"
+                    android:minHeight="60dp">
+
+                    <RelativeLayout
+                        android:id="@+id/rl_publish"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="35dp"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_publish"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1000" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/tv_publish"
+                            android:layout_centerHorizontal="true"
+                            android:text="帖子" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rl_focus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_focus_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:text="1000" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/tv_focus_count"
+                            android:layout_centerHorizontal="true"
+                            android:text="关注" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rl_fans"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="35dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_follow_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:text="1000" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/tv_follow_count"
+                            android:layout_centerHorizontal="true"
+                            android:text="粉丝" />
+
+                    </RelativeLayout>
+
+
+                </RelativeLayout>
+
+                <!--钱包-->
+                <TextView
+                    android:id="@+id/tv_wallet"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/ll_follows"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="@dimen/distance_10"
+                    android:background="@color/white"
+                    android:drawableLeft="@drawable/wallet"
+                    android:drawablePadding="@dimen/distance_20"
+                    android:drawableRight="@drawable/right_arrow"
+                    android:gravity="center_vertical"
+                    android:minHeight="60dp"
+                    android:paddingLeft="@dimen/account_manager_ll_item_tv_marginLeft"
+                    android:paddingRight="@dimen/account_manager_ll_item_tv_marginStart"
+                    android:text="@string/wallet"
+                    android:textColor="@color/font_black"
+                    android:textSize="@dimen/font_size_normal" />
+
+                <!--邀请-->
+                <TextView
+                    android:id="@+id/tv_invite"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_wallet"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="@dimen/distance_10"
+                    android:background="@color/white"
+                    android:drawableLeft="@drawable/wallet"
+                    android:drawablePadding="@dimen/distance_20"
+                    android:drawableRight="@drawable/right_arrow"
+                    android:gravity="center_vertical"
+                    android:minHeight="60dp"
+                    android:paddingLeft="@dimen/account_manager_ll_item_tv_marginLeft"
+                    android:paddingRight="@dimen/account_manager_ll_item_tv_marginStart"
+                    android:text="@string/invite"
+                    android:textColor="@color/font_black"
+                    android:textSize="@dimen/font_size_normal" />
+            </RelativeLayout>
+
+        </ScrollView>
+
+    </com.amos.smartrefresh.layout.SmartRefreshLayout>
+
+</LinearLayout>

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="15dp" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_marginLeft="@dimen/distance_15"
+        android:layout_marginRight="@dimen/distance_15"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.hx.huixing.widget.RoundImage
+                android:id="@+id/round_image"
+                android:layout_width="50dp"
+                android:layout_height="50dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8dp"
+                android:layout_toRightOf="@id/round_image"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/round_image"
+                    android:text="谭哥哥"
+                    android:textSize="@dimen/font_size_little" />
+
+                <TextView
+                    android:id="@+id/tv_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="4天前"
+                    android:textColor="@color/font_gray"
+                    android:textSize="@dimen/font_size_least" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_add_care"
+                android:paddingLeft="@dimen/distance_10"
+                android:paddingRight="@dimen/distance_10"
+                android:paddingTop="3dp"
+                android:paddingBottom="3dp"
+                android:textColor="@color/content_blue"
+                android:textSize="@dimen/font_size_little"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/shape_button_care"
+                android:text="@string/add_care"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+        <!--文章插图-->
+        <ImageView
+            android:id="@+id/iv_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginTop="10dp"
+            android:minHeight="120dp" />
+        <!--文章标题-->
+        <TextView
+            android:id="@+id/tv_content_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/distance_10"
+            android:text="区块律动 Block"
+            android:textSize="@dimen/font_size_normal" />
+
+        <!--文章摘要-->
+        <TextView
+            android:id="@+id/tv_content_brife"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/distance_10"
+            android:maxLength="80"
+            android:text="今天星期三，天气不好"
+            android:textColor="@color/font_gray"
+            android:textSize="@dimen/font_size_little" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginTop="@dimen/distance_10"
+            android:background="@color/line_grey_light" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/distance_10">
+
+            <LinearLayout
+                android:id="@+id/ll_thumb"
+                android:layout_width="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/btn_thumb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/thumb_up_grey" />
+
+                <TextView
+                    android:id="@+id/thumb_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="10" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_comment"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_toRightOf="@+id/ll_thumb"
+                android:gravity="center_vertical"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/btn_comment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/comment_care" />
+
+                <TextView
+                    android:id="@+id/tv_comment_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="10" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true">
+
+                <ImageView
+                    android:id="@+id/btn_coin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/coin" />
+
+                <TextView
+                    android:id="@+id/tv_coin_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@+id/btn_coin"
+                    android:text="10" />
+
+
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_marginTop="@dimen/distance_10"
+        android:layout_width="match_parent"
+        android:background="@color/line_grey"
+        android:layout_height="1px"/>
+
+</LinearLayout>

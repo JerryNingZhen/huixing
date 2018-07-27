@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_default"
+    android:orientation="vertical">
+
+    <com.android.base.widget.TitleView
+        android:id="@+id/title_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:minHeight="160dp"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/rl_coin_info"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginLeft="@dimen/distance_15"
+            android:layout_marginRight="@dimen/distance_15"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/shape_background_blue"
+            android:minHeight="100dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="10dp"
+                    android:text="HUI"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/font_size_big" />
+
+                <TextView
+                    android:id="@+id/tv_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@id/tv_type"
+                    android:text="289.99"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/font_size_big" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/line"
+                android:layout_width="220dp"
+                android:layout_height="1px"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:background="@color/line_grey_light" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/line">
+
+                <TextView
+                    android:id="@+id/tv_bitian"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="10dp"
+                    android:text="HUI"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/font_size_normal" />
+
+                <TextView
+                    android:id="@+id/tv_bitian_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="35dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@id/tv_type"
+                    android:text="289.99"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/font_size_normal" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_get_coin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="25dp"
+                android:background="@drawable/shape_background_white"
+                android:minHeight="12dp"
+                android:minWidth="50dp"
+                android:text="@string/get_coin"
+                android:textColor="@color/content_blue"
+                android:textSize="@dimen/font_size_little" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_question"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rl_coin_info"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="10dp"
+            android:text="@string/what_bitian"
+            android:textColor="@color/content_blue"
+            android:textSize="@dimen/font_size_least" />
+
+    </RelativeLayout>
+
+    <!--交易记录-->
+    <TextView
+        android:id="@+id/tv_exchange_record"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="@dimen/distance_10"
+        android:background="@color/white"
+        android:drawableLeft="@drawable/exchange_record"
+        android:drawablePadding="@dimen/distance_20"
+        android:drawableRight="@drawable/right_arrow"
+        android:gravity="center_vertical"
+        android:minHeight="60dp"
+        android:paddingLeft="@dimen/account_manager_ll_item_tv_marginLeft"
+        android:paddingRight="@dimen/account_manager_ll_item_tv_marginStart"
+        android:text="@string/exchange_record"
+        android:textColor="@color/font_black"
+        android:textSize="@dimen/font_size_little" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"/>
+
+    <TextView
+        android:id="@+id/tv_money_code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:background="@color/white"
+        android:drawableLeft="@drawable/qr_money"
+        android:drawablePadding="@dimen/distance_20"
+        android:drawableRight="@drawable/right_arrow"
+        android:gravity="center_vertical"
+        android:minHeight="60dp"
+        android:paddingLeft="@dimen/account_manager_ll_item_tv_marginLeft"
+        android:paddingRight="@dimen/account_manager_ll_item_tv_marginStart"
+        android:text="@string/get_money_code"
+        android:textColor="@color/font_black"
+        android:textSize="@dimen/font_size_little" />
+
+
+
+</LinearLayout>

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/default_background"
+    android:orientation="vertical">
+
+    <com.android.base.widget.TitleView
+        android:id="@+id/title_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!--个人信息-->
+    <com.android.base.widget.AutoBgTextView
+        android:id="@+id/tv_personal_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/distance_10"
+        android:background="@color/white"
+        android:drawablePadding="@dimen/distance_20"
+        android:gravity="center_vertical"
+        android:minHeight="@dimen/account_manager_ll_item"
+        android:paddingLeft="@dimen/account_manager_ll_item_tv_marginLeft"
+        android:paddingRight="@dimen/account_manager_ll_item_tv_marginStart"
+        android:text="@string/personal_info"
+        android:textColor="@color/font_black"
+        android:textSize="@dimen/font_size_normal" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/line_grey_light" />
+
+    <!--账号设置-->
+    <com.android.base.widget.AutoBgTextView
+        android:id="@+id/tv_account_set"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:drawablePadding="@dimen/distance_20"
+        android:gravity="center_vertical"
+        android:minHeight="@dimen/account_manager_ll_item"
+        android:paddingLeft="@dimen/account_manager_ll_item_tv_marginLeft"
+        android:paddingRight="@dimen/account_manager_ll_item_tv_marginStart"
+        android:text="@string/modify_pwd"
+        android:textColor="@color/font_black"
+        android:textSize="@dimen/font_size_normal" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/line_grey_light" />
+
+    <com.android.base.widget.AutoBgTextView
+        android:id="@+id/tv_about_huixing"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:drawablePadding="@dimen/distance_20"
+        android:gravity="center_vertical"
+        android:minHeight="@dimen/account_manager_ll_item"
+        android:paddingLeft="@dimen/account_manager_ll_item_tv_marginLeft"
+        android:paddingRight="@dimen/account_manager_ll_item_tv_marginStart"
+        android:text="@string/about_huixing"
+        android:textColor="@color/font_black"
+        android:textSize="@dimen/font_size_normal" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/line_grey_light" />
+
+    <RelativeLayout
+        android:id="@+id/rl_version"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:minHeight="50dp">
+
+        <com.android.base.widget.AutoBgTextView
+            android:id="@+id/tv_current_version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="@dimen/distance_20"
+            android:gravity="center_vertical"
+            android:minHeight="@dimen/account_manager_ll_item"
+            android:paddingLeft="@dimen/account_manager_ll_item_tv_marginLeft"
+            android:paddingRight="@dimen/account_manager_ll_item_tv_marginStart"
+            android:text="@string/current_version"
+            android:textColor="@color/font_black"
+            android:textSize="@dimen/font_size_normal" />
+
+        <TextView
+            android:id="@+id/tv_version"
+            android:textSize="@dimen/font_size_little"
+            android:textColor="@color/font_gray"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/distance_20" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/line_grey_light" />
+
+    <RelativeLayout
+        android:id="@+id/rl_clean"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:minHeight="50dp">
+
+    <com.android.base.widget.AutoBgTextView
+        android:id="@+id/tv_clean_cache"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:drawablePadding="@dimen/distance_20"
+        android:gravity="center_vertical"
+        android:minHeight="@dimen/account_manager_ll_item"
+        android:paddingLeft="@dimen/account_manager_ll_item_tv_marginLeft"
+        android:paddingRight="@dimen/account_manager_ll_item_tv_marginStart"
+        android:text="@string/clean_cache"
+        android:textColor="@color/font_black"
+        android:textSize="@dimen/font_size_normal" />
+
+        <TextView
+            android:id="@+id/tv_size"
+            android:textSize="@dimen/font_size_little"
+            android:textColor="@color/font_gray"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/distance_20" />
+
+    </RelativeLayout>
+
+    <com.android.base.widget.AutoBgTextView
+        android:id="@+id/tv_exit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/distance_10"
+        android:background="@color/white"
+        android:drawablePadding="@dimen/distance_20"
+        android:gravity="center"
+        android:minHeight="@dimen/account_manager_ll_item"
+        android:paddingLeft="@dimen/account_manager_ll_item_tv_marginLeft"
+        android:paddingRight="@dimen/account_manager_ll_item_tv_marginStart"
+        android:text="@string/exit"
+        android:textColor="@color/content_blue"
+        android:textSize="@dimen/font_size_normal" />
+
+</LinearLayout>

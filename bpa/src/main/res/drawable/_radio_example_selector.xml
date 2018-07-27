@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- 没有焦点时的背景图片 -->
+    <!-- <item android:drawable="@color/md_pink_100" android:state_window_focused="false"/> -->
+    <!-- 非触摸模式下获得焦点并单击时的背景图片 -->
+    <!-- <item android:drawable="@color/md_blue_100" android:state_focused="true" android:state_pressed="true"/> -->
+    <!-- 触摸模式下单击时的背景图片 -->
+    <!-- <item android:drawable="@color/md_red_100" android:state_focused="false" android:state_pressed="true"/> -->
+    <!-- 选中时的图片背景 -->
+    <!-- <item android:drawable="@color/md_white_1000" android:state_selected="true"/> -->
+    <!-- 获得焦点时的图片背景 -->
+    <!-- <item android:drawable="@color/md_yellow_100" android:state_focused="true"/> -->
+    <!-- 默认时的背景图片 -->
+    <!-- <item android:drawable="@color/md_amber_100"/> -->
+
+
+    <!-- 选中时的图片背景 -->
+    <item android:state_checked="true"><shape>
+
+            <!-- 2填充 -->
+            <solid android:color="@color/black_5" />
+            <!-- 4圆角 -->
+            <corners android:radius="3dp" />
+        </shape></item>
+
+    <!-- 获得焦点时的图片背景 -->
+    <!-- <item android:state_focused="true"><shape> -->
+    <!-- 2填充 -->
+    <!-- <solid android:color="@color/md_blue_200" /> -->
+    <!-- 4圆角 -->
+    <!-- <corners android:radius="3dp" /> -->
+    <!-- </shape></item> -->
+
+
+    <!-- 触摸模式下单击时的背景图片 -->
+    <item android:state_pressed="true"><shape>
+
+            <!-- 2填充 -->
+            <solid android:color="@color/black_5" />
+            <!-- 4圆角 -->
+            <corners android:radius="3dp" />
+        </shape></item>
+
+    <!-- 默认时的背景图片 -->
+    <item><shape>
+
+            <!-- 2填充 -->
+            <solid android:color="@color/white" />
+            <!-- 4圆角 -->
+            <corners android:radius="3dp" />
+        </shape></item>
+
+</selector>

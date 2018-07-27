@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              style="@style/view_group_parent"
+              android:background="@color/white"
+              android:orientation="vertical">
+
+    <com.android.base.widget.TitleView
+        android:id="@+id/title_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/view_line"
+        android:background="@color/white"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/layout_name"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/btn_height"
+                android:layout_marginTop="40dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginRight="2dp"
+                    android:text="昵称"
+                    android:textSize="@dimen/font_size_normal"/>
+
+                <View
+                    android:id="@+id/view_line_name"
+                    android:layout_width="1px"
+                    android:layout_height="20dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@id/tv_name"
+                    android:background="@color/line_grey_light"/>
+
+                <com.hx.huixing.widget.ContainsEmojiEditText
+                    android:id="@+id/et_real_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="25dp"
+                    android:layout_toRightOf="@id/view_line_name"
+                    android:background="@null"
+                    android:hint="@string/input_name"
+                    android:maxLength="18"
+                    android:maxLines="1"
+                    android:paddingLeft="2dp"
+                    android:textColor="@color/font_content"
+                    android:textColorHint="@color/font_gray"
+                    android:textSize="@dimen/font_size_normal"/>
+            </RelativeLayout>
+
+            <View
+                style="@style/line_horizontal_gray_light_style"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:layout_marginTop="5dp"/>
+
+            <RelativeLayout
+                android:id="@+id/layout_account"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/btn_height"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_fore_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginRight="2dp"
+                    android:text="+86"
+                    android:textSize="@dimen/font_size_normal"/>
+
+                <View
+                    android:id="@+id/view_line"
+                    android:layout_width="1px"
+                    android:layout_height="20dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@id/tv_fore_title"
+                    android:background="@color/line_grey_light"/>
+
+                <com.hx.huixing.widget.ContainsEmojiEditText
+                    android:id="@+id/et_login_username"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="25dp"
+                    android:layout_toRightOf="@id/view_line"
+                    android:background="@null"
+                    android:hint="@string/input_num"
+                    android:inputType="number"
+                    android:maxLength="11"
+                    android:maxLines="1"
+                    android:paddingLeft="2dp"
+                    android:textColor="@color/font_content"
+                    android:textColorHint="@color/font_gray"
+                    android:textSize="@dimen/font_size_normal"/>
+            </RelativeLayout>
+
+            <View
+                style="@style/line_horizontal_gray_light_style"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:layout_marginTop="5dp"/>
+
+            <RelativeLayout
+                android:id="@+id/layout_password"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/btn_height"
+                android:gravity="center_vertical">
+
+                <com.hx.huixing.widget.ContainsEmojiEditText
+                    android:id="@+id/et_login_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginRight="25dp"
+                    android:background="@null"
+                    android:drawablePadding="@dimen/distance_15"
+                    android:hint="@string/pwd_setting"
+                    android:inputType="textPassword"
+                    android:maxLines="1"
+                    android:textColor="@color/font_content"
+                    android:textColorHint="@color/font_gray"
+                    android:textSize="@dimen/font_size_normal"/>
+
+            </RelativeLayout>
+
+            <View
+                style="@style/line_horizontal_gray_light_style"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="5dp"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/btn_height"
+                android:gravity="center_vertical">
+
+                <com.hx.huixing.widget.ContainsEmojiEditText
+                    android:id="@+id/et_verify_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginRight="25dp"
+                    android:background="@null"
+                    android:drawablePadding="@dimen/distance_15"
+                    android:hint="@string/input_verify_code"
+                    android:inputType="number"
+                    android:maxLength="6"
+                    android:maxLines="1"
+                    android:textColor="@color/font_content"
+                    android:textColorHint="@color/font_gray"
+                    android:textSize="@dimen/font_size_normal"/>
+
+                <com.hx.huixing.widget.TimeButton
+                    android:id="@+id/btn_getcode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:background="@null"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="25dp"
+                    android:text="@string/get_verify_code"
+                    android:textColor="@color/content_blue"
+                    android:textSize="@dimen/font_size_normal"/>
+
+            </RelativeLayout>
+
+            <View
+                style="@style/line_horizontal_gray_light_style"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="5dp"/>
+
+            <com.android.base.widget.AutoBgButton
+                android:id="@+id/btn_register"
+                xmlns:custom="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/btn_height"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:layout_marginTop="@dimen/distance_45"
+                android:background="@drawable/button_backgroud_blue"
+                android:text="@string/register"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_size_middle"
+                custom:bgAlpha="150"
+                custom:bgRadius="3dp"/>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

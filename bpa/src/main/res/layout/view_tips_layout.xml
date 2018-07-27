@@ -1,0 +1,27 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <com.android.base.widget.view.CustomProgressBar
+        android:id="@+id/progressBar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <com.android.base.widget.view.CustomNoDataView
+        android:id="@+id/no_data_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <com.android.base.widget.view.CustomQueryFailView
+        android:id="@+id/query_fail_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <com.android.base.widget.view.CustomNoNetWorkView
+        android:id="@+id/no_network_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</RelativeLayout>

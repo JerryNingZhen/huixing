@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <item name="title_view" type="id"/>
+    <item name="view_root" type="id"/>
+    <item name="view_top" type="id"/>
+    <item name="view_bottom" type="id"/>
+    <item name="view_left" type="id"/>
+    <item name="view_right" type="id"/>
+    <item name="view_line" type="id"/>
+    <item name="img_tag_id" type="id"/>
+</resources>

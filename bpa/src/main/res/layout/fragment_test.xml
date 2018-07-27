@@ -1,0 +1,54 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              style="@style/view_group_parent"
+              android:orientation="vertical">
+
+    <com.android.base.widget.TitleView
+        android:id="@id/title_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <RadioGroup
+        android:id="@+id/radiogroup"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="5dp">
+
+        <RadioButton
+            android:id="@+id/radio_btn_left"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/_radio_example_selector"
+            android:button="@null"
+            android:checked="true"
+            android:gravity="center"
+            android:text="@string/hello_world"
+            android:textColor="@color/_selector_example_txt_color"/>
+
+        <RadioButton
+            android:id="@+id/radio_btn_right"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/_radio_example_selector"
+            android:button="@null"
+            android:gravity="center"
+            android:text="@string/hello_world"
+            android:textColor="@color/_selector_example_txt_color"/>
+    </RadioGroup>
+
+    <com.android.base.widget.pullview.PullToRefreshListView
+        android:id="@+id/lv_base"
+        style="@style/list_style"
+        xmlns:custom="http://schemas.android.com/apk/res-auto"
+        android:headerDividersEnabled="false"
+        custom:mode="both"/>
+
+</LinearLayout>

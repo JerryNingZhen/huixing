@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_default"
+    style="@style/view_group_parent"
+    android:orientation="vertical">
+
+    <com.android.base.widget.TitleView
+        android:id="@+id/title_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/line_grey_light" />
+
+    <LinearLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/layout_password"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginTop="@dimen/distance_20"
+            android:background="@drawable/shape_bg_edittext"
+            android:gravity="center_vertical">
+
+            <com.hx.huixing.widget.ContainsEmojiEditText
+                android:id="@+id/et_name"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:drawablePadding="@dimen/distance_15"
+                android:hint="@string/input_nick_name"
+                android:maxLength="10"
+                android:maxLines="1"
+                android:paddingLeft="@dimen/distance_10"
+                android:textColor="@color/font_content"
+                android:textColorHint="@color/font_gray"
+                android:textSize="@dimen/font_size_normal" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginTop="@dimen/distance_20"
+            android:background="@drawable/shape_bg_edittext">
+
+            <com.hx.huixing.widget.ContainsEmojiEditText
+                android:id="@+id/et_advice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:gravity="left|top"
+                android:hint="请输入个人简介"
+                android:imeOptions="actionDone"
+                android:maxLength="4"
+                android:minHeight="120dp"
+                android:paddingBottom="@dimen/distance_15"
+                android:paddingLeft="@dimen/distance_10"
+                android:paddingTop="@dimen/distance_15"
+                android:scrollbars="vertical"
+                android:textColor="@color/font_content"
+                android:textColorHint="@color/font_gray"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/font_size_normal" />
+
+            <TextView
+                android:id="@+id/txt_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/et_advice"
+                android:layout_alignParentRight="true"
+                android:padding="@dimen/distance_5"
+                android:text="0/30"
+                android:textColor="@color/font_gray"
+                android:textSize="@dimen/font_size_least" />
+        </RelativeLayout>
+
+        <com.android.base.widget.AutoBgButton xmlns:custom="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/btn_register"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/btn_height"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginTop="@dimen/distance_45"
+            android:background="@drawable/button_backgroud_blue"
+            android:text="@string/change"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_size_middle"
+            custom:bgAlpha="150"
+            custom:bgRadius="3dp" />
+    </LinearLayout>
+
+</LinearLayout>

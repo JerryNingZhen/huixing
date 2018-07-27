@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/view_group_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/default_background"
+    android:orientation="vertical">
+
+    <com.android.base.widget.TitleView
+        android:id="@+id/title_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/distance_10"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/fl_thumb"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_thumb_num"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:gravity="center"
+                android:visibility="gone"
+                android:minHeight="60dp"
+                android:minWidth="140dp"
+                android:layout_gravity="center"
+                android:background="@drawable/shape_red_circular"
+                android:textColor="@color/font_white"
+                android:textSize="@dimen/font_size_little" />
+
+            <!--点赞-->
+            <TextView
+                android:id="@+id/tv_thumb_up"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="@dimen/distance_10"
+                android:drawableLeft="@drawable/thumb_up"
+                android:drawablePadding="@dimen/distance_15"
+                android:drawableRight="@drawable/right_arrow"
+                android:gravity="center_vertical"
+                android:minHeight="60dp"
+                android:paddingLeft="@dimen/account_manager_ll_item_tv_marginLeft"
+                android:paddingRight="@dimen/account_manager_ll_item_tv_marginStart"
+                android:text="@string/thumb_up"
+                android:textColor="@color/font_black"
+                android:textSize="@dimen/font_size_normal" />
+
+
+        </FrameLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/line_grey_light" />
+
+        <FrameLayout
+            android:id="@+id/fl_comment"
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
+            <!--评论或消息-->
+
+            <TextView
+                android:id="@+id/tv_comment_count"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:background="@color/white"
+                android:drawableLeft="@drawable/comment"
+                android:drawablePadding="@dimen/distance_15"
+                android:drawableRight="@drawable/right_arrow"
+                android:gravity="center_vertical"
+                android:minHeight="60dp"
+                android:minWidth="140dp"
+                android:paddingLeft="@dimen/account_manager_ll_item_tv_marginLeft"
+                android:paddingRight="@dimen/account_manager_ll_item_tv_marginStart"
+                android:text="@string/comment"
+                android:textColor="@color/font_black"
+                android:textSize="@dimen/font_size_normal" />
+
+            <TextView
+                android:id="@+id/tv_comment_num"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:gravity="center"
+                android:minHeight="60dp"
+                android:minWidth="140dp"
+                android:visibility="gone"
+                android:layout_gravity="center"
+                android:background="@drawable/shape_red_circular"
+                android:textColor="@color/font_white"
+                android:textSize="@dimen/font_size_normal" />
+        </FrameLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/line_grey_light" />
+    </LinearLayout>
+
+
+</LinearLayout>

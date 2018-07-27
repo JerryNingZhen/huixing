@@ -1,0 +1,171 @@
+# To enable ProGuard in your project, edit project.properties
+# to define the proguard.config property as described in that file.
+#
+# Add project specific ProGuard rules here.
+# By default, the flags in this file are appended to flags specified
+# in ${sdk.dir}/tools/proguard/proguard-android.txt
+# You can edit the include path and order by changing the ProGuard
+# include property in project.properties.
+#
+# For more details, see
+#   http://developer.android.com/guide/developing/tools/proguard.html
+
+# Add any project specific keep options here:
+
+# If your project uses WebView with JS, uncomment the following
+# and specify the fully qualified class name to the JavaScript interface
+# class:
+#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
+#   public *;
+#}
+
+# android webview中调用了js的时候混淆注意事项
+#com.tentinet.store.wxapi（包名）.WXEntryActivity1（类名）$AndroidShare（内部类名）
+#-keepclassmembers class com.tentinet.store.wxapi.WXEntryActivity1$AndroidShare {
+#  public *;
+#}
+#-keepattributes *Annotation*
+#-keepattributes *JavascriptInterface*
+# android webview中调用了js的时候混淆注意事项
+
+#-keep class XXXX #保留类名不变，也就是类名不混淆，而类中的成员名不保证。
+#-keepclasseswithmembers class XXXX #保留类名和成员名。
+-ignorewarnings																	# 去除warning警告
+-optimizationpasses 5                                                           # 代码混淆的压缩比例，值在0-7之间
+-dontusemixedcaseclassnames                                                     # 混淆后类名都为小写
+-dontskipnonpubliclibraryclasses                                                # 指定不去忽略非公共的库的类
+-dontskipnonpubliclibraryclassmembers                                           # 指定不去忽略非公共的库的类的成员
+-dontpreverify                                                                  # 不做预校验的操作
+-verbose                                                                        # 记录日志
+-printmapping proguardMapping.txt                                               # 生成原类名和混淆后的类名的映射文件
+-optimizations !code/simplification/arithmetic,!field/*,!class/merging/*        # 混淆时所采用的算法
+-keepattributes *Annotation*,InnerClasses                                       # 不混淆Annotation
+-keepattributes Signature                                                       # 不混淆泛型
+-keepattributes SourceFile,LineNumberTable                                      # 抛出异常时保留代码行号
+-dontoptimize                    												# 优化不优化输入的类文件
+
+#生成日志数据，gradle build时在本项目根目录输出
+-dump class_files.txt            #apk包内所有class的内部结构
+-printseeds seeds.txt            #未混淆的类和成员
+-printusage unused.txt           #打印未被使用的代码
+-printmapping mapping.txt        #混淆前后的映射
+
+-keep public class * extends android.app.Activity                               # 保持哪些类不被混淆
+-keep public class * extends android.app.Application                            # 保持哪些类不被混淆
+-keep public class * extends android.app.Service                                # 保持哪些类不被混淆
+-keep public class * extends android.content.BroadcastReceiver                  # 保持哪些类不被混淆
+-keep public class * extends android.content.ContentProvider                    # 保持哪些类不被混淆
+-keep public class * extends android.app.backup.BackupAgentHelper               # 保持哪些类不被混淆
+-keep public class * extends android.preference.Preference                      # 保持哪些类不被混淆
+-keep public class * extends android.support.**                                 # 保持哪些类不被混淆
+-keep public class * extends android.view.View                                  # 保持哪些类不被混淆
+-keep public class com.android.vending.licensing.ILicensingService              # 保持哪些类不被混淆
+
+-keepclasseswithmembernames class * {                                           # 保持 native 方法不被混淆
+    native <methods>;
+}
+
+-keepclasseswithmembers class * {                                               # 保持自定义控件类不被混淆
+    public <init>(android.content.Context);
+}
+
+-keepclasseswithmembers class * {                                               # 保持自定义控件类不被混淆
+    public <init>(android.content.Context, android.util.AttributeSet);
+}
+
+-keepclasseswithmembers class * {                                               # 保持自定义控件类不被混淆
+    public <init>(android.content.Context, android.util.AttributeSet, int);     
+}
+
+-keepclassmembers class * extends android.app.Activity {                        # 保持自定义控件类不被混淆
+   public void *(android.view.View);
+}
+
+-keepclassmembers enum * {                                                      # 保持枚举 enum 类不被混淆
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
+
+#-keepclassmembers class * implements java.io.Serializable {
+#    static final long serialVersionUID;
+#    private static final java.io.ObjectStreamField[] serialPersistentFields;
+#    private void writeObject(java.io.ObjectOutputStream);
+#    private void readObject(java.io.ObjectInputStream);
+#    java.lang.Object writeReplace();
+#    java.lang.Object readResolve();
+#}
+#-keep public class * implements java.io.Serializable {*;}                       # 保持 Serializable 不被混淆
+
+-keep class * implements android.os.Parcelable {                                # 保持 Parcelable 不被混淆
+  public static final android.os.Parcelable$Creator *;
+}
+
+-keep public class * implements java.io.Serializable {*;}                       # 保持 Serializable 不被混淆
+
+-keep public class <MyClass>                                                    # 保持自己定义的类不被混淆
+
+-keep class **.R$* {*;}
+
+#################################################################################json不能被混淆
+-dontwarn org.json.**
+-keep class org.json.** {*;}
+
+#################################################################################sharesdk 分享混淆
+-keep class cn.sharesdk.**{*;}
+-keep class com.sina.**{*;}
+-keep class **.R$* {*;}
+-keep class **.R{*;}
+-dontwarn cn.sharesdk.**
+-dontwarn com.sina.**
+-dontwarn **.R$*
+-keep class m.framework.**{*;}
+
+#################################################################################高德地图 混淆
+
+#-libraryjars   libs/AMap_Location_V2.4.0_20160308.har
+#-libraryjars   libs/AMap_3DMap_V3.3.0_20160331.jar
+#-libraryjars   libs/AMap_Search_V3.2.1_20160308.jar
+-dontwarn com.amap.api.**
+-dontwarn com.a.a.**
+-dontwarn com.autonavi.**
+-keep class com.amap.api.**  {*;}
+-keep class com.autonavi.**  {*;}
+-keep class com.a.a.**  {*;}
+###################################################################################支付宝混淆
+-keep class com.alipay.android.app.IAlixPay{*;}
+-keep class com.alipay.android.app.IAlixPay$Stub{*;}
+-keep class com.alipay.android.app.IRemoteServiceCallback{*;}
+-keep class com.alipay.android.app.IRemoteServiceCallback$Stub{*;}
+-keep class com.alipay.sdk.app.PayTask{ public *;}
+-keep class com.alipay.sdk.app.AuthTask{ public *;}
+
+##################################################################################微信混淆
+-keep class com.tencent.mm.sdk.** {*;}
+
+##################################################################################极光推送混淆
+-dontwarn cn.jpush.**
+-keep class cn.jpush.** { *; }
+
+##################################################################################android webview中调用了js的时候混淆注意事项
+-dontwarn android.webkit.**
+-keep class android.webkit.** {*;}
+#-dontwarn com.fuiou.pay**#第三方架包
+#-keep class com.fuiou.pay.** {*;}#第三方架包
+
+##################################################################################okhttp3
+-dontwarn com.squareup.okhttp3.**
+-keep class com.squareup.okhttp3.** { *;}
+-dontwarn okio.**
+
+##################################################################################Glide
+-keep public class * implements com.bumptech.glide.module.GlideModule
+-keep public class * extends com.bumptech.glide.module.AppGlideModule
+-keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {
+  **[] $VALUES;
+  public *;
+}
+
+###################################################################################Gson
+#-keep class sun.misc.Unsafe { *; }
+#-keep class  com.android.base.bean.** { *; }
+

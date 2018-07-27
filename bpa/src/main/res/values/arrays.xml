@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+
+    <!-- 星期 -->
+    <string-array name="weeks">
+        <item>星期一</item>
+        <item>星期二</item>
+        <item>星期三</item>
+        <item>星期四</item>
+        <item>星期五</item>
+        <item>星期六</item>
+        <item>星期日</item>
+    </string-array>
+    <!-- 分享类型 -->
+    <string-array name="share_types">
+        <item>微信</item>
+        <item>朋友圈</item>
+        <!--<item>微博</item>-->
+        <!--<item>微博</item>-->
+        <!--<item>微博</item>-->
+        <!--<item>微博</item>-->
+        <!--<item>微博</item>-->
+        <!--<item>微博</item>-->
+        <!--<item>微博</item>-->
+        <!--<item>微博</item>-->
+        <!--<item>微博</item>-->
+        <!--<item>微博</item>-->
+        <!--<item>QQ</item>-->
+        <!-- <item>Twitter</item> -->
+        <!-- <item>Facebook</item> -->
+    </string-array>
+    <!-- 分享类型 -->
+    <string-array name="share_types1">
+        <item>微信</item>
+        <item>朋友圈</item>
+        <item>下载图片</item>
+        <item>复制链接</item>
+    </string-array>
+    <!-- 分享类型 -->
+    <string-array name="share_types_default">
+        <item>微信</item>
+        <item>朋友圈</item>
+        <item>微博</item>
+        <item>QQ</item>
+        <!-- <item>Twitter</item> -->
+        <!-- <item>Facebook</item> -->
+    </string-array>
+    <!-- 头像图片操作 -->
+    <string-array name="image_operation">
+        <item>拍照</item>
+        <item>相册</item>
+    </string-array>
+</resources>

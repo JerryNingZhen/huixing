@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>  
+<users>
+     <!-- 打包配置： 
+  	  release_env: 发布环境     01  生产环境(http://www.p2phx.com/)
+    			         02  测试环境(http://www.p2peasy.com:88/)
+    
+      updateday: APP发布日期   示例： 2016_01_09 18:36
+      
+      log_swtich： log日志开关     open/close       
+    			注：  1. 网络请求及返回    log日志标签    TAG = "http"           日志级别  d
+    				2. 配置信息 (发布环境，日志开关，版本名，更新日期),APP启动时打印 
+    				               log日志标签  TAG = "config_info"     日志级别  d             -->
+    				               
+     <release_env>02</release_env>
+     <log_swtich>open</log_swtich>
+     <updateday>2017_08_29 17:00</updateday>
+</users>

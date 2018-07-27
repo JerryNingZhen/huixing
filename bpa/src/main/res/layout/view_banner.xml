@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/bg_default"
+              android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:id="@+id/page_header"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:id="@+id/view1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <com.android.base.widget.CustomViewPager4ScrollView
+                    android:id="@+id/viewpager"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/transparent"/>
+
+                <RelativeLayout
+                    android:id="@+id/view_dot_par"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/transparent"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/view_dot"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerInParent="true"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+                    </LinearLayout>
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <View
+                style="@style/line_horizontal_gray_style"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

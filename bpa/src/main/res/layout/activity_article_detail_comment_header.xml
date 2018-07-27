@@ -1,0 +1,140 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:paddingBottom="@dimen/distance_10"
+              android:paddingTop="@dimen/distance_10">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/distance_10"
+        android:paddingRight="@dimen/distance_10">
+
+        <ImageView
+            android:id="@+id/round_image"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/img_default_grey"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/distance_5"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/round_image"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txt_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/round_image"
+                        android:layout_weight="1"
+                        android:padding="@dimen/distance_5"
+                        android:text="@string/app_name"
+                        android:textColor="@color/font_gray"
+                        android:textSize="@dimen/font_size_normal"/>
+
+                    <com.android.base.widget.AutoBgButton
+                        android:id="@+id/btn_add_care"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/shape_button_care"
+                        android:minWidth="40dp"
+                        android:paddingLeft="@dimen/distance_10"
+                        android:paddingRight="@dimen/distance_10"
+                        android:paddingTop="3dp"
+                        android:paddingBottom="3dp"
+                        android:text="@string/add_care"
+                        android:textColor="@color/content_blue"
+                        android:textSize="@dimen/font_size_little"/>
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/txt_comment_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/distance_5"
+                    android:text="@string/app_name"
+                    android:textColor="@color/font_content"
+                    android:textSize="@dimen/font_size_normal"/>
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:id="@+id/txt_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLines="3"
+                        android:padding="@dimen/distance_5"
+                        android:text="@string/app_name"
+                        android:textColor="@color/font_gray"
+                        android:textSize="@dimen/font_size_little"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:orientation="horizontal">
+
+
+                    <com.android.base.widget.AutoBgTextView
+                        android:id="@+id/txt_dz"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableLeft="@drawable/thumb_up_grey"
+                        android:drawablePadding="@dimen/distance_5"
+                        android:padding="@dimen/distance_5"
+                        android:text="@string/app_name"
+                        android:textColor="@color/font_gray"
+                        android:textSize="@dimen/font_size_little"/>
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View style="@style/line_horizontal_gray_light_style"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/distance_10"
+        android:paddingTop="@dimen/distance_10"
+        android:text="全部评论"
+        android:textColor="@color/font_gray"
+        android:textSize="@dimen/font_size_normal"/>
+</LinearLayout>

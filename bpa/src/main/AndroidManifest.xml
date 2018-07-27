@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest package="com.hx.huixing"
+          xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--<application android:allowBackup="true"-->
+    <!--android:label="@string/app_name"-->
+    <!--android:supportsRtl="true">-->
+
+    <!--&lt;!&ndash; 媒体音频设置权限 &ndash;&gt;-->
+    <!--<uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>-->
+    <!--&lt;!&ndash; 允许程序录制声音通过手机或耳机的麦克 &ndash;&gt;-->
+    <!--<uses-permission android:name="android.permission.RECORD_AUDIO"/>-->
+    <!--&lt;!&ndash; 创建和删除快捷方式权限 &ndash;&gt;-->
+    <!--<uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/>-->
+    <!--&lt;!&ndash; 创建和删除快捷方式权限 &ndash;&gt;-->
+    <!--<uses-permission android:name="com.android.launcher.permission.UNINSTALL_SHORTCUT"/>-->
+    <!--&lt;!&ndash; 允许程序获取任务信息 &ndash;&gt;-->
+    <!--<uses-permission android:name="android.permission.GET_TASKS"/>-->
+    <!--&lt;!&ndash; 系统自带计算器 &ndash;&gt;-->
+    <!--<uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL"/>-->
+    <!--&lt;!&ndash; 允许程序管理AccountManager中的账户列表 &ndash;&gt;-->
+    <!--<uses-permission android:name="android.permission.MANAGE_ACCOUNTS"/>-->
+    <!--&lt;!&ndash; 允许程序访问账户Gmail列表 &ndash;&gt;-->
+    <!--<uses-permission android:name="android.permission.GET_ACCOUNTS"/>-->
+    <!-- 允许程序读取设备外部存储空间 android.permission.READ_EXTERNAL_STORAGE -->
+    <!--&lt;!&ndash; 允许程序SD卡读取权限，用户写入离线定位数据 &ndash;&gt;-->
+    <!--<uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>-->
+    <!--&lt;!&ndash; 允许应用读取低级别的系统日志文件 &ndash;&gt;-->
+    <!--<uses-permission android:name="android.permission.READ_LOGS"/>-->
+    <!--&lt;!&ndash; 读取设置权限 &ndash;&gt;-->
+    <!--<uses-permission android:name="com.android.launcher.permission.READ_SETTINGS"/>-->
+    <!--<uses-permission android:name="android.permission.ACCESS_GPS"/>-->
+    <!--&lt;!&ndash; 允许当前应用改变配置，如定位 &ndash;&gt;-->
+    <!--<uses-permission android:name="android.permission.CHANGE_CONFIGURATION"/>-->
+
+    <!-- 用于访问wifi网络信息,wifi信息会用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <!-- 允许程序获取网络信息状态，如当前的网络连接是否有效 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <!-- 允许程序改变WiFi状态 -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <!-- 允许访问闪光灯 -->
+    <uses-permission android:name="android.permission.FLASHLIGHT"/>
+    <!-- 允许程序振动 -->
+    <uses-permission android:name="android.permission.VIBRATE"/>
+
+    <!-- 允许程序读取或写入系统设置 -->
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <!-- 允许程序在手机屏幕关闭后后台进程仍然运行 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <!-- 允许程序访问网络连接 -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <!--6.0权限的基本知识，以下是需要单独申请的权限，共分为9组，每组只要有一个权限申请成功了，就默认整组权限都可以使用了。-->
+    <!--&lt;!&ndash; 麦克风 &ndash;&gt;-->
+    <!--<uses-permission android:name="android.permission.RECORD_AUDIO"/>-->
+    <!-- 允许程序访问联系人通讯录信息 -->
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <!-- 允许程序访问电话状态 -->
+    <uses-permission android:name="android.permission.READ_CALL_LOG"/>
+    <!-- 允许程序从非系统拨号器里拨打电话 -->
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <!-- 允许程序访问摄像头进行拍照 -->
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <!-- 允许程序通过WiFi或移动基站的方式获取用户错略的经纬度信息====网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <!-- 允许程序通过GPS芯片接收卫星的定位信息 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <!-- 写入扩展存储，向扩展卡写入数据 ，如果您的App已经添加了“WRITE_EXTERNAL_STORAGE ”权限 ，则就没必要添加读的权限了，写权限已经包含了读权限了。 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <!--&lt;!&ndash; 传感器 &ndash;&gt;-->
+    <!--<uses-permission android:name="android.permission.BODY_SENSORS"/>-->
+    <!--&lt;!&ndash; 用户日历数据 &ndash;&gt;-->
+    <!--<uses-permission android:name="android.permission.READ_CALENDAR"/>-->
+    <!-- 读取短信 -->
+    <uses-permission android:name="android.permission.READ_SMS"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <!-- 短信广播 -->
+    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+    <!-- 摄像头 -->
+    <uses-feature android:name="android.hardware.camera"/>
+    <uses-feature android:name="android.hardware.camera.autofocus"/>
+
+    <!--<uses-permission android:name="android.permission.GET_TASKS" />-->
+    <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS"
+                     xmlns:tools="http://schemas.android.com/tools"
+                     tools:ignore="ProtectedPermissions"/>
+
+    <application
+        android:name="com.android.base.BaseApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/app_icon"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/app_icon"
+        android:theme="@style/AppTheme">
+        <!-- 定义FileProvider -->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.android.base.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_provider"/>
+        </provider>
+
+        <!-- 主界面       android:name="com.android.base.activity.base.HomeActivity" -->
+        <activity
+            android:name="com.hx.huixing.activity.SplashActivity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/StartAppTheme"
+            android:windowSoftInputMode="adjustResize|stateHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <!--主页-->
+        <activity
+            android:name=".activity.MainActivity"
+            android:configChanges="screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
+
+        <activity
+            android:name=".activity.MessageActivity"
+            android:configChanges="screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
+
+        <!--注册-->
+        <activity
+            android:name="com.hx.huixing.activity.RegisterActivity"
+            android:configChanges="screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
+
+        <!--修改密码-->
+        <activity
+            android:name=".activity.ModifyPwdActivity"
+            android:configChanges="screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
+
+        <!--登录-->
+        <activity
+            android:name="com.hx.huixing.activity.LoginActivity"
+            android:configChanges="screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
+
+        <activity
+            android:name=".activity.FindPasswordActivity"
+            android:configChanges="screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
+
+        <!--点赞列表-->
+        <activity
+            android:name=".activity.ThumbUpListActivity"
+            android:configChanges="screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
+
+        <!--个人资料-->
+        <activity
+            android:name=".activity.PersonalInfoActivity"
+            android:configChanges="screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
+        <!--修改个人信息-->
+        <activity android:name=".activity.EditPersonInfoActivity"
+            android:configChanges="screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
+
+        <!--发帖界面-->
+        <activity
+            android:name="com.android.base.activity.AddArticleActivity"
+            android:configChanges="screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
+        <activity
+            android:name="com.android.base.activity.ArticlePreviewActivity"
+            android:configChanges="screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
+        <!---->
+        <activity
+            android:name="com.android.base.activity.ArticleDraftActivity"
+            android:configChanges="screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
+        <activity
+            android:name="com.android.base.activity.ArticleDetailActivity"
+            android:configChanges="screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
+        <activity
+            android:name="com.android.base.activity.ArticleCommentDetailActivity"
+            android:configChanges="screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
+        <activity
+            android:name="com.android.base.activity.PersonalHomeActivity"
+            android:configChanges="screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
+        <activity
+            android:name="com.android.base.activity.PersonalArticleActivity"
+            android:configChanges="screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
+        <activity
+            android:name="com.android.base.activity.PersonalFocusActivity"
+            android:configChanges="screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
+        <activity
+            android:name="com.android.base.activity.PersonalFansActivity"
+            android:configChanges="screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
+        <activity
+            android:name="com.android.base.activity.InviteFriendActivity"
+            android:configChanges="screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
+        <!--android:theme="@style/StartAppTheme"-->
+        <!--<activity android:name=".activity.MainActivity"
+            android:configChanges="screenSize|orientation"
+            android:windowSoftInputMode="adjustResize|stateHidden"
+            android:screenOrientation="portrait"/>-->
+        <!--钱包-->
+        <activity
+            android:name=".activity.WalletActivity"
+            android:configChanges="screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
+        <!--设置-->
+        <activity
+            android:name=".activity.SettingActivity"
+            android:configChanges="screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
+        <!--关于-->
+        <activity
+            android:name=".activity.AboutHXActivity"
+            android:configChanges="screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
+
+        <!-- 图片glide加载流程 -->
+        <activity
+            android:name="com.android.base.activity.base.Item1Activity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
+
+        <!-- 侧拉菜单实现 -->
+        <activity
+            android:name="com.android.base.activity.base.Item2Activity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
+
+        <!-- 输入法高度监听 -->
+        <activity
+            android:name="com.android.base.activity.base.Item6Activity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
+        <!-- 对话框 -->
+        <activity
+            android:name="com.android.base.activity.base.Item7Activity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
+        <activity
+            android:name="com.android.base.activity.base.TestOkHttpActivity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
+        <activity
+            android:name="com.android.base.activity.base.TestDBActivity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
+
+
+        <!-- 图片浏览 -->
+        <activity
+            android:name="com.android.base.activity.ImageBrowseActivity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.android.base.activity.mvp.test.activity.MvpTestActivity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
+
+        <activity
+            android:name="com.android.base.activity.mvp.test.fragment.TestActivity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
+
+
+        <service
+            android:name="com.android.base.service.UpdateService"
+            android:enabled="true"
+            android:exported="false">
+            <!--android:enabled 这个属性用于指示该服务是否能够被实例化。如果设置为true，则能够被实例化。默认值是true-->
+            <!--android:exported这个属性用于指示该服务是否能够被其他应用程序组件调用或跟它交互。如果设置为true，则能够被调用或交互。默认值是true-->
+            <!--android:priority这个属性设置最高优先级，1000是最高值，如果数字越小则优先级越低，同时实用于广播-->
+            <intent-filter android:priority="1000">
+                <action android:name="com.android.base.service.UpdateService"/>
+
+                <category android:name="android.intent.category.default"/>
+            </intent-filter>
+        </service>
+
+        <!-- 高德地图定位service -->
+        <service android:name="com.android.base.service.AMapLocationService"/>
+        <service android:name="com.android.base.service.KillNotificationsService"/>
+
+        <!-- 高德地图key -->
+        <!-- 定位需要的服务 使用2.0的定位需要加上这个 -->
+        <service android:name="com.amap.api.location.APSService"/>
+
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="72618554ec1dd4d2088e18d7b8557061"/>
+
+
+        <!-- ***************************************************************SHARE -->
+        <!--<activity-->
+        <!--android:name="com.mob.tools.MobUIShell"-->
+        <!--android:configChanges="keyboardHidden|orientation|screenSize"-->
+        <!--android:screenOrientation="portrait"-->
+        <!--android:theme="@android:style/Theme.Translucent.NoTitleBar"-->
+        <!--android:windowSoftInputMode="stateHidden|adjustResize">-->
+
+        <!--&lt;!&ndash;-->
+        <!--AuthorizeAdapter表示一个继承自cn.sharesdk.framework.authorize.AuthorizeAdapter-->
+        <!--的类，这个类可以监听到页面的生命周期，也可以获取授权页面的各种UI控件。-->
+        <!--开发者可以通过继承AuthorizeAdapter，重写其方法，并获取各种UI来自定义这个页面的行为。-->
+        <!--&ndash;&gt;-->
+        <!--<meta-data-->
+        <!--android:name="AuthorizeAdapter"-->
+        <!--android:value="com.amos.bpademo.adapter.ShareSdkTitleAdapter"/>-->
+
+        <!--&lt;!&ndash;-->
+        <!--QZoneWebShareAdapter表示一个继承自cn.sharesdk.tencent.qzone.QZoneWebShareAdapter-->
+        <!--的类，这个类可以监听到页面的生命周期，也可以获QQ空间网页分享权页面的各种UI控件。-->
+        <!--开发者可以通过继承QZoneWebShareAdapter，重写其方法，并获取各种UI来自定义这个页面的行为。-->
+        <!--<meta-data android:name="QZoneWebShareAdapter" android:value="cn.sharesdk.demo.MyQZoneWebShareAdapter" />-->
+        <!--<meta-data android:name="QQWebShareAdapter" android:value="cn.sharesdk.demo.MyQQWebShareAdapter" />-->
+        <!--&ndash;&gt;-->
+
+        <!--&lt;!&ndash;-->
+        <!--如果集成QQ分享，或者使用QQ客户端来进行QQ空间的分享，须要在此处添加一个对ACTION_VIEW-->
+        <!--事件的过滤器，其中的scheme是“tencent”前缀再开发者应用的加上appId。如果此过滤器不设置，-->
+        <!--则分享结束以后不能得到正确的回调-->
+        <!--&ndash;&gt;-->
+        <!--<intent-filter android:priority="1000">-->
+        <!--<data android:scheme="tencent100371282"/>-->
+        <!--<action android:name="android.intent.action.VIEW"/>-->
+
+        <!--<category android:name="android.intent.category.DEFAULT"/>-->
+        <!--<category android:name="android.intent.category.BROWSABLE"/>-->
+        <!--</intent-filter>-->
+
+        <!--&lt;!&ndash; 调用新浪客户端分享，需要注册的回调activity &ndash;&gt;-->
+        <!--<intent-filter>-->
+        <!--<action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY"/>-->
+        <!--<category android:name="android.intent.category.DEFAULT"/>-->
+        <!--</intent-filter>-->
+        <!--</activity>-->
+
+        <activity
+            android:name="com.mob.tools.MobUIShell"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustResize">
+            <!--&lt;!&ndash; ShareSDK3.1.0版本之前才需要在MobUIShell下面注册此意图，3.1.0版本之后（包含3.1.0）不需要注册此intent&ndash;&gt;-->
+            <!--<intent-filter>-->
+            <!--<data android:scheme="tencent100371282" />-->
+            <!--<action android:name="android.intent.action.VIEW" />-->
+            <!--<category android:name="android.intent.category.BROWSABLE" />-->
+            <!--<category android:name="android.intent.category.DEFAULT" />-->
+            <!--</intent-filter>-->
+
+            <!-- 调用新浪原生SDK，需要注册的回调activity -->
+            <intent-filter>
+                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+
+            <!--&lt;!&ndash;集成line客户端登录授权，需要添如下格式的过滤器&ndash;&gt;-->
+            <!--<intent-filter>-->
+            <!--<data android:scheme="line.1477692153"/>-->
+            <!--<action android:name="android.intent.action.VIEW"/>-->
+
+            <!--<category android:name="android.intent.category.BROWSABLE"/>-->
+            <!--<category android:name="android.intent.category.DEFAULT"/>-->
+            <!--</intent-filter>-->
+
+        </activity>
+        <!-- 微信分享回调 -->
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+
+        <activity
+            android:name="cn.sharesdk.tencent.qq.ReceiveActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="tencent100371282" />
+            </intent-filter>
+        </activity>
+
+        <!-- ********************************************************************* -->
+    </application>
+
+</manifest>

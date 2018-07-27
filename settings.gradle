@@ -1,0 +1,3 @@
+//include ':bpa'
+//include ':bpa', ':galleryfinal', ':bpademo'
+include ':bpa', ':refresh-layout'

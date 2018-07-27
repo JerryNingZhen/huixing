@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/white"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/distance_10"
+        android:paddingRight="@dimen/distance_10">
+
+        <!--文章插图-->
+        <ImageView
+            android:id="@+id/iv_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginTop="10dp"
+            android:minHeight="120dp"/>
+        <!--文章标题-->
+        <TextView
+            android:id="@+id/tv_content_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/distance_10"
+            android:text="区块律动 Block"
+            android:textSize="@dimen/font_size_normal"/>
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/distance_5"
+            android:textColor="@color/font_gray"
+            android:textSize="@dimen/font_size_little"/>
+        <!--文章摘要-->
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/distance_5"
+            android:maxLines="3"
+            android:textColor="@color/font_content"
+            android:textSize="@dimen/font_size_little"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/distance_5"
+            android:paddingTop="@dimen/distance_5">
+
+            <com.android.base.widget.AutoBgTextView
+                android:id="@+id/txt_zan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/thumb_up_grey"
+                android:drawablePadding="@dimen/distance_5"
+                android:gravity="center"
+                android:padding="@dimen/distance_5"
+                android:text="10"
+                android:textColor="@color/font_gray"
+                android:textSize="@dimen/font_size_little"/>
+
+            <com.android.base.widget.AutoBgTextView
+                android:id="@+id/txt_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/distance_10"
+                android:layout_toRightOf="@+id/txt_zan"
+                android:drawableLeft="@drawable/comment_care"
+                android:drawablePadding="@dimen/distance_5"
+                android:gravity="center"
+                android:padding="@dimen/distance_5"
+                android:text="10"
+                android:textColor="@color/font_gray"
+                android:textSize="@dimen/font_size_little"/>
+
+            <com.android.base.widget.AutoBgTextView
+                android:id="@+id/txt_coin_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/distance_10"
+                android:layout_toLeftOf="@+id/img_arrow"
+                android:drawableLeft="@drawable/icon_coin_count"
+                android:drawablePadding="@dimen/distance_5"
+                android:gravity="center"
+                android:padding="@dimen/distance_5"
+                android:text="10"
+                android:textColor="@color/font_gray"
+                android:textSize="@dimen/font_size_little"/>
+
+            <com.android.base.widget.AutoBgImageView
+                android:id="@+id/img_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="@dimen/distance_5"
+                android:padding="@dimen/distance_5"
+                android:src="@drawable/arrow_down_grey"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/distance_5"
+        android:background="@color/line_grey_light"/>
+
+</LinearLayout>

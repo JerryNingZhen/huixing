@@ -1,0 +1,174 @@
+apply plugin: 'com.android.application'
+//apply plugin: 'com.android.library'
+
+// 获取当前系统时间
+static def releaseTime() {
+    return new Date().format("yyyyMMdd", TimeZone.getTimeZone("GMT+8"))
+}
+
+// 获取程序名称
+static def getProductName() {
+    return "BPA"
+}
+
+// 配置了所有android构建的参数
+android {
+
+    compileSdkVersion 27                        // 编译应用使用SDK版本
+    buildToolsVersion '27.0.2'                  // 编译工具的版本
+
+    // 默认项目配置信息
+    defaultConfig {
+        //        applicationId "com.android.base"        // 包名
+        applicationId "com.hx.huixing"        // 包名
+        minSdkVersion 15                        // sdk最低支持版本
+        // 目标SDK版本，如果目标设备的API版本正好等于此数值，就不会为此程序开启兼容性检查判断的工作
+        targetSdkVersion 25                     // minSdkVersion <= targetSdkVersion <= compileSdkVersion
+        versionCode 1                           // 应用的版本号
+        versionName "1.0.0"                     // 应用的版本名
+        manifestPlaceholders = [UMENG_CHANNEL_VALUE: "main"] // 默认渠道
+        javaCompileOptions { annotationProcessorOptions { includeCompileClasspath = true } }//AndroidStudio3.0以上，发现之前项目的butter knife报错，用到注解的应该都会报错
+    }
+
+    // 版本签名配置
+    signingConfigs {
+        baseSignConfigs {
+            //MD5: 71:E5:40:32:69:0D:EB:C0:BE:28:5F:8F:9B:59:09:24
+            //SHA1: F5:E8:CF:7B:83:FD:66:53:D4:5D:9B:D8:47:A7:F2:1A:61:00:26:F0
+            //storeFile file('C:/Users/win7/.android/bpa.keystore')
+            storeFile file("bpa.keystore")        // 签名文件的路径
+            storePassword "bpa.com"               // 密码
+            keyAlias "bpa"                        // 签名的别名
+            keyPassword "bpa.com"                 // 密码
+
+            //v1和v2的签名使用
+            //1）只勾选v1签名并不会影响什么，但是在7.0上不会使用更安全的验证方式
+            //2）只勾选V2签名7.0以下会直接安装完显示未安装，7.0以上则使用了V2的方式验证
+            //3）同时勾选V1和V2则所有机型都没问题
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+    }
+
+    // 配置构建类型，可打出不同类型的包
+    buildTypes {
+
+        release {
+            buildConfigField("String", "API_URL", '"www.baidu.com"')
+            buildConfigField("boolean", "IS_DEBUG", "false")
+            buildConfigField("int", "INT_STATUS", "0")
+
+            minifyEnabled false                  // 开启代码混淆
+            shrinkResources false                // 移除无用的resource文件
+            // proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-project.txt'
+            signingConfig signingConfigs.baseSignConfigs
+        }
+
+        debug {
+            debuggable true
+            signingConfig signingConfigs.baseSignConfigs
+        }
+    }
+
+    // 目录指向配置
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+
+    // 编译的时候因为javaMaxHeapSize不足导致无法编译成功——增加java堆内存大小
+    dexOptions {
+        javaMaxHeapSize "4g"
+        preDexLibraries = false
+    }
+
+    // android api23 抛弃了httpClient
+    useLibrary 'org.apache.http.legacy'
+
+    // libs 引用aar文件时 需要一下代码
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
+
+    // lint时候终止错误上报,防止编译的时候莫名的失败
+    lintOptions {
+        abortOnError false
+        disable 'InconsistentArrays', 'DefaultLocale', 'OldTargetApi', 'GradleOverrides', 'MissingTranslation', 'UnusedResources', 'GoogleAppIndexingWarning'
+    }
+
+    // 修改生成的apk名字
+    applicationVariants.all {
+        variant ->
+            variant.outputs.each {
+                output ->
+                    def outputFile = output.outputFile
+                    if (outputFile != null && outputFile.name.contains("release") && outputFile.name.endsWith('.apk')) {
+                        // def fileName = getProductName() + "_V${defaultConfig.versionName}_${releaseTime()}" + ".apk"
+                        def fileName = getProductName() + "_V" + defaultConfig.versionName + "_" + releaseTime() + ".apk"
+                        output.outputFile = new File(outputFile.parent, fileName)
+                    }
+
+                    if (variant.getBuildType().isMinifyEnabled()) {
+                        variant.assemble.doLast {
+                            copy {
+                                from variant.mappingFile
+                                into "${projectDir}"
+                                rename { String fileName ->
+                                    getProductName() + "_V" + defaultConfig.versionName + "_" + releaseTime() + "_mapping" + ".txt"
+                                }
+                            }
+                        }
+                    }
+            }
+    }
+}
+
+dependencies {
+    //    compile files('libs/AMap_3DMap_V3.3.0_20160331.jar')
+    compile fileTree(include: '*.jar', dir: 'libs')
+//    compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.4'
+//    compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.4'
+    //    compile project(':galleryfinal')
+    //    compile(name: 'galleryfinal', ext: 'aar')
+    //    compile(name: 'pushutil', ext: 'aar')
+    compile(name: 'customprogressview', ext: 'aar')
+    compile 'com.android.support:support-v4:25.1.1'
+    compile project(':refresh-layout')
+    compile 'com.tencent.wcdb:wcdb-android:1.0.0'
+    //    compile 'com.google.code.gson:gson:2.8.2'
+    //    // 解决Error:warning: Ignoring InnerClasses attribute for an anonymous inner class
+    compile 'com.android.support:multidex:1.0.1'
+    //
+    //    //debugCompile是设置仅在我们开发Debug的时候，LeakCanary才会帮我们去检测内存泄漏
+    //    compile 'com.squareup.leakcanary:leakcanary-android:1.5'
+    //    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
+    //    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    //    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+
+    compile 'com.jakewharton:butterknife:8.8.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.0'
+
+    compile 'com.android.support:recyclerview-v7:27.0.2'
+    compile 'com.android.support:appcompat-v7:27.1.1'
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
+    compile 'com.squareup.retrofit2:converter-scalars:2.1.0'
+    compile 'com.squareup.okhttp3:okhttp:3.8.1'
+    compile 'com.squareup.okio:okio:1.8.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+    compile 'io.reactivex:rxjava:1.3.0'
+    compile 'io.reactivex:rxandroid:1.1.0'
+    //    //    compile 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
+    //    //    compile 'com.github.bumptech.glide:glide:3.7.0
+    compile('com.github.hotchemi:permissionsdispatcher:3.1.0') { exclude module: 'support-v13' }
+    annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:3.1.0'
+    compile 'com.alibaba:fastjson:1.2.40'
+
+    compile 'q.rorbin:badgeview:1.1.2'
+}
+// 依赖的工具包
+

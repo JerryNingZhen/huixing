@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 自定义控件属性文件，下拉属性控件的属性 -->
+    <declare-styleable name="PullToRefresh">
+        <attr name="adapterViewBackground" format="reference|color"/>
+        <attr name="headerBackground" format="reference|color"/>
+        <attr name="headerTextColor" format="color"/>
+        <attr name="mode">
+            <flag name="pullDownFromTop" value="0x1"/>
+            <flag name="pullUpFromBottom" value="0x2"/>
+            <flag name="both" value="0x3"/>
+            <flag name="bothnot" value="0x4"/>
+        </attr>
+    </declare-styleable>
+
+    <!-- ImageView实现圆形、圆角图片 -->
+    <declare-styleable name="CustomImageViewRound">
+
+        <!-- 圆角：圆角大小 -->
+        <attr name="borderRadius" format="dimension"/>
+        <!-- 图片类型：圆角或者圆心：圆角大小 -->
+        <attr name="type">
+            <enum name="circle" value="0"/>
+            <enum name="round" value="1"/>
+        </attr>
+    </declare-styleable>
+
+    <!-- Button、ImageView实现圆角,点击变色 -->
+    <declare-styleable name="AutoBg">
+
+        <!-- 圆角：圆角大小 -->
+        <attr name="bgRadius" format="dimension"/>
+        <attr name="bgAlpha" format="integer"/>
+    </declare-styleable>
+
+    <!--TabIndicator的参数设置-->
+    <declare-styleable name="PagerSlidingTab">
+        <attr name="indicatorColor" format="color" />
+        <attr name="underlineColor" format="color" />
+        <attr name="dividerColor" format="color" />
+        <attr name="indicatorHeight" format="dimension" />
+        <attr name="underlineHeight" format="dimension" />
+        <attr name="pst_dividerPadding" format="dimension" />
+        <attr name="tabPaddingLeftRight" format="dimension" />
+        <attr name="scrollOffset" format="dimension" />
+        <attr name="tabBackgrounds" format="reference" />
+        <attr name="sameLine" format="boolean" />
+        <attr name="pst_textAllCaps" format="boolean" />
+    </declare-styleable>
+
+</resources>
