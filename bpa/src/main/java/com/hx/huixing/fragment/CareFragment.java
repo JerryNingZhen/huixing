@@ -165,7 +165,8 @@ public class CareFragment extends BaseFragment {
 
             @Override
             public void error(Throwable e) {
-                ((BaseActivity) getActivity()).dismissProgress();
+                //((BaseActivity) getActivity()).dismissProgress();
+                mActivity.dismissProgress();
                 refresh_view.finishLoadMore();
                 refresh_view.finishRefresh();
             }

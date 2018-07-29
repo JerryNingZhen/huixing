@@ -62,7 +62,6 @@ public class LoginActivity extends BaseActivity<LoginContract.LoginPresenter>
 
     @Override
     protected void initGetData() {
-        title_view.setLeftBtnImg();
         title_view.setTitle(R.string.login);
         title_view.setRightBtnTxtColor(R.color.content_blue);
         title_view.setRightBtnTxt(getString(R.string.go_register), new View.OnClickListener() {
@@ -133,7 +132,8 @@ public class LoginActivity extends BaseActivity<LoginContract.LoginPresenter>
     public void getUserInfo(UserBean userBean) {
         this.userBean = userBean;
         /** 保存用户信息 */
-        BaseApplication.getInstance().saveUserInfoBean();
+        //BaseApplication.getInstance().saveUserInfoBean();
+        BaseApplication.getInstance().setUserInfoBean(userBean);
     }
 
     @Override

@@ -67,13 +67,13 @@ public class ThumbUpListActivity extends BaseActivity {
 
     @Override
     protected void initGetData() {
-        //userId = BaseApplication.getInstance().getUserInfoBean().getId();
-        //password = BaseApplication.getInstance().getUserInfoBean().getUserPwd();
+        userId = BaseApplication.getInstance().getUserInfoBean().getId();
+        password = BaseApplication.getInstance().getUserInfoBean().getUserPwd();
         Bundle bundle = getIntent().getExtras();
         type = bundle.getString("type");
         title = bundle.getString("title");
-        userId = "42e7ce4d-c7ad-476b-8850-1a60bba0e64a";
-        password = "32f913adb0951b14373e444c3c4cfcc9";
+        //userId = "42e7ce4d-c7ad-476b-8850-1a60bba0e64a";
+        //password = "32f913adb0951b14373e444c3c4cfcc9";
 
         if (type.equals("2")){
             thumbAdapter = new GetThumbAdapter(thumbs,this);

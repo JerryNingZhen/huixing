@@ -157,12 +157,12 @@ public class ThirdFragment extends BaseFragment implements View.OnClickListener 
         refresh_view.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
-                refresh_view.finishRefresh(1500);
                 /** 用户信息 */
                 getUserInfo(userId, userId);
                 /** 体力经验 */
                 getValue();
-                //checkSignIn();
+                checkSignIn();
+                refresh_view.finishRefresh(1500);
             }
         });
     }
@@ -309,7 +309,6 @@ public class ThirdFragment extends BaseFragment implements View.OnClickListener 
                 if (code == 0) {
                     tv_sign.setText("签到");
                 } else if (code == -1) {
-
                     tv_sign.setText("已签到");
                     rl_sign.setEnabled(false);
                 }

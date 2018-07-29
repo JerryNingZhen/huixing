@@ -37,8 +37,8 @@ public class ConfigServer {
 
     // ***************************服务器地址 ****************************/
     /** 服务器地址 */
-//        public final static String SERVER_API_URL = "http://testapi.blockcomet.com/";
-    public final static String SERVER_API_URL = "http://backend.blockcomet.com/";
+    public final static String SERVER_API_URL = "http://testapi.blockcomet.com/";
+    //public final static String SERVER_API_URL = "http://backend.blockcomet.com/";
     /** 发表文章 */
     public final static String MOTHED_ADDREVIEW = "blockchain/addReview";
     /** 草稿箱-查询草稿（列表） */
