@@ -90,14 +90,14 @@ public class LoadingDialogUtil {
             if (((Activity) context).isFinishing()) {
                 return;
             }
-            if (!TextUtils.isEmpty(text)) {
-                //txt_Progress.setText(text);
+            if (!TextUtils.isEmpty(text) && !text.equals(txt_Progress.getText().toString())) {
+                txt_Progress.setText(text);
             }
             progressDialog.setCancelable(isCanceledOnTouchOutside);
             progressDialog.setCanceledOnTouchOutside(isCanceledOnTouchOutside);
 
             // dismissDialog();
-            if(!progressDialog.isShowing()){
+            if (!progressDialog.isShowing()) {
                 progressDialog.show();
             }
         } catch (Exception e) {

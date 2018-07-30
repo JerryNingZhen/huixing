@@ -95,7 +95,8 @@ public class ArticleDetailActivity extends BaseActivity implements BaseView {
     private ArrayList<ArticleCommentBean> commentBeans = new ArrayList<>();
     private ArticleCommentAdapter adapter;
     private ArticleDetailBean bean;
-    public ArticleDetailBean getBean(){
+
+    public ArticleDetailBean getBean() {
         return bean;
     }
 
@@ -351,18 +352,14 @@ public class ArticleDetailActivity extends BaseActivity implements BaseView {
         params.put("loginUser", BaseApplication.getInstance().getUserInfoBean().getId());
         params.put("reviewId", id);
 
-        //        new ArticleModel().quaryArticleDeatail(params, new HttpRequestCallBack() {
+        //        new ArticleModel().quaryArticleDeatail(params, new HttpRequestCallBack(ArticleDetailBean.class) {
         //            @Override
         //            public void onSuccess(final ResponseBean result) {
-        //                bean = GsonUtil.getInstance().json2Bean((String) result.getObject(), ArticleDetailBean.class);
-        //                txt_title.post(new Runnable() {
-        //                    @Override
-        //                    public void run() {
-        //                        txt_title.setText(bean.getTextTitle());
-        //                        dismissProgress();
-        //                        showToast(result.getInfo());
-        //                    }
-        //                });
+        //                //                bean = GsonUtil.getInstance().json2Bean((String) result.getObject(), ArticleDetailBean.class);
+        //                bean = (ArticleDetailBean) result.getObject();
+        //                txt_title.setText(bean.getTextTitle());
+        //                dismissProgress();
+        //                showToast(result.getInfo());
         //
         //            }
         //

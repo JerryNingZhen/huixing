@@ -1,11 +1,14 @@
 package com.android.base.utils.http;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 
 import com.android.base.BaseApplication;
 import com.android.base.bean.BaseBean;
@@ -13,6 +16,7 @@ import com.android.base.bean.ResponseBean;
 import com.android.base.configs.BroadcastFilters;
 import com.android.base.configs.ConfigFile;
 import com.android.base.configs.ConfigServer;
+import com.android.base.configs.ConstantKey;
 import com.android.base.interfaces.OnDownLoadCallBack;
 import com.android.base.mvp.model.BaseBiz;
 import com.android.base.utils.JsonUtil;
@@ -636,7 +640,8 @@ public class HttpOkUtil {
             if (!file.mkdirs()) {
                 responseBean.setStatus(ConfigServer.RESPONSE_STATUS_FAIL);
                 responseBean.setInfo(context.getString(R.string.service_update_hint_download_error));
-                callBack.onSuccess(responseBean);
+                //                callBack.onSuccess(responseBean);
+                sendMsg(callBack, responseBean, REQUEST_SUCCESS);
                 return;
             }
         }
@@ -649,7 +654,8 @@ public class HttpOkUtil {
         if (localFile.exists()) {
             responseBean.setStatus(ConfigServer.RESPONSE_STATUS_SUCCESS);
             responseBean.setInfo(context.getString(R.string.service_update_hint_download_finish));
-            callBack.onSuccess(responseBean);
+            //            callBack.onSuccess(responseBean);
+            sendMsg(callBack, responseBean, REQUEST_SUCCESS);
             return;
         }
 
@@ -696,7 +702,8 @@ public class HttpOkUtil {
                 if (!tempFile.createNewFile()) {
                     responseBean.setStatus(ConfigServer.RESPONSE_STATUS_FAIL);
                     responseBean.setInfo(context.getString(R.string.service_update_hint_download_error));
-                    callBack.onFail(responseBean);
+                    //                    callBack.onFail(responseBean);
+                    sendMsg(callBack, responseBean, REQUEST_FAIL);
                     return;
                 }
 
@@ -724,7 +731,8 @@ public class HttpOkUtil {
 
                 responseBean.setStatus(ConfigServer.RESPONSE_STATUS_SUCCESS);
                 responseBean.setInfo(context.getString(R.string.service_update_hint_download_finish));
-                callBack.onSuccess(responseBean);
+                //                callBack.onSuccess(responseBean);
+                sendMsg(callBack, responseBean, REQUEST_SUCCESS);
             }
         });
     }
@@ -817,29 +825,6 @@ public class HttpOkUtil {
 
     /*   *************************************************** 异步数据处理 **************************************************/
 
-
-    //    public interface RequestCallBack<T> {
-    //        /**
-    //         * 响应成功
-    //         */
-    //        void onSuccess(T result);
-    //
-    //        /**
-    //         * 响应失败
-    //         */
-    //        void onFail(String errorMsg);
-    //    }
-    //    private <T> void successCallBack(final T result, final ReqCallBack<T> callBack) {
-    //        okHttpHandler.post(new Runnable() {
-    //            @Override
-    //            public void run() {
-    //                if (callBack != null) {
-    //                    callBack.onReqSuccess(result);
-    //                }
-    //            }
-    //        });
-    //    }
-
     /**
      * 统一处理成功信息
      *
@@ -849,45 +834,49 @@ public class HttpOkUtil {
      *         HttpRequestCallBack
      */
     private void successCallBack(final ResponseBody body, final HttpRequestCallBack callBack) {
-//        okHttpHandler.post(new Runnable() {
-//            @Override
-//            public void run() {
-                ResponseBean responseBean;
-                try {
-                    String result = body.string();
-                    LogUtil.json("okHttp异步数据获取 getSuccessMsg", result);
-                    responseBean = BaseBiz.getResponseBean(result);
-                } catch (Exception e) {
-                    responseBean = BaseBiz.getErrorMsg(e);
-                    callBack.onFail(responseBean);
-                    return;
+        //        okHttpHandler.post(new Runnable() {
+        //            @Override
+        //            public void run() {
+        ResponseBean responseBean;
+        try {
+            String result = body.string();
+            LogUtil.json("okHttp异步数据获取 getSuccessMsg", result);
+            responseBean = BaseBiz.getResponseBean(result);
+        } catch (Exception e) {
+            responseBean = BaseBiz.getErrorMsg(e);
+            //            callBack.onFail(responseBean);
+            sendMsg(callBack, responseBean, REQUEST_FAIL);
+            return;
+        }
+
+        body.close();
+
+        if (callBack != null) {
+            if (BaseBiz.checkSuccess(responseBean)) {
+                if (callBack.isArray()) {
+                    BaseBean.setResponseObjectList(responseBean, callBack.getCls(), callBack.getListKeyName());
+                    // responseBean.setObject(GsonUtil.getInstance().jsonToList(String.valueOf(responseBean.getObject()),callBack.getCls(),callBack.getListKeyName()));
+                } else {
+                    BaseBean.setResponseObject(responseBean, callBack.getCls());
+                    // responseBean.setObject(GsonUtil.getInstance().json2Bean(String.valueOf(responseBean.getObject()), callBack.getCls()));
                 }
 
-                body.close();
-
-                if (callBack != null) {
-                    if (BaseBiz.checkSuccess(responseBean)) {
-                        if (callBack.getCls() != null) {// 自动解析
-                            if (callBack.isArray()) {
-                                BaseBean.setResponseObjectList(responseBean, callBack.getCls(), callBack.getListKeyName());
-                            } else {
-                                BaseBean.setResponseObject(responseBean, callBack.getCls());
-                            }
-                        }
-                        callBack.onSuccess(responseBean);
-                    } else {
-                        if (responseBean.getStatus().equals(ConfigServer.RESPONSE_STATUS_TOKEN_ERROR)) {// TOKEN失效
-                            Context context = BaseApplication.getInstance().getApplicationContext();
-                            Intent intent = new Intent();
-                            intent.setAction(BroadcastFilters.ACTION_TONKEN_EXPIRED);
-                            context.sendBroadcast(intent);
-                        } else {
-                            callBack.onFail(responseBean);
-                        }
-                    }
+                //                callBack.onSuccess(responseBean);
+                sendMsg(callBack, responseBean, REQUEST_SUCCESS);
+            } else {
+                if (responseBean.getStatus().equals(ConfigServer.RESPONSE_STATUS_TOKEN_ERROR)) {// TOKEN失效
+                    Context context = BaseApplication.getInstance().getApplicationContext();
+                    Intent intent = new Intent();
+                    intent.setAction(BroadcastFilters.ACTION_TONKEN_EXPIRED);
+                    context.sendBroadcast(intent);
+                } else {
+                    //                    callBack.onFail(responseBean);
+                    sendMsg(callBack, responseBean, REQUEST_FAIL);
                 }
-//            }
-//        });
+            }
+        }
+        //            }
+        //        });
     }
 
     /**
@@ -900,14 +889,55 @@ public class HttpOkUtil {
      */
     private void failCallBack(final Throwable e, final HttpRequestCallBack callBack) {
         LogUtil.e(e);
-//        okHttpHandler.post(new Runnable() {
-//            @Override
-//            public void run() {
-                ResponseBean responseBean = getErrorMsg(e);
-                if (callBack != null) {
-                    callBack.onFail(responseBean);
-                }
-//            }
-//        });
+        //        okHttpHandler.post(new Runnable() {
+        //            @Override
+        //            public void run() {
+        ResponseBean responseBean = getErrorMsg(e);
+        if (callBack != null) {
+            //            callBack.onFail(responseBean);
+            sendMsg(callBack, responseBean, REQUEST_FAIL);
+        }
+        //            }
+        //        });
     }
+
+    private void sendMsg(HttpRequestCallBack callBack, ResponseBean responseBean, int successOrFail) {
+        Message message = mHandler.obtainMessage();
+        message.what = successOrFail;
+        message.obj = callBack;
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(ConstantKey.INTENT_KEY_DATA, responseBean);
+        message.setData(bundle);
+        message.sendToTarget();
+        // mHandler.sendMessage(message);
+    }
+
+    /** 请求成功 */
+    private static final int REQUEST_SUCCESS = 100;
+    /** 请求失败 */
+    private static final int REQUEST_FAIL = 110;
+
+    /**
+     * 异步处理Handler对象
+     */
+    @SuppressLint("HandlerLeak")
+    private Handler mHandler = new Handler() {
+
+        @Override
+        public void handleMessage(Message msg) {
+            LogUtil.e("handleMessage    " + msg.getWhen());
+            HttpRequestCallBack callBack = (HttpRequestCallBack) msg.obj;
+            Bundle bundle = msg.getData();
+            ResponseBean responseBean = (ResponseBean) bundle.getSerializable(ConstantKey.INTENT_KEY_DATA);
+            switch (msg.what) {
+                case REQUEST_SUCCESS: // 网络请求数据成功
+                    callBack.onSuccess(responseBean);
+                    break;
+                case REQUEST_FAIL: // 网络请求数据失败
+                    callBack.onFail(responseBean);
+                    break;
+            }
+        }
+
+    };
 }
