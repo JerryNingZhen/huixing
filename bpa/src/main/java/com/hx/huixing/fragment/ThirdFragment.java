@@ -28,6 +28,7 @@ import com.hx.huixing.activity.MainActivity;
 import com.hx.huixing.activity.SettingActivity;
 import com.hx.huixing.activity.WalletActivity;
 import com.hx.huixing.bean.CheckSignInBean;
+import com.hx.huixing.bean.CountBean;
 import com.hx.huixing.bean.MainPageBean;
 import com.hx.huixing.bean.ValueBean;
 import com.hx.huixing.common.net.JsonCallBack;
@@ -312,7 +313,7 @@ public class ThirdFragment extends BaseFragment implements View.OnClickListener 
                 } else if (code == 1) {
                     tv_sign.setText("已签到");
                     //ToastUtil.showToast(mActivity, "已签到，");
-                    rl_sign.setEnabled(false);
+                    //rl_sign.setEnabled(false);
 
                 }
             }
@@ -343,7 +344,13 @@ public class ThirdFragment extends BaseFragment implements View.OnClickListener 
             @Override
             public void next(String response) {
                 Log.e("tanjun", response);
-                signToast("签到成功，已向您钱包发射0.5HUI");
+
+                CountBean bean = new Gson().fromJson(response, CountBean.class);
+                if ("0".equals(bean.getCode())){
+                    signToast("签到成功，已向您钱包发射0.5HUI");
+                }else {
+                    signToast(bean.getMsg());
+                }
             }
 
             @Override
