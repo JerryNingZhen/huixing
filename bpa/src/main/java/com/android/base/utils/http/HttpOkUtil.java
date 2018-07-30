@@ -71,7 +71,7 @@ public class HttpOkUtil {
 
     private OkHttpClient okhttpclient;
     private static HttpOkUtil httpOkUtil;
-    private Handler okHttpHandler;//全局处理子线程和M主线程通信
+    //    private Handler okHttpHandler;//全局处理子线程和M主线程通信
 
     public static HttpOkUtil getInstance() {
         if (httpOkUtil == null) {
@@ -89,7 +89,7 @@ public class HttpOkUtil {
                     .retryOnConnectionFailure(true)                                            //设置不进行连接失败重试
                     .build();
 
-            okHttpHandler = new Handler(BaseApplication.getInstance().getMainLooper());
+            //            okHttpHandler = new Handler(BaseApplication.getInstance().getMainLooper());
         }
         return okhttpclient;
     }
@@ -921,7 +921,7 @@ public class HttpOkUtil {
      * 异步处理Handler对象
      */
     @SuppressLint("HandlerLeak")
-    private Handler mHandler = new Handler() {
+    private Handler mHandler = new Handler(BaseApplication.getInstance().getMainLooper()) {
 
         @Override
         public void handleMessage(Message msg) {
