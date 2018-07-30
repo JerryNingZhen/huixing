@@ -249,8 +249,8 @@
                 android:hint="写评论"
                 android:paddingLeft="@dimen/distance_10"
                 android:paddingRight="@dimen/distance_10"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
+                android:paddingTop="@dimen/distance_15"
+                android:paddingBottom="@dimen/distance_15"
                 android:textColor="@color/font_black"
                 android:textColorHint="@color/font_gray"
                 android:textSize="@dimen/font_size_normal"/>

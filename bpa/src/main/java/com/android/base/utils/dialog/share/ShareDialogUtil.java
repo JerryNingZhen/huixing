@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.base.adapter.ViewPagerAdapter;
+import com.android.base.executor.LoadingDialogUtil;
 import com.android.base.utils.LogUtil;
 import com.android.base.utils.ScreenUtil;
 import com.hx.huixing.R;
@@ -287,8 +288,9 @@ public class ShareDialogUtil {
         plat.setPlatformActionListener(platformActionListener);
         plat.share(sp);
 
-        Toast toast = Toast.makeText(mContent, mContent.getString(R.string.share_wait), Toast.LENGTH_SHORT);
-        toast.show();
+        //        Toast toast = Toast.makeText(mContent, mContent.getString(R.string.share_wait), Toast.LENGTH_SHORT);
+        //        toast.show();
+        showProgress();
         // }
     }
 
@@ -482,6 +484,7 @@ public class ShareDialogUtil {
                     break;
             }
 
+            dismissProgress();
             Toast.makeText(mContent, text, Toast.LENGTH_SHORT).show();
             return false;
         }
@@ -719,4 +722,35 @@ public class ShareDialogUtil {
          */
         void shareOnCancle(String platform);
     }
+
+    // ************************************************************************等待对话框
+    /** 等待对话框 */
+    private LoadingDialogUtil loadingDialogUtil;
+
+
+    public void showProgress() {
+
+
+        try {
+            if (loadingDialogUtil == null) {
+                loadingDialogUtil = new LoadingDialogUtil(mContent);
+            }
+
+            String processMsg = mContent.getString(R.string.share_wait);
+            loadingDialogUtil.showDialog(processMsg, false);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void dismissProgress() {
+        try {
+            if (loadingDialogUtil != null) {
+                loadingDialogUtil.dismissDialog();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }
