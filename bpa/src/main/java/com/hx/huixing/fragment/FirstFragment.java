@@ -84,7 +84,7 @@ public class FirstFragment extends BaseFragment {
         indicator.setDividerPadding(ScreenUtil.dip2px(10));
         indicator.setIndicatorColor(Color.parseColor("#303F9F"));// 设置底部导航线的颜色
         indicator.setTextColorSelected(Color.parseColor("#FF000000"));// 设置tab标题选中的颜色
-        indicator.setTextColor(Color.parseColor("#797979"));// 设置tab标题未被选中的颜色
+        indicator.setTextColor(Color.parseColor("#666666"));// 设置tab标题未被选中的颜色
         indicator.setTextSize(ScreenUtil.sp2px(16));// 设置字体大小
     }
 

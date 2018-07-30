@@ -64,6 +64,15 @@ public class CoinBean {
         private String coinId;
         private String coinName;
         private String totalCount;
+        private String account;
+
+        public String getAccount() {
+            return account;
+        }
+
+        public void setAccount(String account) {
+            this.account = account;
+        }
 
         public String getCoinChinaName() {
             return coinChinaName;

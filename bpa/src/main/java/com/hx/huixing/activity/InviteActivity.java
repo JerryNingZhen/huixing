@@ -50,6 +50,8 @@ public class InviteActivity extends BaseActivity {
 
     @Override
     protected void init() {
+        titleView.setLeftBtnImg();
+        titleView.setTitle("邀请好友");
         setConfigCallback((WindowManager)getApplicationContext().getSystemService(Context.WINDOW_SERVICE));
         initWebView();
     }

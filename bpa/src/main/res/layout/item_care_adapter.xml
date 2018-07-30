@@ -39,7 +39,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/round_image"
                     android:text="谭哥哥"
-                    android:textSize="@dimen/font_size_little" />
+                    android:textSize="@dimen/font_size_normal" />
 
                 <TextView
                     android:id="@+id/tv_date"
@@ -48,7 +48,7 @@
                     android:layout_marginTop="5dp"
                     android:text="4天前"
                     android:textColor="@color/font_gray"
-                    android:textSize="@dimen/font_size_least" />
+                    android:textSize="@dimen/font_size_little" />
 
             </LinearLayout>
 
@@ -97,16 +97,10 @@
             android:textColor="@color/font_gray"
             android:textSize="@dimen/font_size_little" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_marginTop="@dimen/distance_10"
-            android:background="@color/line_grey_light" />
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/distance_10">
+            android:layout_marginTop="18dp">
 
             <LinearLayout
                 android:id="@+id/ll_thumb"
@@ -171,8 +165,6 @@
                     android:layout_toRightOf="@+id/btn_coin"
                     android:text="10" />
 
-
-
             </RelativeLayout>
 
         </RelativeLayout>
@@ -180,9 +172,9 @@
     </LinearLayout>
 
     <View
-        android:layout_marginTop="@dimen/distance_10"
+        android:layout_marginTop="@dimen/distance_15"
         android:layout_width="match_parent"
-        android:background="@color/line_grey"
+        android:background="@color/line_grey_light"
         android:layout_height="1px"/>
 
 </LinearLayout>

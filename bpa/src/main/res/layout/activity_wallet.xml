@@ -12,10 +12,11 @@
 
 
     <RelativeLayout
+        android:layout_marginTop="@dimen/distance_10"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:minHeight="160dp"
+        android:minHeight="180dp"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -84,7 +85,6 @@
                     android:layout_marginLeft="35dp"
                     android:layout_marginTop="10dp"
                     android:layout_toRightOf="@id/tv_type"
-                    android:text="什么是币天"
                     android:textColor="@color/white"
                     android:textSize="@dimen/font_size_normal" />
 
@@ -139,6 +139,7 @@
         android:textSize="@dimen/font_size_little" />
 
     <View
+        android:background="@color/line_grey_light"
         android:layout_width="match_parent"
         android:layout_height="1px"/>
 

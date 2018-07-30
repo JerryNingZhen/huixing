@@ -58,6 +58,7 @@ public class WalletActivity extends BaseActivity implements View.OnClickListener
     @Override
     protected void findViews() {
         title_view = findViewById(R.id.title_view);
+        tv_bitian_value = findViewById(R.id.tv_bitian_value);
         tv_type = findViewById(R.id.tv_type);
         tv_value = findViewById(R.id.tv_value);
         btn_get_coin = findViewById(R.id.btn_get_coin);
@@ -128,6 +129,7 @@ public class WalletActivity extends BaseActivity implements View.OnClickListener
                         tv_type.setText(bean.getDatas().getCoinName());
                         /** 钱总数 */
                         String value = bean.getDatas().getTotalCount();
+                        tv_bitian_value.setText(bean.getDatas().getAccount());
 
                         if (TextUtils.isEmpty(value)){
                             tv_value.setText("0");

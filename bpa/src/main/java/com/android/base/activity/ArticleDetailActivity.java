@@ -182,47 +182,50 @@ public class ArticleDetailActivity extends BaseActivity implements BaseView {
                     case R.id.txt_profit://
                         break;
                     case R.id.img_share://
-                        if (bean.getCreator().equals(BaseApplication.getInstance().getUserInfoBean().getId())) {
-                            final CustomDialog dialog = new CustomDialog(ArticleDetailActivity.this);
-                            DialogContentView contentView = new DialogContentView(ArticleDetailActivity.this, dialog, new OnDialogViewCallBack() {
-                                @Override
-                                public void onResult(Map<String, String> map) {
-                                    dialog.dismiss();
-                                    String str = map.get("position");
-                                    switch (str) {
-                                        case "share"://
-                                            share();
-                                            break;
-                                        case "edit"://
-                                            ArticleAddBean articleAddBean = new ArticleAddBean();
-                                            articleAddBean.setTitlePage(bean.getTitlePage());
-                                            articleAddBean.setTextContent(bean.getTextContent());
-                                            articleAddBean.setTextTitle(bean.getTextTitle());
-                                            articleAddBean.setCreateTime(bean.getCreateTime());
-                                            articleAddBean.setReviewId(bean.getReviewId());
-                                            Bundle bundle = new Bundle();
-                                            bundle.putSerializable(ConstantKey.INTENT_KEY_DATA, articleAddBean);
-                                            IntentUtil.gotoActivity(ArticleDetailActivity.this, AddArticleActivity.class, bundle);
-                                            break;
-                                        case "del"://
-                                            DialogUtil.showMessageDg(ArticleDetailActivity.this, "确定删除文章？", "", "取消", "删除", null, new CustomDialog.OnDialogClickListener() {
-                                                @Override
-                                                public void onClick(CustomDialog dialog, int id, Object object) {
-                                                    dialog.dismiss();
-                                                    delReview();
-                                                }
-                                            });
-                                            break;
-                                        default:// 默认
-                                            break;
+
+                        if (bean != null){
+                            if (bean.getCreator().equals(BaseApplication.getInstance().getUserInfoBean().getId())) {
+                                final CustomDialog dialog = new CustomDialog(ArticleDetailActivity.this);
+                                DialogContentView contentView = new DialogContentView(ArticleDetailActivity.this, dialog, new OnDialogViewCallBack() {
+                                    @Override
+                                    public void onResult(Map<String, String> map) {
+                                        dialog.dismiss();
+                                        String str = map.get("position");
+                                        switch (str) {
+                                            case "share"://
+                                                share();
+                                                break;
+                                            case "edit"://
+                                                ArticleAddBean articleAddBean = new ArticleAddBean();
+                                                articleAddBean.setTitlePage(bean.getTitlePage());
+                                                articleAddBean.setTextContent(bean.getTextContent());
+                                                articleAddBean.setTextTitle(bean.getTextTitle());
+                                                articleAddBean.setCreateTime(bean.getCreateTime());
+                                                articleAddBean.setReviewId(bean.getReviewId());
+                                                Bundle bundle = new Bundle();
+                                                bundle.putSerializable(ConstantKey.INTENT_KEY_DATA, articleAddBean);
+                                                IntentUtil.gotoActivity(ArticleDetailActivity.this, AddArticleActivity.class, bundle);
+                                                break;
+                                            case "del"://
+                                                DialogUtil.showMessageDg(ArticleDetailActivity.this, "确定删除文章？", "", "取消", "删除", null, new CustomDialog.OnDialogClickListener() {
+                                                    @Override
+                                                    public void onClick(CustomDialog dialog, int id, Object object) {
+                                                        dialog.dismiss();
+                                                        delReview();
+                                                    }
+                                                });
+                                                break;
+                                            default:// 默认
+                                                break;
+                                        }
                                     }
-                                }
-                            });
-                            dialog.createDialog(contentView, false);
-                            dialog.show();
-                            dialog.setDialogWidth(Gravity.BOTTOM, 0);
-                        } else {
-                            share();
+                                });
+                                dialog.createDialog(contentView, false);
+                                dialog.show();
+                                dialog.setDialogWidth(Gravity.BOTTOM, 0);
+                            } else {
+                                share();
+                            }
                         }
 
                         break;
