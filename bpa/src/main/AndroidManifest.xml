@@ -251,6 +251,11 @@
             android:configChanges="screenSize|orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden"/>
+        <!--邀请好友-->
+        <activity android:name=".activity.InviteActivity"
+            android:configChanges="screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
 
         <!-- 图片glide加载流程 -->
         <activity

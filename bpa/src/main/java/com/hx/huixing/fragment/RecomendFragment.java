@@ -105,18 +105,19 @@ public class RecomendFragment extends BaseFragment {
         refresh_view.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
-                refresh_view.finishRefresh(1500);
-                getArticleList(String.valueOf(curPage),pageSize,userId, articleType);
                 curPage = 1;
+                getArticleList(String.valueOf(curPage),pageSize,userId, articleType);
+                refresh_view.finishRefresh(1500);
+
             }
         });
 
         refresh_view.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-                refresh_view.finishLoadMore(1500);
                 curPage = curPage + 1;
                 getArticleList(String.valueOf(curPage),pageSize,userId, articleType);
+                refresh_view.finishLoadMore(1500);
 
             }
         });

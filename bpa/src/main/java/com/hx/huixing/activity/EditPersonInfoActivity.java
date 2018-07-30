@@ -115,6 +115,7 @@ public class EditPersonInfoActivity extends BaseActivity {
     }
 
     private void editInfo(String name, String personIntro){
+        showProgress(false);
         Map<String, String> map = new TreeMap<>();
         map.put("realName", name);
         map.put("passWord", BaseApplication.getInstance().getUserInfoBean().getUserPwd());
@@ -123,7 +124,7 @@ public class EditPersonInfoActivity extends BaseActivity {
         RetrofitUtils.getInstance().normalGet(ConfigServer.SERVER_API_URL + ConfigServer.METHOD_CHANGEREALNAME, map, new JsonCallBack() {
             @Override
             public void next(String response) {
-                Log.e("tanjun", response);
+                dismissProgress();
                 EditInfoBean bean = new Gson().fromJson(response, EditInfoBean.class);
                 if (bean.getCode().equals("0")){
                     ToastUtil.showToast(BaseApplication.getInstance().getApplicationContext(), bean.getMsg());

@@ -104,5 +104,7 @@ public class ConfigServer {
     public final static String METHOD_CHANGELOGO = "news/changeLogo";
     /** 修改个人资料 */
     public final static String METHOD_CHANGEREALNAME = "news/changeRealname";
+    /** 邀请好友 */
+    public final static String H5_INVITE = "http://m.blockcomet.com/#/register/register?";
 
 }

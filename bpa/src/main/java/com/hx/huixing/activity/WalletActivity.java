@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.android.base.BaseApplication;
 import com.android.base.configs.ConfigServer;
 import com.android.base.utils.PreferencesUtil;
+import com.android.base.utils.ToastUtil;
 import com.android.base.widget.TitleView;
 import com.google.gson.Gson;
 import com.hx.huixing.R;
@@ -96,6 +97,7 @@ public class WalletActivity extends BaseActivity implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btn_get_coin:
+                ToastUtil.showToast(this, getString(R.string.developing));
 
                 break;
 
@@ -121,7 +123,6 @@ public class WalletActivity extends BaseActivity implements View.OnClickListener
                 map, new JsonCallBack() {
                     @Override
                     public void next(String response) {
-                        Log.e("tanjun", response);
                         CoinBean bean  = new Gson().fromJson(response, CoinBean.class);
                         /** 名称 */
                         tv_type.setText(bean.getDatas().getCoinName());

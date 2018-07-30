@@ -35,7 +35,15 @@ public class UserBean extends BaseBean implements Serializable{
     private String  userPwd="";
     private String  userSalt="";
     private String  userType="";
+    private String invitingCode=""; //邀请码
 
+    public String getInvitingCode() {
+        return invitingCode;
+    }
+
+    public void setInvitingCode(String invitingCode) {
+        this.invitingCode = invitingCode;
+    }
 
     public String getAddTime() {
         return addTime;

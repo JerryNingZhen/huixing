@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -14,16 +13,14 @@ import com.amos.smartrefresh.layout.SmartRefreshLayout;
 import com.amos.smartrefresh.layout.api.RefreshLayout;
 import com.amos.smartrefresh.layout.listener.OnRefreshListener;
 import com.android.base.BaseApplication;
-import com.android.base.activity.InviteFriendActivity;
 import com.android.base.activity.PersonalArticleActivity;
-import com.android.base.activity.PersonalFansActivity;
-import com.android.base.activity.PersonalFocusActivity;
 import com.android.base.configs.ConfigServer;
 import com.android.base.configs.ConstantKey;
 import com.android.base.utils.IntentUtil;
 import com.android.base.utils.ToastUtil;
 import com.google.gson.Gson;
 import com.hx.huixing.R;
+import com.hx.huixing.activity.InviteActivity;
 import com.hx.huixing.activity.MainActivity;
 import com.hx.huixing.activity.SettingActivity;
 import com.hx.huixing.activity.WalletActivity;
@@ -150,10 +147,10 @@ public class ThirdFragment extends BaseFragment implements View.OnClickListener 
         tv_wallet.setOnClickListener(this);
         tv_setting.setOnClickListener(this);
         rl_sign.setOnClickListener(this);
-//        tv_invite.setOnClickListener(this);
+        tv_invite.setOnClickListener(this);
         rl_publish.setOnClickListener(this);
-//        rl_focus.setOnClickListener(this);
-//        rl_fans.setOnClickListener(this);
+        rl_focus.setOnClickListener(this);
+        rl_fans.setOnClickListener(this);
 
         /** 下拉刷新 */
         refresh_view.setOnRefreshListener(new OnRefreshListener() {
@@ -185,26 +182,28 @@ public class ThirdFragment extends BaseFragment implements View.OnClickListener 
                 break;
 
             case R.id.tv_invite://邀请好友
-                IntentUtil.gotoActivity(mActivity, InviteFriendActivity.class);
+                //IntentUtil.gotoActivity(mActivity, InviteFriendActivity.class);
+                IntentUtil.gotoActivity(mActivity, InviteActivity.class);
                 break;
 
             case R.id.rl_publish://帖子
-
                 Bundle bundle = new Bundle();
                 bundle.putString(ConstantKey.INTENT_KEY_ID, BaseApplication.getInstance().getUserInfoBean().getId());
                 IntentUtil.gotoActivityToTop(getActivity(), PersonalArticleActivity.class, bundle);
                 break;
 
             case R.id.rl_focus://关注
-                bundle = new Bundle();
+                ToastUtil.showToast(mActivity, getString(R.string.developing));
+                /*bundle = new Bundle();
                 bundle.putString(ConstantKey.INTENT_KEY_ID, BaseApplication.getInstance().getUserInfoBean().getId());
-                IntentUtil.gotoActivityToTop(getActivity(), PersonalFocusActivity.class, bundle);
+                IntentUtil.gotoActivityToTop(getActivity(), PersonalFocusActivity.class, bundle);*/
                 break;
 
             case R.id.rl_fans://粉丝
-                bundle = new Bundle();
+                ToastUtil.showToast(mActivity, getString(R.string.developing));
+                /*bundle = new Bundle();
                 bundle.putString(ConstantKey.INTENT_KEY_ID, BaseApplication.getInstance().getUserInfoBean().getId());
-                IntentUtil.gotoActivityToTop(getActivity(), PersonalFansActivity.class, bundle);
+                IntentUtil.gotoActivityToTop(getActivity(), PersonalFansActivity.class, bundle);*/
                 break;
         }
     }

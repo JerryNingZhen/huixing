@@ -34,6 +34,7 @@ import com.android.base.widget.TitleView;
 import com.google.gson.Gson;
 import com.hx.huixing.R;
 import com.hx.huixing.activityMvp.BasePresenter;
+import com.hx.huixing.bean.CountBean;
 import com.hx.huixing.bean.MyInfoBean;
 import com.hx.huixing.common.net.JsonCallBack;
 import com.hx.huixing.common.net.RetrofitUtils;
@@ -217,14 +218,15 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
                             return;
                         }
                         /** 上传图片 */
-                        //mPresenter.upLoadImg(adapterCarInfo, Constant.GROUPID_POSITIONIMAGES, datasCarInfo,picPath ,imeiId);
+                        changeLogo(picPath);
                     }
                 }
             }
             else if (requestCode == RequestCode.REQUEST_CODE_PHOTO){ //相机
-                //mPresenter.upLoadImg(adapterCarInfo, Constant.GROUPID_POSITIONIMAGES, datasCarInfo,tempPath ,imeiId);
+                changeLogo(tempPath);
             }else if (requestCode == RequestCode.REQUEST_CODE_PREVIEW){ //预览
                 //mPresenter.queryAllImg(imeiId);
+                //getInfo();
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
@@ -304,36 +306,73 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
         ToastUtil.showLongToast(this,"相机权限被拒绝");
     }
 
-//    private void getInfo(){
-//        Map<String, String> map = new TreeMap<>();
-//        map.put("userId", BaseApplication.getInstance().getUserInfoBean().getId());
-//        map.put("loginUser", BaseApplication.getInstance().getUserInfoBean().getId());
-//        RetrofitUtils.getInstance().normalGet(ConfigServer.SERVER_API_URL + ConfigServer.MOTHED_QUARYUSERS, map, new JsonCallBack() {
-//            @Override
-//            public void next(String response) {
-//                MyInfoBean bean = new Gson().fromJson(response, MyInfoBean.class);
-//                /** 名称 */
-//                tv_nickname.setText(bean.getDatas().getRealName());
-//                /** 头像 */
-//                PicassoUtil.loadImage(PersonalInfoActivity.this, bean.getDatas().getUserPic(),iv_user);
-//                tv_des.setText(bean.getDatas().getPersonIntro());
-//            }
-//
-//            @Override
-//            public void error(Throwable e) {
-//
-//            }
-//
-//            @Override
-//            public void startLoading() {
-//
-//            }
-//
-//            @Override
-//            public void closeLoading() {
-//
-//            }
-//        });
-//    }
+    /** 上传头像 */
+    private void changeLogo(final String photoUrl){
+        showProgress("正在上传中...",false);
+        Map<String, String> map = new TreeMap<>();
+        map.put("userId", BaseApplication.getInstance().getUserInfoBean().getId());
+        map.put("passWord", BaseApplication.getInstance().getUserInfoBean().getUserPwd());
+        map.put("userPic", photoUrl);
+        RetrofitUtils.getInstance().normalGet(ConfigServer.SERVER_API_URL + ConfigServer.METHOD_CHANGELOGO, map, new JsonCallBack() {
+            @Override
+            public void next(String response) {
+                Log.e("tanjun", response);
+                dismissProgress();
+                CountBean bean = new Gson().fromJson(response, CountBean.class);
+                int code = Integer.parseInt(bean.getCode());
+                if (code == 0){
+                    ToastUtil.showToast(PersonalInfoActivity.this, bean.getMsg());
+                    PicassoUtil.loadImage(PersonalInfoActivity.this, photoUrl, iv_user);
+                }
+            }
+
+            @Override
+            public void error(Throwable e) {
+
+            }
+
+            @Override
+            public void startLoading() {
+
+            }
+
+            @Override
+            public void closeLoading() {
+
+            }
+        });
+    }
+
+   /* private void getInfo(){
+        Map<String, String> map = new TreeMap<>();
+        map.put("userId", BaseApplication.getInstance().getUserInfoBean().getId());
+        map.put("loginUser", BaseApplication.getInstance().getUserInfoBean().getId());
+        RetrofitUtils.getInstance().normalGet(ConfigServer.SERVER_API_URL + ConfigServer.MOTHED_QUARYUSERS, map, new JsonCallBack() {
+            @Override
+            public void next(String response) {
+                MyInfoBean bean = new Gson().fromJson(response, MyInfoBean.class);
+                *//** 名称 *//*
+                //tv_nickname.setText(bean.getDatas().getRealName());
+                *//** 头像 *//*
+                PicassoUtil.loadImage(PersonalInfoActivity.this, bean.getDatas().getUserPic(),iv_user);
+                //tv_des.setText(bean.getDatas().getPersonIntro());
+            }
+
+            @Override
+            public void error(Throwable e) {
+
+            }
+
+            @Override
+            public void startLoading() {
+
+            }
+
+            @Override
+            public void closeLoading() {
+
+            }
+        });
+    }*/
 
 }

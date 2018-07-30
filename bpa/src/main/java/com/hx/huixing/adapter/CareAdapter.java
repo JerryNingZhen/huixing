@@ -137,7 +137,8 @@ public class CareAdapter extends BaseAdapter {
         }
 
         tv_content_title.setText(bean.getTextTitle());
-        tv_content_brife.setText(Html.fromHtml(bean.getTextContent()));
+        //tv_content_brife.setText(Html.fromHtml(bean.getTextContent()));
+        tv_content_brife.setText(bean.getTextContent());
 
         //        ll_thumb.setOnClickListener(new View.OnClickListener() { //点赞
         //            @Override

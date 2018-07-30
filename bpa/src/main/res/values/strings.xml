@@ -189,4 +189,6 @@
     <!---->
     <string name="like_article">喜欢了你的文章</string>
     <string name="comment_article">评论了你的文章</string>
+
+    <string name="developing">程序员小哥哥正在努力开发中，敬请期待！</string>
 </resources>
