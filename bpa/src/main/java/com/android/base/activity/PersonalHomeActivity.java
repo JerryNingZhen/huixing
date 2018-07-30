@@ -219,6 +219,9 @@ public class PersonalHomeActivity extends BaseActivity implements BaseView {
                 btn_add_care.setText("关注");
             }
 
+            if(BaseApplication.getInstance().getUserInfoBean().getId().equals(id)){
+                btn_add_care.setVisibility(View.GONE);
+            }
             txt_article.setText(bean.getArticleCount());
             txt_gz.setText(bean.getFollowing());
             txt_fs.setText(bean.getFollow());

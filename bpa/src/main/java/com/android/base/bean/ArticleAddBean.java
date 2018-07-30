@@ -26,6 +26,7 @@ public class ArticleAddBean extends BaseBean {
     private String createTime = "";
 
     private String draftId = "";              // 草稿id
+    private String reviewId = "";              // reviewId:        //   文章id
     //            //  文章标题
     //      //  文章内容
     //            //
@@ -100,5 +101,13 @@ public class ArticleAddBean extends BaseBean {
                 ", \"createTime\":\"" + createTime + "\"" +
                 ", \"draftId\":\"" + draftId + "\"" +
                 '}';
+    }
+
+    public String getReviewId() {
+        return reviewId;
+    }
+
+    public void setReviewId(String reviewId) {
+        this.reviewId = reviewId;
     }
 }

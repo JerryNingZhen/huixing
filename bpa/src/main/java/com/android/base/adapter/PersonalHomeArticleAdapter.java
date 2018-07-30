@@ -10,7 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.base.BaseApplication;
+import com.android.base.activity.AddArticleActivity;
 import com.android.base.activity.ArticleDetailActivity;
+import com.android.base.bean.ArticleAddBean;
 import com.android.base.bean.ArticleDetailBean;
 import com.android.base.bean.ResponseBean;
 import com.android.base.configs.ConfigServer;
@@ -68,7 +70,7 @@ public class PersonalHomeArticleAdapter extends SimpleBaseAdapter<ArticleDetailB
 
         tv_date.setText(bean.getCreateTime());
         if (!TextUtils.isEmpty(bean.getTitlePage())) {
-            GlideUtil.loadImage(context, bean.getTitlePage().toString(), iv_content, GlideUtil.getRequestOptions());
+            GlideUtil.loadImage(context, bean.getTitlePage(), iv_content, GlideUtil.getRequestOptions());
         } else {
             GlideUtil.loadImage(context, "", iv_content, GlideUtil.getRequestOptions().error(R.drawable.img_default_grey));
         }
@@ -85,7 +87,14 @@ public class PersonalHomeArticleAdapter extends SimpleBaseAdapter<ArticleDetailB
         txt_comment.setText(bean.getReview());
         txt_coin_count.setText(bean.getArticleProfit());
 
-        //        img_arrow.setVisibility(View.GONE);
+        //
+
+        if (BaseApplication.getInstance().getUserInfoBean().getId().equals(bean.getCreator())) {
+            img_arrow.setVisibility(View.VISIBLE);
+        } else {
+            img_arrow.setVisibility(View.GONE);
+        }
+
         img_arrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -117,7 +126,15 @@ public class PersonalHomeArticleAdapter extends SimpleBaseAdapter<ArticleDetailB
                         share();
                         break;
                     case "edit"://
-
+                        ArticleAddBean bean = new ArticleAddBean();
+                        bean.setTitlePage(dataList.get(position).getTitlePage());
+                        bean.setTextContent(dataList.get(position).getTextContent());
+                        bean.setTextTitle(dataList.get(position).getTextTitle());
+                        bean.setCreateTime(dataList.get(position).getCreateTime());
+                        bean.setReviewId(dataList.get(position).getReviewId());
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable(ConstantKey.INTENT_KEY_DATA, bean);
+                        IntentUtil.gotoActivity(context, AddArticleActivity.class, bundle);
                         break;
                     case "del"://
                         DialogUtil.showMessageDg(context, "确定删除文章？", "", "取消", "删除", null, new CustomDialog.OnDialogClickListener() {

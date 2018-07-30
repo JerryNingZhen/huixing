@@ -119,6 +119,10 @@ public class ArticlePreviewPresenter extends MvpBasePresenter<ArticlePreviewView
         RequestExecutor.addTask(new BaseTask() {
             @Override
             public ResponseBean sendRequest() {
+                if (!TextUtils.isEmpty(bean.getReviewId())) {
+                    params.put("reviewId", bean.getReviewId());
+                    params.put(ConfigServer.SERVER_METHOD_KEY, ConfigServer.MOTHED_UPDATAREVIEW);
+                }
                 return HttpOkBiz.getInstance().sendPost(params);
             }
 
@@ -129,8 +133,12 @@ public class ArticlePreviewPresenter extends MvpBasePresenter<ArticlePreviewView
                     return;
                 }
                 view.dismissProgress();
-                String id = (String) result.getObject();
-                view.setViewData(id);
+                if (!TextUtils.isEmpty(bean.getReviewId())) {// 编辑文章
+                    view.setViewData(bean.getReviewId());
+                } else {
+                    String id = (String) result.getObject();
+                    view.setViewData(id);
+                }
                 view.showToast(result.getInfo());
             }
 

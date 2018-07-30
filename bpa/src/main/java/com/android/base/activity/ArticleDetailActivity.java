@@ -19,6 +19,7 @@ import com.amos.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.amos.smartrefresh.layout.listener.OnRefreshListener;
 import com.android.base.BaseApplication;
 import com.android.base.adapter.ArticleCommentAdapter;
+import com.android.base.bean.ArticleAddBean;
 import com.android.base.bean.ArticleCommentBean;
 import com.android.base.bean.ArticleDetailBean;
 import com.android.base.bean.BaseBean;
@@ -189,7 +190,15 @@ public class ArticleDetailActivity extends BaseActivity implements BaseView {
                                             share();
                                             break;
                                         case "edit"://
-
+                                            ArticleAddBean articleAddBean = new ArticleAddBean();
+                                            articleAddBean.setTitlePage(bean.getTitlePage());
+                                            articleAddBean.setTextContent(bean.getTextContent());
+                                            articleAddBean.setTextTitle(bean.getTextTitle());
+                                            articleAddBean.setCreateTime(bean.getCreateTime());
+                                            articleAddBean.setReviewId(bean.getReviewId());
+                                            Bundle bundle = new Bundle();
+                                            bundle.putSerializable(ConstantKey.INTENT_KEY_DATA, articleAddBean);
+                                            IntentUtil.gotoActivity(ArticleDetailActivity.this,  AddArticleActivity.class, bundle);
                                             break;
                                         case "del"://
                                             DialogUtil.showMessageDg(ArticleDetailActivity.this, "确定删除文章？", "", "取消", "删除", null, new CustomDialog.OnDialogClickListener() {

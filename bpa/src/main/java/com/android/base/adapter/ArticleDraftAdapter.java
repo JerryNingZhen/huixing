@@ -52,7 +52,7 @@ public class ArticleDraftAdapter extends SimpleBaseAdapter<ArticleAddBean> {
 
         final ArticleAddBean bean = dataList.get(position);
 
-        GlideUtil.loadImage(context,bean.getTitlePage(),img_content,GlideUtil.getRequestOptions());
+        GlideUtil.loadImage(context,bean.getTitlePage(),img_content,GlideUtil.getRequestOptions().error(R.drawable.img_default_grey_base));
         // PicassoUtil.loadImage(context, bean.getTitlePage(), img_content);
         txt_title.setText(bean.getTextTitle());
         txt_content.setText(bean.getTextContent());

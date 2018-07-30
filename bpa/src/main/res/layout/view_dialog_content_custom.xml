@@ -16,37 +16,55 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableRight="@drawable/arrow_right_grey"
-            android:padding="@dimen/distance_10"
+            android:paddingBottom="@dimen/distance_15"
+            android:paddingLeft="@dimen/distance_10"
+            android:paddingRight="@dimen/distance_10"
+            android:paddingTop="@dimen/distance_15"
             android:text="分享"
             android:textColor="@color/font_content"
             android:textSize="@dimen/font_size_normal"/>
+
+        <View style="@style/line_horizontal_gray_light_style"/>
 
         <com.android.base.widget.AutoBgTextView
             android:id="@+id/txt_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableRight="@drawable/arrow_right_grey"
-            android:padding="@dimen/distance_10"
+            android:paddingBottom="@dimen/distance_15"
+            android:paddingLeft="@dimen/distance_10"
+            android:paddingRight="@dimen/distance_10"
+            android:paddingTop="@dimen/distance_15"
             android:text="编辑"
             android:textColor="@color/font_content"
             android:textSize="@dimen/font_size_normal"/>
+
+        <View style="@style/line_horizontal_gray_light_style"/>
 
         <com.android.base.widget.AutoBgTextView
             android:id="@+id/txt_del"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableRight="@drawable/arrow_right_grey"
-            android:padding="@dimen/distance_10"
+            android:paddingBottom="@dimen/distance_15"
+            android:paddingLeft="@dimen/distance_10"
+            android:paddingRight="@dimen/distance_10"
+            android:paddingTop="@dimen/distance_15"
             android:text="删除"
             android:textColor="@color/font_content"
             android:textSize="@dimen/font_size_normal"/>
+
+        <View style="@style/line_horizontal_gray_light_style"/>
 
         <com.android.base.widget.AutoBgTextView
             android:id="@+id/txt_cancel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableRight="@drawable/arrow_right_grey"
-            android:padding="@dimen/distance_10"
+            android:paddingBottom="@dimen/distance_15"
+            android:paddingLeft="@dimen/distance_10"
+            android:paddingRight="@dimen/distance_10"
+            android:paddingTop="@dimen/distance_15"
             android:text="取消"
             android:textColor="@color/font_content"
             android:textSize="@dimen/font_size_normal"/>

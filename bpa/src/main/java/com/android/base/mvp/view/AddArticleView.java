@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
@@ -32,6 +33,7 @@ import com.android.base.utils.BitmapUtil;
 import com.android.base.utils.DateUtil;
 import com.android.base.utils.FileUtil;
 import com.android.base.utils.IntentUtil;
+import com.android.base.utils.KeyboardUtil;
 import com.android.base.utils.LogUtil;
 import com.android.base.utils.PermissionUtils;
 import com.android.base.utils.ScreenUtil;
@@ -108,7 +110,7 @@ public class AddArticleView extends MvpBaseView<AddArticleActivity> {
                     }
                 }
                 edit_title.setText(bean.getTextTitle());
-                edit_content.setText(bean.getTextContent());
+                edit_content.setText(Html.fromHtml(bean.getTextContent()));
             }
         }
     }
@@ -121,16 +123,22 @@ public class AddArticleView extends MvpBaseView<AddArticleActivity> {
 
     @Override
     public void widgetListener() {
-        titleview.setLeftBtnTxt("取消",new View.OnClickListener() {
+        titleview.setLeftBtnTxt("取消", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveDraft();
+                KeyboardUtil.hideKeyBord(titleview);
+                if (!TextUtils.isEmpty(bean.getReviewId())) {// 编辑文章
+                    baseUI.finishActivity();
+                } else {
+                    saveDraft();
+                }
             }
         });
 
         titleview.setRightBtnTxt("预览", new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                KeyboardUtil.hideKeyBord(titleview);
                 ArticleAddBean bean = checkData();
                 //                if (TextUtils.isEmpty(bean.getTitlePage())) {
                 //                    showToast("文章封面照片不能为空");
@@ -151,13 +159,14 @@ public class AddArticleView extends MvpBaseView<AddArticleActivity> {
             }
         });
 
-        titleview.setRightBtnImgNew(R.drawable.icon_draft_right, new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                IntentUtil.gotoActivityToTopForResult(baseUI, ArticleDraftActivity.class, RequestCode.REQUEST_CODE_ADD_ARTICLE);
-            }
-        });
-
+        if (TextUtils.isEmpty(bean.getReviewId())) {// 编辑文章
+            titleview.setRightBtnImgNew(R.drawable.icon_draft_right, new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    IntentUtil.gotoActivityToTopForResult(baseUI, ArticleDraftActivity.class, RequestCode.REQUEST_CODE_ADD_ARTICLE);
+                }
+            });
+        }
         img_content.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -190,7 +199,9 @@ public class AddArticleView extends MvpBaseView<AddArticleActivity> {
         bean.setTextTitle(edit_title.getText().toString());
         bean.setTextContent(edit_content.getText().toString());
         if (TextUtils.isEmpty(bean.getDraftId())) {
-            bean.setCreateTime(DateUtil.getDate());
+            if (TextUtils.isEmpty(bean.getCreateTime())) {
+                bean.setCreateTime(DateUtil.getDate());
+            }
         } else {
             bean.setUpdateTime(DateUtil.getDate());
         }
