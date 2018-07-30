@@ -152,7 +152,7 @@ public class ArticlePreviewView extends MvpBaseView<ArticlePreviewActivity> {
         //      TODO
         Bundle bundle = new Bundle();
         bundle.putSerializable(ConstantKey.INTENT_KEY_ID, id);
-        IntentUtil.gotoActivityAndFinish(baseUI, ArticleDetailActivity.class, bundle);
+        IntentUtil.gotoActivityToTopAndFinish(baseUI, ArticleDetailActivity.class, bundle);
         //        baseUI.finishActivity();
     }
 

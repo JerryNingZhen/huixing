@@ -73,7 +73,7 @@ public class ConfigServer {
     /** 删除文章 */
     public final static String MOTHED_DELREVIEW = "blockchain/delReview";
     /** 编辑文章 */
-    public final static String MOTHED_UPDATAREVIEW = "blockchain/updataReview";
+    public final static String MOTHED_UPDATAREVIEW = "blockchain/updataReviewOnApp";
 
 
     /** 修改密码 */
