@@ -5,14 +5,22 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.android.base.BaseApplication;
+import com.android.base.configs.ConfigServer;
 import com.android.base.utils.IntentUtil;
 import com.android.base.utils.ToastUtil;
 import com.android.base.widget.AutoBgButton;
 import com.android.base.widget.TitleView;
+import com.google.gson.Gson;
 import com.hx.huixing.R;
 import com.hx.huixing.activityMvp.contract.FindPwdContract;
 import com.hx.huixing.activityMvp.presenter.FindPwdPresenter;
+import com.hx.huixing.bean.CountBean;
+import com.hx.huixing.common.net.JsonCallBack;
+import com.hx.huixing.common.net.RetrofitUtils;
 import com.hx.huixing.widget.TimeButton;
+
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * <br> Description 找回密码
@@ -124,6 +132,9 @@ public class FindPasswordActivity extends BaseActivity<FindPwdContract.FindPwdPr
                 break;
 
             case R.id.btn_find:
+                if (checkEmpty()){
+                    finPwd();
+                }
 
                 break;
         }
@@ -133,5 +144,63 @@ public class FindPasswordActivity extends BaseActivity<FindPwdContract.FindPwdPr
     protected void onDestroy() {
         super.onDestroy();
         btn_code.onDestroy();
+    }
+
+
+    private boolean checkEmpty(){
+        String num = et_number.getText().toString().trim();
+        String newPwd = et_password.getText().toString().trim();
+        String verCode = et_verify_code.getText().toString().trim();
+        if (TextUtils.isEmpty(num)){
+            ToastUtil.showToast(this,getString(R.string.empty_number));
+            return false;
+        }
+
+        if (TextUtils.isEmpty(newPwd)){
+            ToastUtil.showToast(this, getString(R.string.empty_pwd));
+            return false;
+        }
+
+        if (TextUtils.isEmpty(verCode)){
+            ToastUtil.showToast(this, "验证码不能为空！");
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * 修改密码
+     */
+    private void finPwd(){
+        Map<String,String> map = new TreeMap<>();
+        map.put("userName", et_number.getText().toString().trim());
+        map.put("code", et_verify_code.getText().toString().trim());
+        map.put("newPassword", et_password.getText().toString().trim());
+        map.put("type","2");
+        RetrofitUtils.getInstance().normalGet(ConfigServer.SERVER_API_URL + ConfigServer.METHOD_RECOVERPASSWORD, map, new JsonCallBack() {
+            @Override
+            public void next(String response) {
+                CountBean bean = new Gson().fromJson(response, CountBean.class);
+                if (bean.getCode().equals("0")){
+                    ToastUtil.showToast(BaseApplication.getInstance().getApplicationContext(), "修改成功");
+                    IntentUtil.gotoActivityAndFinish(FindPasswordActivity.this, LoginActivity.class);
+                }
+            }
+
+            @Override
+            public void error(Throwable e) {
+
+            }
+
+            @Override
+            public void startLoading() {
+
+            }
+
+            @Override
+            public void closeLoading() {
+
+            }
+        });
     }
 }

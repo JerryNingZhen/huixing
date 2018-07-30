@@ -45,7 +45,7 @@ public class ModifyPwdActivity extends BaseActivity implements View.OnClickListe
     /** 新密码 */
     private EditText et_password;
     /** 修改按钮 */
-    private AutoBgButton btn_modify;
+    private Button btn_modify;
 
     String tel;
     String token;
