@@ -246,8 +246,8 @@ public class ArticleCommentDetailActivity extends BaseActivity implements BaseVi
         }
         ShareBean shareBean = new ShareBean();
 
-        if (!TextUtils.isEmpty(BaseApplication.getInstance().getUserInfoBean().getUserPic())) {
-            shareBean.setPhotoUrl(BaseApplication.getInstance().getUserInfoBean().getUserPic());
+        if (!TextUtils.isEmpty(detailBean.getUserPic())) {
+            shareBean.setPhotoUrl(detailBean.getUserPic());
         } else {
             shareBean.setPhotoUrl("http://huixing.io/img/favicon.png");
         }

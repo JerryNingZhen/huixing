@@ -294,8 +294,8 @@ public class ArticleDetailActivity extends BaseActivity implements BaseView {
         }
         ShareBean shareBean = new ShareBean();
 
-        if (!TextUtils.isEmpty(BaseApplication.getInstance().getUserInfoBean().getUserPic())) {
-            shareBean.setPhotoUrl(BaseApplication.getInstance().getUserInfoBean().getUserPic());
+        if (!TextUtils.isEmpty(bean.getUserPic())) {
+            shareBean.setPhotoUrl(bean.getUserPic());
         } else {
             shareBean.setPhotoUrl("http://huixing.io/img/favicon.png");
         }
