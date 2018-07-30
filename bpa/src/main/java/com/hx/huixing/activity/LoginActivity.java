@@ -6,6 +6,7 @@ import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ToggleButton;
 
 import com.android.base.BaseApplication;
@@ -19,7 +20,6 @@ import com.hx.huixing.R;
 import com.hx.huixing.activityMvp.contract.LoginContract;
 import com.hx.huixing.activityMvp.presenter.LoginPresenter;
 import com.hx.huixing.bean.UserBean;
-import com.hx.huixing.widget.ContainsEmojiEditText;
 
 /**
  * <br> Description 登录
@@ -32,8 +32,8 @@ public class LoginActivity extends BaseActivity<LoginContract.LoginPresenter>
         implements LoginContract.LoginView {
 
     private TitleView title_view;
-    private ContainsEmojiEditText et_login_username;
-    private ContainsEmojiEditText et_pwd;
+    private EditText et_login_username;
+    private EditText et_pwd;
     private AutoBgButton btn_login;
 
     private UserBean userBean;

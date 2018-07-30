@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.android.base.BaseApplication;
@@ -20,10 +21,8 @@ import com.hx.huixing.activityMvp.BasePresenter;
 import com.hx.huixing.bean.TokenEntity;
 import com.hx.huixing.common.net.JsonCallBack;
 import com.hx.huixing.common.net.RetrofitUtils;
-import com.hx.huixing.widget.ContainsEmojiEditText;
 import com.hx.huixing.widget.TimeButton;
 
-import java.sql.Time;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -40,11 +39,11 @@ public class ModifyPwdActivity extends BaseActivity implements View.OnClickListe
     /** 当前手机号（要拼接弄成一个串） */
     private TextView tv_cur_number;
     /** 验证码 */
-    private ContainsEmojiEditText et_verify_code;
+    private EditText et_verify_code;
     /** 验证码按钮 */
     private TimeButton btn_getcode;
     /** 新密码 */
-    private ContainsEmojiEditText et_password;
+    private EditText et_password;
     /** 修改按钮 */
     private AutoBgButton btn_modify;
 

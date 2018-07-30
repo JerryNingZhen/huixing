@@ -58,7 +58,7 @@
                     android:layout_toRightOf="@id/tv_fore_title"
                     android:background="@color/line_grey_light"/>
 
-                <com.hx.huixing.widget.ContainsEmojiEditText
+                <EditText
                     android:id="@+id/et_login_username"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -87,7 +87,7 @@
                 android:layout_height="@dimen/btn_height"
                 android:gravity="center_vertical">
 
-                <com.hx.huixing.widget.ContainsEmojiEditText
+                <EditText
                     android:id="@+id/et_pwd"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

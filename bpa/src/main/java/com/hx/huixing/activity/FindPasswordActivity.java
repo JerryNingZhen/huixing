@@ -2,6 +2,7 @@ package com.hx.huixing.activity;
 
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
 
 import com.android.base.BaseApplication;
 import com.android.base.utils.IntentUtil;
@@ -11,7 +12,6 @@ import com.android.base.widget.TitleView;
 import com.hx.huixing.R;
 import com.hx.huixing.activityMvp.contract.FindPwdContract;
 import com.hx.huixing.activityMvp.presenter.FindPwdPresenter;
-import com.hx.huixing.widget.ContainsEmojiEditText;
 import com.hx.huixing.widget.TimeButton;
 
 /**
@@ -27,11 +27,11 @@ public class FindPasswordActivity extends BaseActivity<FindPwdContract.FindPwdPr
     /** 标题 */
     private TitleView title_view;
     /** 手机号输入框  */
-    private ContainsEmojiEditText et_number;
+    private EditText et_number;
     /** 密码输入框 */
-    private ContainsEmojiEditText et_password;
+    private EditText et_password;
     /** 验证码输入 */
-    private ContainsEmojiEditText et_verify_code;
+    private EditText et_verify_code;
     /** 验证码按钮 */
     private TimeButton btn_code;
     /**  */

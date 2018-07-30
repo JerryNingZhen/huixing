@@ -2,6 +2,7 @@ package com.hx.huixing.activity;
 
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
 
 import com.android.base.utils.IntentUtil;
 import com.android.base.utils.ToastUtil;
@@ -10,7 +11,6 @@ import com.android.base.widget.TitleView;
 import com.hx.huixing.R;
 import com.hx.huixing.activityMvp.contract.RegisterContract;
 import com.hx.huixing.activityMvp.presenter.RegisterPresenter;
-import com.hx.huixing.widget.ContainsEmojiEditText;
 import com.hx.huixing.widget.TimeButton;
 
 /**
@@ -26,13 +26,13 @@ public class RegisterActivity extends BaseActivity<RegisterContract.RegisterPres
     /** 标题 */
     private TitleView titleView;
     /** 手机输入框 */
-    private ContainsEmojiEditText et_login_username;
+    private EditText et_login_username;
     /** 密码输入框 */
-    private ContainsEmojiEditText et_login_password;
+    private EditText et_login_password;
     /** 验证码输入框 */
-    private ContainsEmojiEditText et_verify_code;
+    private EditText et_verify_code;
     /** 昵称 */
-    private ContainsEmojiEditText et_real_name;
+    private EditText et_real_name;
     /** 获取验证码点击 */
     private TimeButton btn_getcode;
     /** 注册按钮 */

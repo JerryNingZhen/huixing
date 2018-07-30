@@ -31,7 +31,7 @@
                 android:scaleType="fitXY"
                 android:src="@drawable/img_default_grey" />
 
-            <com.hx.huixing.widget.ContainsEmojiEditText
+            <EditText
                 android:id="@+id/edit_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -44,7 +44,7 @@
                 android:textColorHint="@color/font_gray"
                 android:textSize="@dimen/font_size_big" />
 
-            <com.hx.huixing.widget.ContainsEmojiEditText
+            <EditText
                 android:id="@+id/edit_content"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

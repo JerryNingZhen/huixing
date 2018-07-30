@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.android.base.BaseApplication;
@@ -18,7 +19,6 @@ import com.hx.huixing.activityMvp.BasePresenter;
 import com.hx.huixing.bean.EditInfoBean;
 import com.hx.huixing.common.net.JsonCallBack;
 import com.hx.huixing.common.net.RetrofitUtils;
-import com.hx.huixing.widget.ContainsEmojiEditText;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -33,8 +33,8 @@ import java.util.TreeMap;
 public class EditPersonInfoActivity extends BaseActivity {
 
     private TitleView title_view;
-    private ContainsEmojiEditText et_name;
-    private ContainsEmojiEditText et_advice;
+    private EditText et_name;
+    private EditText et_advice;
 
     private TextView txt_count;
     private AutoBgButton btn_register;
