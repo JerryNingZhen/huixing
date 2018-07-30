@@ -94,9 +94,9 @@ public class ConfigServer {
     /** 清除已读消息 */
     public final static String METHOD_READALLMESSAGE = "news/readAllMessage";
     /** 今日是否已签到 */
-    public final static String METHOD_DETERMINHASSIGNIN = "chainCoinWallet/determinHasSignIn";
+    public final static String METHOD_DETERMINHASSIGNIN = "chainCoinWallet/determinHasSignInOnApp";
     /** 签到 */
-    public final static String METHOD_SIGNIN = "chainCoinWallet/signIn";
+    public final static String METHOD_SIGNIN = "chainCoinWallet/signInOnApp";
     /** 修改个人头像 */
     public final static String METHOD_CHANGELOGO = "news/changeLogo";
     /** 修改个人资料 */

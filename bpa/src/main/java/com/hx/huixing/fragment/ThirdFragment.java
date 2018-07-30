@@ -21,6 +21,7 @@ import com.android.base.activity.PersonalFocusActivity;
 import com.android.base.configs.ConfigServer;
 import com.android.base.configs.ConstantKey;
 import com.android.base.utils.IntentUtil;
+import com.android.base.utils.ToastUtil;
 import com.google.gson.Gson;
 import com.hx.huixing.R;
 import com.hx.huixing.activity.MainActivity;
@@ -78,7 +79,7 @@ public class ThirdFragment extends BaseFragment implements View.OnClickListener 
     /**
      * 设置
      */
-    private Button btn_setting;
+    private TextView tv_setting;
     /** 用来显示签到状态 */
     private TextView tv_sign;
 
@@ -115,7 +116,7 @@ public class ThirdFragment extends BaseFragment implements View.OnClickListener 
         tv_wallet = findViewByIds(R.id.tv_wallet);
         tv_invite = findViewByIds(R.id.tv_invite);
         rl_sign = findViewByIds(R.id.rl_sign);
-        btn_setting = findViewByIds(R.id.btn_setting);
+        tv_setting = findViewByIds(R.id.tv_setting);
 
         rl_publish = findViewByIds(R.id.rl_publish);
         rl_focus = findViewByIds(R.id.rl_focus);
@@ -146,7 +147,7 @@ public class ThirdFragment extends BaseFragment implements View.OnClickListener 
     @Override
     protected void widgetListener() {
         tv_wallet.setOnClickListener(this);
-        btn_setting.setOnClickListener(this);
+        tv_setting.setOnClickListener(this);
         rl_sign.setOnClickListener(this);
 //        tv_invite.setOnClickListener(this);
         rl_publish.setOnClickListener(this);
@@ -170,7 +171,7 @@ public class ThirdFragment extends BaseFragment implements View.OnClickListener 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_setting: //设置
+            case R.id.tv_setting: //设置
                 IntentUtil.gotoActivity(mActivity, SettingActivity.class);
                 break;
 
@@ -308,9 +309,11 @@ public class ThirdFragment extends BaseFragment implements View.OnClickListener 
                 int code = Integer.parseInt(bean.getCode());
                 if (code == 0) {
                     tv_sign.setText("签到");
-                } else if (code == -1) {
+                } else if (code == 1) {
                     tv_sign.setText("已签到");
+                    //ToastUtil.showToast(mActivity, "已签到，");
                     rl_sign.setEnabled(false);
+
                 }
             }
 
@@ -340,7 +343,7 @@ public class ThirdFragment extends BaseFragment implements View.OnClickListener 
             @Override
             public void next(String response) {
                 Log.e("tanjun", response);
-                signToast("签到成功，已向");
+                signToast("签到成功，已向您钱包发射0.5HUI");
             }
 
             @Override

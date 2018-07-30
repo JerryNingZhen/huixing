@@ -91,15 +91,6 @@
 
                     </RelativeLayout>
 
-                    <Button
-                        android:id="@+id/btn_setting"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="@dimen/distance_20"
-                        android:layout_marginTop="@dimen/distance_20"
-                        android:background="@drawable/setting" />
-
                     <RelativeLayout
                         android:id="@+id/rl_sign"
                         android:layout_width="wrap_content"
@@ -240,7 +231,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginTop="@dimen/distance_10"
                     android:background="@color/white"
-                    android:drawableLeft="@drawable/wallet"
+                    android:drawableLeft="@drawable/invite"
                     android:drawablePadding="@dimen/distance_20"
                     android:drawableRight="@drawable/right_arrow"
                     android:gravity="center_vertical"
@@ -248,6 +239,26 @@
                     android:paddingLeft="@dimen/account_manager_ll_item_tv_marginLeft"
                     android:paddingRight="@dimen/account_manager_ll_item_tv_marginStart"
                     android:text="@string/invite"
+                    android:textColor="@color/font_black"
+                    android:textSize="@dimen/font_size_normal" />
+
+                <!--邀请-->
+                <TextView
+                    android:id="@+id/tv_setting"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_invite"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="@dimen/distance_10"
+                    android:background="@color/white"
+                    android:drawableLeft="@drawable/setting_blue"
+                    android:drawablePadding="@dimen/distance_20"
+                    android:drawableRight="@drawable/right_arrow"
+                    android:gravity="center_vertical"
+                    android:minHeight="60dp"
+                    android:paddingLeft="@dimen/account_manager_ll_item_tv_marginLeft"
+                    android:paddingRight="@dimen/account_manager_ll_item_tv_marginStart"
+                    android:text="@string/setting"
                     android:textColor="@color/font_black"
                     android:textSize="@dimen/font_size_normal" />
             </RelativeLayout>

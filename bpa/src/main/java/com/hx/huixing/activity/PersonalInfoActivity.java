@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
@@ -72,6 +73,11 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
     /** 描述内容 */
     private TextView tv_des;
 
+    private MyInfoBean bean;
+    private String name;
+    private String selfDes;
+    private String headUrl;
+
     @Override
     protected int getContentViewId() {
         return R.layout.activity_personal_info;
@@ -79,17 +85,21 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     protected void findViews() {
-
-    }
-
-    @Override
-    protected void initGetData() {
         title_view = findViewById(R.id.title_view);
         iv_user = findViewById(R.id.iv_user);
         rl_nickname = findViewById(R.id.rl_nickname);
         tv_nickname = findViewById(R.id.tv_nickname);
         tv_self_intro = findViewById(R.id.tv_self_intro);
         tv_des = findViewById(R.id.tv_des);
+    }
+
+    @Override
+    protected void initGetData() {
+        Bundle bundle = getIntent().getExtras();
+        bean = (MyInfoBean) bundle.getSerializable("info");
+        name = bean.getDatas().getRealName();//姓名
+        selfDes = bean.getDatas().getPersonIntro(); //个人简介
+        headUrl = bean.getDatas().getUserPic();
     }
 
     @Override
@@ -102,13 +112,17 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
                 IntentUtil.gotoActivity(PersonalInfoActivity.this, EditPersonInfoActivity.class);
             }
         });
+
+        tv_nickname.setText(name);
+        tv_des.setText(selfDes);
+        PicassoUtil.loadImage(this, headUrl, iv_user);
     }
 
     @Override
     protected void widgetListener() {
         iv_user.setOnClickListener(this);
-        rl_nickname.setOnClickListener(this);
-        tv_self_intro.setOnClickListener(this);
+        /*rl_nickname.setOnClickListener(this);
+        tv_self_intro.setOnClickListener(this);*/
     }
 
     @Override
@@ -129,7 +143,7 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
     @Override
     protected void onStart() {
         super.onStart();
-        getInfo();
+        //getInfo();
     }
 
     /**
@@ -290,37 +304,36 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
         ToastUtil.showLongToast(this,"相机权限被拒绝");
     }
 
-    private void getInfo(){
-        Map<String, String> map = new TreeMap<>();
-        map.put("userId", BaseApplication.getInstance().getUserInfoBean().getId());
-        map.put("loginUser", BaseApplication.getInstance().getUserInfoBean().getId());
-        RetrofitUtils.getInstance().normalGet(ConfigServer.SERVER_API_URL + ConfigServer.MOTHED_QUARYUSERS, map, new JsonCallBack() {
-            @Override
-            public void next(String response) {
-                Log.e("tanjun", response);
-                MyInfoBean bean = new Gson().fromJson(response, MyInfoBean.class);
-                /** 名称 */
-                tv_nickname.setText(bean.getDatas().getRealName());
-                /** 头像 */
-                PicassoUtil.loadImage(PersonalInfoActivity.this, bean.getDatas().getUserPic(),iv_user);
-                tv_des.setText(bean.getDatas().getPersonIntro());
-            }
-
-            @Override
-            public void error(Throwable e) {
-
-            }
-
-            @Override
-            public void startLoading() {
-
-            }
-
-            @Override
-            public void closeLoading() {
-
-            }
-        });
-    }
+//    private void getInfo(){
+//        Map<String, String> map = new TreeMap<>();
+//        map.put("userId", BaseApplication.getInstance().getUserInfoBean().getId());
+//        map.put("loginUser", BaseApplication.getInstance().getUserInfoBean().getId());
+//        RetrofitUtils.getInstance().normalGet(ConfigServer.SERVER_API_URL + ConfigServer.MOTHED_QUARYUSERS, map, new JsonCallBack() {
+//            @Override
+//            public void next(String response) {
+//                MyInfoBean bean = new Gson().fromJson(response, MyInfoBean.class);
+//                /** 名称 */
+//                tv_nickname.setText(bean.getDatas().getRealName());
+//                /** 头像 */
+//                PicassoUtil.loadImage(PersonalInfoActivity.this, bean.getDatas().getUserPic(),iv_user);
+//                tv_des.setText(bean.getDatas().getPersonIntro());
+//            }
+//
+//            @Override
+//            public void error(Throwable e) {
+//
+//            }
+//
+//            @Override
+//            public void startLoading() {
+//
+//            }
+//
+//            @Override
+//            public void closeLoading() {
+//
+//            }
+//        });
+//    }
 
 }

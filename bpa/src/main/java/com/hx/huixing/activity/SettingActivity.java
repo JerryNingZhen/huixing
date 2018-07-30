@@ -1,11 +1,13 @@
 package com.hx.huixing.activity;
 
+import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.base.BaseApplication;
 import com.android.base.configs.ConfigFile;
+import com.android.base.configs.ConfigServer;
 import com.android.base.configs.ConstantKey;
 import com.android.base.utils.AppManagerUtil;
 import com.android.base.utils.FileUtil;
@@ -15,13 +17,20 @@ import com.android.base.utils.SystemUtil;
 import com.android.base.utils.ToastUtil;
 import com.android.base.utils.dialog.CustomDialog;
 import com.android.base.utils.dialog.DialogUtil;
+import com.android.base.utils.picasso.PicassoUtil;
 import com.android.base.widget.AutoBgTextView;
 import com.android.base.widget.TitleView;
+import com.google.gson.Gson;
 import com.hx.huixing.R;
 import com.hx.huixing.activityMvp.BasePresenter;
+import com.hx.huixing.bean.MyInfoBean;
 import com.hx.huixing.bean.UserBean;
+import com.hx.huixing.common.net.JsonCallBack;
+import com.hx.huixing.common.net.RetrofitUtils;
 
 import java.io.File;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * <br> Description 设置界面
@@ -52,6 +61,8 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
     private RelativeLayout rl_version;
     private RelativeLayout rl_clean; //清除缓存
 
+    private MyInfoBean bean = null;
+
 
     @Override
     protected int getContentViewId() {
@@ -77,7 +88,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     protected void initGetData() {
-
+        getInfo();
     }
 
     @Override
@@ -108,7 +119,9 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.tv_personal_info: //个人资料
-                IntentUtil.gotoActivity(this, PersonalInfoActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("info", bean);
+                IntentUtil.gotoActivity(this, PersonalInfoActivity.class, bundle);
                 break;
 
             case R.id.tv_account_set: //修改密码
@@ -165,6 +178,34 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
             tv_size.setText( "0M");
         }
 
+    }
+
+    /** 获取个人信息 */
+    private void getInfo(){
+        Map<String, String> map = new TreeMap<>();
+        map.put("userId", BaseApplication.getInstance().getUserInfoBean().getId());
+        map.put("loginUser", BaseApplication.getInstance().getUserInfoBean().getId());
+        RetrofitUtils.getInstance().normalGet(ConfigServer.SERVER_API_URL + ConfigServer.MOTHED_QUARYUSERS, map, new JsonCallBack() {
+            @Override
+            public void next(String response) {
+                 bean= new Gson().fromJson(response, MyInfoBean.class);
+            }
+
+            @Override
+            public void error(Throwable e) {
+
+            }
+
+            @Override
+            public void startLoading() {
+
+            }
+
+            @Override
+            public void closeLoading() {
+
+            }
+        });
     }
 
 

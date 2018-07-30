@@ -1,5 +1,7 @@
 package com.hx.huixing.bean;
 
+import java.io.Serializable;
+
 /**
  * <br> Description
  * <br> Author: 谭俊
@@ -7,7 +9,7 @@ package com.hx.huixing.bean;
  * <br> Date: 2018/7/25
  * <br> Copyright: Copyright © 2016 xTeam Technology. All rights reserved.
  */
-public class MyInfoBean {
+public class MyInfoBean implements Serializable{
 
     /**
      * code : 0
@@ -53,7 +55,7 @@ public class MyInfoBean {
         this.msg = msg;
     }
 
-    public static class DatasBean {
+    public static class DatasBean implements Serializable{
         /**
          * addTime : 2018-07-18 18:45:38
          * articleCount : 40
