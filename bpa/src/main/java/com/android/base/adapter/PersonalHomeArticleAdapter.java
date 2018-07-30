@@ -123,7 +123,7 @@ public class PersonalHomeArticleAdapter extends SimpleBaseAdapter<ArticleDetailB
                 String str = map.get("position");
                 switch (str) {
                     case "share"://
-                        share();
+                        share(position);
                         break;
                     case "edit"://
                         ArticleAddBean bean = new ArticleAddBean();
@@ -155,15 +155,17 @@ public class PersonalHomeArticleAdapter extends SimpleBaseAdapter<ArticleDetailB
         dialog.setDialogWidth(Gravity.BOTTOM, 0);
     }
 
-    private void share() {
+    private void share(int positon) {
         ShareBean shareBean = new ShareBean();
 
-        shareBean.setPhotoUrl("http://www.mob.com/assets/images/logo-51fcf38a.png");
-        shareBean.setTextContent("setTextContent");
-        shareBean.setTitle("setTitle");
-        shareBean.setContentUrl("www.baidu.com");
-        shareBean.setContentId("");
-        shareBean.setContentType("");
+        if (!TextUtils.isEmpty(dataList.get(positon).getTitlePage())) {
+            shareBean.setPhotoUrl(dataList.get(positon).getTitlePage());
+        } else {
+            shareBean.setPhotoUrl("http://huixing.io/img/favicon.png");
+        }
+        shareBean.setTextContent(dataList.get(positon).getTextTitle());
+        shareBean.setTitle(dataList.get(positon).getTextTitle());
+        shareBean.setContentUrl(ConfigServer.SHARE_URL + dataList.get(positon).getReviewId());
         String[] nameItems = context.getResources().getStringArray(R.array.share_types);
         Integer[] resItems = new Integer[]{R.drawable.share_wechat, //
                 R.drawable.share_wechatmoments, //

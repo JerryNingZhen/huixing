@@ -3,7 +3,6 @@ package com.android.base.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -27,8 +26,6 @@ import com.android.base.mvp.baseclass.BaseActivity;
 import com.android.base.mvp.baseclass.BaseView;
 import com.android.base.mvp.model.HttpOkBiz;
 import com.android.base.utils.LogUtil;
-import com.android.base.utils.dialog.share.ShareBean;
-import com.android.base.utils.dialog.share.ShareDialogUtil;
 import com.android.base.utils.glide.CropTransformation;
 import com.android.base.utils.glide.GlideUtil;
 import com.android.base.widget.CustomKeyBoardListView;
@@ -125,37 +122,39 @@ public class PersonalHomeActivity extends BaseActivity implements BaseView {
     @Override
     public void widgetListener() {
         title_view.setLeftBtnImg();
-        title_view.setRightBtnImg(R.drawable.icon_share, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ShareBean shareBean = new ShareBean();
 
-                shareBean.setPhotoUrl("http://www.mob.com/assets/images/logo-51fcf38a.png");
-                shareBean.setTextContent("setTextContent");
-                shareBean.setTitle("setTitle");
-                shareBean.setContentUrl("www.baidu.com");
-                shareBean.setContentId("");
-                shareBean.setContentType("");
-                String[] nameItems = getResources().getStringArray(R.array.share_types);
-                Integer[] resItems = new Integer[]{R.drawable.share_wechat, //
-                        R.drawable.share_wechatmoments, //
-                        R.drawable.share_sina
-                        //                                , //
-                        //                                R.drawable.share_sina, //
-                        //                                R.drawable.share_sina, //
-                        //                                R.drawable.share_sina, //
-                        //                                R.drawable.share_sina, //
-                        //                                R.drawable.share_sina, //
-                        //                                R.drawable.share_sina, //
-                        //                                R.drawable.share_sina, //
-                        //                                R.drawable.share_sina, //
-                        //                                R.drawable.share_sina, //
-                        //                                R.drawable.share_qq //
-                };
-                ShareDialogUtil popupWindowUtil = new ShareDialogUtil(PersonalHomeActivity.this, shareBean, nameItems, resItems);
-                popupWindowUtil.show(shareBean, Gravity.BOTTOM);
-            }
-        });
+        //        title_view.setRightBtnImg(R.drawable.icon_share, new View.OnClickListener() {
+        //            @Override
+        //            public void onClick(View v) {
+        //                ShareBean shareBean = new ShareBean();
+        //
+        //                shareBean.setPhotoUrl("http://www.mob.com/assets/images/logo-51fcf38a.png");
+        //                shareBean.setTextContent("setTextContent");
+        //                shareBean.setTitle("setTitle");
+        //                shareBean.setContentUrl("www.baidu.com");
+        //                shareBean.setContentId("");
+        //                shareBean.setContentType("");
+        //                String[] nameItems = getResources().getStringArray(R.array.share_types);
+        //                Integer[] resItems = new Integer[]{R.drawable.share_wechat, //
+        //                        R.drawable.share_wechatmoments, //
+        //                        R.drawable.share_sina
+        //                        //                                , //
+        //                        //                                R.drawable.share_sina, //
+        //                        //                                R.drawable.share_sina, //
+        //                        //                                R.drawable.share_sina, //
+        //                        //                                R.drawable.share_sina, //
+        //                        //                                R.drawable.share_sina, //
+        //                        //                                R.drawable.share_sina, //
+        //                        //                                R.drawable.share_sina, //
+        //                        //                                R.drawable.share_sina, //
+        //                        //                                R.drawable.share_sina, //
+        //                        //                                R.drawable.share_qq //
+        //                };
+        //                ShareDialogUtil popupWindowUtil = new ShareDialogUtil(PersonalHomeActivity.this, shareBean, nameItems, resItems);
+        //                popupWindowUtil.show(shareBean, Gravity.BOTTOM);
+        //            }
+        //        });
+
         View.OnClickListener onClickListener = new View.OnClickListener() {
             public void onClick(View view) {
                 switch (view.getId()) {
@@ -219,7 +218,7 @@ public class PersonalHomeActivity extends BaseActivity implements BaseView {
                 btn_add_care.setText("关注");
             }
 
-            if(BaseApplication.getInstance().getUserInfoBean().getId().equals(id)){
+            if (BaseApplication.getInstance().getUserInfoBean().getId().equals(id)) {
                 btn_add_care.setVisibility(View.GONE);
             }
             txt_article.setText(bean.getArticleCount());

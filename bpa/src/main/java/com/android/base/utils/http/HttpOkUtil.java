@@ -849,9 +849,9 @@ public class HttpOkUtil {
      *         HttpRequestCallBack
      */
     private void successCallBack(final ResponseBody body, final HttpRequestCallBack callBack) {
-        okHttpHandler.post(new Runnable() {
-            @Override
-            public void run() {
+//        okHttpHandler.post(new Runnable() {
+//            @Override
+//            public void run() {
                 ResponseBean responseBean;
                 try {
                     String result = body.string();
@@ -886,8 +886,8 @@ public class HttpOkUtil {
                         }
                     }
                 }
-            }
-        });
+//            }
+//        });
     }
 
     /**
@@ -900,14 +900,14 @@ public class HttpOkUtil {
      */
     private void failCallBack(final Throwable e, final HttpRequestCallBack callBack) {
         LogUtil.e(e);
-        okHttpHandler.post(new Runnable() {
-            @Override
-            public void run() {
+//        okHttpHandler.post(new Runnable() {
+//            @Override
+//            public void run() {
                 ResponseBean responseBean = getErrorMsg(e);
                 if (callBack != null) {
                     callBack.onFail(responseBean);
                 }
-            }
-        });
+//            }
+//        });
     }
 }

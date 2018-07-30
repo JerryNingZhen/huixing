@@ -127,7 +127,7 @@ public class AddArticleView extends MvpBaseView<AddArticleActivity> {
             @Override
             public void onClick(View v) {
                 KeyboardUtil.hideKeyBord(titleview);
-                if (!TextUtils.isEmpty(bean.getReviewId())) {// 编辑文章
+                if (bean != null && !TextUtils.isEmpty(bean.getReviewId())) {// 编辑文章
                     baseUI.finishActivity();
                 } else {
                     saveDraft();
@@ -159,7 +159,8 @@ public class AddArticleView extends MvpBaseView<AddArticleActivity> {
             }
         });
 
-        if (TextUtils.isEmpty(bean.getReviewId())) {// 编辑文章
+        if (bean != null && !TextUtils.isEmpty(bean.getReviewId())) {// 编辑文章
+        } else {
             titleview.setRightBtnImgNew(R.drawable.icon_draft_right, new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

@@ -18,6 +18,7 @@ import com.amos.smartrefresh.layout.listener.OnRefreshListener;
 import com.android.base.BaseApplication;
 import com.android.base.adapter.ArticleDetailCommentAdapter;
 import com.android.base.bean.ArticleCommentBean;
+import com.android.base.bean.ArticleDetailBean;
 import com.android.base.bean.BaseBean;
 import com.android.base.bean.ResponseBean;
 import com.android.base.configs.ConfigServer;
@@ -77,6 +78,7 @@ public class ArticleCommentDetailActivity extends BaseActivity implements BaseVi
     private ArrayList<ArticleCommentBean> commentBeans = new ArrayList<>();
     private ArticleDetailCommentAdapter adapter;
     private ArticleCommentBean bean;
+    private ArticleDetailBean detailBean;
 
     @Override
     public void initVP() {
@@ -125,6 +127,7 @@ public class ArticleCommentDetailActivity extends BaseActivity implements BaseVi
     public void init(Bundle bundle) {
         if (bundle != null) {
             bean = (ArticleCommentBean) bundle.getSerializable(ConstantKey.INTENT_KEY_DATA);
+            detailBean = (ArticleDetailBean) bundle.getSerializable(ConstantKey.INTENT_KEY_DATAS);
             id = bean.getReviewId();
         }
 
@@ -238,14 +241,21 @@ public class ArticleCommentDetailActivity extends BaseActivity implements BaseVi
     }
 
     private void share() {
+        if (detailBean == null) {
+            return;
+        }
         ShareBean shareBean = new ShareBean();
 
-        shareBean.setPhotoUrl("http://www.mob.com/assets/images/logo-51fcf38a.png");
-        shareBean.setTextContent("setTextContent");
-        shareBean.setTitle("setTitle");
-        shareBean.setContentUrl("www.baidu.com");
-        shareBean.setContentId("");
-        shareBean.setContentType("");
+        if (!TextUtils.isEmpty(BaseApplication.getInstance().getUserInfoBean().getUserPic())) {
+            shareBean.setPhotoUrl(BaseApplication.getInstance().getUserInfoBean().getUserPic());
+        } else {
+            shareBean.setPhotoUrl("http://huixing.io/img/favicon.png");
+        }
+
+        shareBean.setTextContent(detailBean.getTextTitle());
+        shareBean.setTitle(detailBean.getTextTitle());
+
+        shareBean.setContentUrl(ConfigServer.SHARE_URL + id);
         String[] nameItems = getResources().getStringArray(R.array.share_types);
         Integer[] resItems = new Integer[]{R.drawable.share_wechat, //
                 R.drawable.share_wechatmoments, //

@@ -4,16 +4,13 @@ import android.text.TextUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.google.gson.reflect.TypeToken;
 
-import org.json.JSONObject;
-
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Gson解析
@@ -79,49 +76,57 @@ public class GsonUtil {
         return t;
     }
 
-    /**
-     * 把json 字符串转化成list
-     *
-     * @param json
-     *         json格式字符串
-     * @param cls
-     *         Bean
-     */
-    private <T> ArrayList<T> stringToList(String json, Class<T> cls, String key) {
-        ArrayList<T> list = new ArrayList<T>();
-        try {
-            if (!TextUtils.isEmpty(key)) {
-                JSONObject jsonObject = new JSONObject(json);
-                json = jsonObject.optString(key, "");
-            }
-            JsonArray array = new JsonParser().parse(json).getAsJsonArray();
-            for (final JsonElement elem : array) {
-                list.add(gson.fromJson(elem, cls));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return list;
-    }
+    //    /**
+    //     * 把json 字符串转化成list
+    //     *
+    //     * @param json
+    //     *         json格式字符串
+    //     * @param cls
+    //     *         Bean
+    //     */
+    //    public <T> ArrayList<T> stringToList(String json, Class<T> cls, String key) {
+    //        ArrayList<T> list = new ArrayList<>();
+    //        try {
+    //            JsonParser parser = new JsonParser();
+    //            JsonArray array;
+    //
+    //            if (!TextUtils.isEmpty(key)) {
+    //                JsonObject jsonObject = parser.parse(json).getAsJsonObject();
+    //                array = jsonObject.getAsJsonArray(key);
+    //            } else {
+    //                array = parser.parse(json).getAsJsonArray();
+    //            }
+    //
+    //            if (array != null) {
+    //                for (JsonElement elem : array) {
+    //                    list.add(gson.fromJson(elem, cls));
+    //                }
+    //            }
+    //        } catch (Exception e) {
+    //            e.printStackTrace();
+    //        }
+    //        return list;
+    //    }
 
     /**
      * 转成list
      *
      * @param jsonStr
      *         json格式字符串
-     * @param cls
-     *         ArrayList<T>
      */
     public <T> ArrayList<T> jsonToList(String jsonStr, Class<T> cls, String jsonKey) {
         ArrayList<T> list = new ArrayList<>();
         try {
+
+            JsonParser parser = new JsonParser();
             if (!TextUtils.isEmpty(jsonKey)) {
-                JSONObject jsonObject = new JSONObject(jsonStr);
-                jsonStr = jsonObject.optString(jsonKey, "");
+                JsonObject jsonObject = parser.parse(jsonStr).getAsJsonObject();
+                jsonStr = jsonObject.get(jsonKey).getAsString();
             }
+
             if (gson != null) {
-                list = gson.fromJson(jsonStr, new TypeToken<List<T>>() {
-                }.getType());
+                Type type = new ParameterizedTypeImpl(cls);
+                list = gson.fromJson(jsonStr, type);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -129,34 +134,56 @@ public class GsonUtil {
         return list;
     }
 
-    /**
-     * 转成list中有map的
-     *
-     * @param jsonStr
-     *         json格式字符串
-     */
-    public <T> ArrayList<Map<String, T>> jsonToListMaps(String jsonStr) {
-        ArrayList<Map<String, T>> list = null;
-        if (gson != null) {
-            list = gson.fromJson(jsonStr,
-                    new TypeToken<ArrayList<Map<String, T>>>() {
-                    }.getType());
-        }
-        return list;
-    }
+    private class ParameterizedTypeImpl implements ParameterizedType {
+        Class clazz;
 
-    /**
-     * 转成map的
-     *
-     * @param jsonStr
-     *         json格式字符串
-     */
-    public <T> Map<String, T> jsonToMap(String jsonStr) {
-        Map<String, T> map = null;
-        if (gson != null) {
-            map = gson.fromJson(jsonStr, new TypeToken<Map<String, T>>() {
-            }.getType());
+        public ParameterizedTypeImpl(Class clz) {
+            clazz = clz;
         }
-        return map;
+
+        @Override
+        public Type[] getActualTypeArguments() {
+            return new Type[]{clazz};
+        }
+
+        @Override
+        public Type getRawType() {
+            return List.class;
+        }
+
+        @Override
+        public Type getOwnerType() {
+            return null;
+        }
     }
+    //    /**
+    //     * 转成list中有map的
+    //     *
+    //     * @param jsonStr
+    //     *         json格式字符串
+    //     */
+    //    public <T> ArrayList<Map<String, T>> jsonToListMaps(String jsonStr) {
+    //        ArrayList<Map<String, T>> list = null;
+    //        if (gson != null) {
+    //            list = gson.fromJson(jsonStr,
+    //                    new TypeToken<ArrayList<Map<String, T>>>() {
+    //                    }.getType());
+    //        }
+    //        return list;
+    //    }
+    //
+    //    /**
+    //     * 转成map的
+    //     *
+    //     * @param jsonStr
+    //     *         json格式字符串
+    //     */
+    //    public <T> Map<String, T> jsonToMap(String jsonStr) {
+    //        Map<String, T> map = null;
+    //        if (gson != null) {
+    //            map = gson.fromJson(jsonStr, new TypeToken<Map<String, T>>() {
+    //            }.getType());
+    //        }
+    //        return map;
+    //    }
 }

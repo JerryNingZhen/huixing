@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.android.base.BaseApplication;
 import com.android.base.activity.ArticleCommentDetailActivity;
+import com.android.base.activity.ArticleDetailActivity;
 import com.android.base.activity.PersonalHomeActivity;
 import com.android.base.bean.ArticleCommentBean;
 import com.android.base.bean.ResponseBean;
@@ -97,6 +98,11 @@ public class ArticleCommentAdapter extends SimpleBaseAdapter<ArticleCommentBean>
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable(ConstantKey.INTENT_KEY_DATA, bean);
+                try {
+                    bundle.putSerializable(ConstantKey.INTENT_KEY_DATAS, ((ArticleDetailActivity)context).getBean());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 IntentUtil.gotoActivity(context, ArticleCommentDetailActivity.class, bundle);
             }
         });

@@ -95,6 +95,9 @@ public class ArticleDetailActivity extends BaseActivity implements BaseView {
     private ArrayList<ArticleCommentBean> commentBeans = new ArrayList<>();
     private ArticleCommentAdapter adapter;
     private ArticleDetailBean bean;
+    public ArticleDetailBean getBean(){
+        return bean;
+    }
 
     @Override
     public void initVP() {
@@ -198,7 +201,7 @@ public class ArticleDetailActivity extends BaseActivity implements BaseView {
                                             articleAddBean.setReviewId(bean.getReviewId());
                                             Bundle bundle = new Bundle();
                                             bundle.putSerializable(ConstantKey.INTENT_KEY_DATA, articleAddBean);
-                                            IntentUtil.gotoActivity(ArticleDetailActivity.this,  AddArticleActivity.class, bundle);
+                                            IntentUtil.gotoActivity(ArticleDetailActivity.this, AddArticleActivity.class, bundle);
                                             break;
                                         case "del"://
                                             DialogUtil.showMessageDg(ArticleDetailActivity.this, "确定删除文章？", "", "取消", "删除", null, new CustomDialog.OnDialogClickListener() {
@@ -285,14 +288,21 @@ public class ArticleDetailActivity extends BaseActivity implements BaseView {
     }
 
     private void share() {
+        if (bean == null) {
+            return;
+        }
         ShareBean shareBean = new ShareBean();
 
-        shareBean.setPhotoUrl("http://www.mob.com/assets/images/logo-51fcf38a.png");
-        shareBean.setTextContent("setTextContent");
-        shareBean.setTitle("setTitle");
-        shareBean.setContentUrl("www.baidu.com");
-        shareBean.setContentId("");
-        shareBean.setContentType("");
+        if (!TextUtils.isEmpty(BaseApplication.getInstance().getUserInfoBean().getUserPic())) {
+            shareBean.setPhotoUrl(BaseApplication.getInstance().getUserInfoBean().getUserPic());
+        } else {
+            shareBean.setPhotoUrl("http://huixing.io/img/favicon.png");
+        }
+
+        shareBean.setTextContent(bean.getTextTitle());
+        shareBean.setTitle(bean.getTextTitle());
+        shareBean.setContentUrl(ConfigServer.SHARE_URL + id);
+
         String[] nameItems = getResources().getStringArray(R.array.share_types);
         Integer[] resItems = new Integer[]{R.drawable.share_wechat, //
                 R.drawable.share_wechatmoments, //
@@ -341,6 +351,28 @@ public class ArticleDetailActivity extends BaseActivity implements BaseView {
         params.put("loginUser", BaseApplication.getInstance().getUserInfoBean().getId());
         params.put("reviewId", id);
 
+        //        new ArticleModel().quaryArticleDeatail(params, new HttpRequestCallBack() {
+        //            @Override
+        //            public void onSuccess(final ResponseBean result) {
+        //                bean = GsonUtil.getInstance().json2Bean((String) result.getObject(), ArticleDetailBean.class);
+        //                txt_title.post(new Runnable() {
+        //                    @Override
+        //                    public void run() {
+        //                        txt_title.setText(bean.getTextTitle());
+        //                        dismissProgress();
+        //                        showToast(result.getInfo());
+        //                    }
+        //                });
+        //
+        //            }
+        //
+        //            @Override
+        //            public void onFail(ResponseBean result) {
+        //                dismissProgress();
+        //                showToast(result.getInfo());
+        //
+        //            }
+        //        });
         RequestExecutor.addTask(new BaseTask() {
             @Override
             public ResponseBean sendRequest() {
@@ -478,8 +510,7 @@ public class ArticleDetailActivity extends BaseActivity implements BaseView {
             public void onSuccess(ResponseBean result) {
                 BaseBean.setResponseObjectList(result, ArticleCommentBean.class, "");
                 ArrayList<ArticleCommentBean> beans = (ArrayList<ArticleCommentBean>) result.getObject();
-                //                ArrayList<ArticleCommentBean> beans = GsonUtil.getInstance().gson.fromJson((String) result.getObject(), new TypeToken<List<ArticleCommentBean>>() {
-                //                }.getType());
+                //                ArrayList<ArticleCommentBean> beans = GsonUtil.getInstance().jsonToList((String) result.getObject(),ArticleCommentBean.class,"");
                 if (currentPage == 1) {
                     commentBeans.clear();
                 }
