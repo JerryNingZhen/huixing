@@ -157,54 +157,7 @@ public class RetrofitUtils {
                 });
     }
 
-//    public <T> void normalPost2(final String url, Map<String, String> map, final JsonCallBack2<T> callBack) {
-//        if (statePos == 0) {
-//            callBack.startLoading();
-//        }
-//        RetrofitManager.getInstance()
-//                .createReq(AppApi.class)
-//                .postRequest(url, map)
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Observer<Response<ResponseBody>>() {
-//
-//                    @Override
-//                    public void onCompleted() {
-//
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//                        callBack.closeLoading();
-//                        callBack.error(e);
-//                        LogUtils.e("(请求框架)：" + e);
-//                    }
-//
-//                    @Override
-//                    public void onNext(Response<ResponseBody> response) {
-//                        callBack.closeLoading();
-//                        LogUtils.i("Http===：" + DataService.BASE_URL + url);
-//                        LogUtils.i("======================華麗的分割線=========================");
-//                        try {
-//                            String res = response.body().string();
-//                            T data = JSONObject.parseObject(res, T);
-//                            callBack.next(data);
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                });
-//    }
 
-    /**
-     * 獲取當前類名
-     *
-     * @return
-     */
-//    private String getActivityName() {
-//        ActivityManager activityManager = (ActivityManager) act.getSystemService(Context.ACTIVITY_SERVICE);
-//        return activityManager.getRunningTasks(1).get(0).topActivity.getClassName();
-//    }
     public void normalPost(String url, Map<String, String> map, String state, final JsonCallBack callBack) {
         callBack.startLoading();
         new RetrofitManager(state)

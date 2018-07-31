@@ -21,10 +21,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.base.BaseApplication;
+import com.android.base.bean.ResponseBean;
 import com.android.base.configs.ConfigFile;
 import com.android.base.configs.ConfigServer;
+import com.android.base.executor.BaseTask;
+import com.android.base.executor.RequestExecutor;
+import com.android.base.mvp.model.HttpOkBiz;
 import com.android.base.utils.FileUtil;
 import com.android.base.utils.IntentUtil;
+import com.android.base.utils.LogUtil;
 import com.android.base.utils.ToastUtil;
 import com.android.base.utils.dialog.CustomDialog;
 import com.android.base.utils.dialog.DialogUtil;
@@ -40,7 +45,11 @@ import com.hx.huixing.common.net.JsonCallBack;
 import com.hx.huixing.common.net.RetrofitUtils;
 import com.hx.huixing.config.RequestCode;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import java.io.File;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -221,15 +230,14 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
                             return;
                         }
                         /** 上传图片 */
-                        changeLogo(picPath);
+                        upLoadPic(picPath);
                     }
                 }
             }
             else if (requestCode == RequestCode.REQUEST_CODE_PHOTO){ //相机
-                changeLogo(tempPath);
+                upLoadPic(tempPath);
             }else if (requestCode == RequestCode.REQUEST_CODE_PREVIEW){ //预览
-                //mPresenter.queryAllImg(imeiId);
-                //getInfo();
+
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
@@ -344,6 +352,43 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
 
             }
         });
+    }
+
+    /** 上传头像 */
+    private void upLoadPic(String picUrl){
+        final HashMap<String, String> params = new HashMap<>();
+        params.put(ConfigServer.SERVER_METHOD_KEY, "common/upload");
+        final HashMap<String, File> files = new HashMap<>();
+        files.put("file", new File(picUrl));
+
+        RequestExecutor.addTask(new BaseTask() {
+            @Override
+            public ResponseBean sendRequest() {
+                return HttpOkBiz.getInstance().upLoadFile(params, files);
+            }
+
+            @Override
+            public void onSuccess(ResponseBean result) {
+                String url = (String) result.getObject();
+                try {
+                    JSONArray jsonArray = new JSONArray(url);
+                    if (jsonArray.length() > 0) {
+                        url = jsonArray.getString(0);
+                        changeLogo(url);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFail(ResponseBean result) {
+                dismissProgress();
+                ToastUtil.showToast(PersonalInfoActivity.this, result.getInfo());
+            }
+        });
+
     }
 
    /* private void getInfo(){

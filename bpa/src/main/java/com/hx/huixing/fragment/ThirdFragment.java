@@ -18,6 +18,7 @@ import com.android.base.configs.ConfigServer;
 import com.android.base.configs.ConstantKey;
 import com.android.base.utils.IntentUtil;
 import com.android.base.utils.ToastUtil;
+import com.android.base.utils.picasso.PicassoUtil;
 import com.google.gson.Gson;
 import com.hx.huixing.R;
 import com.hx.huixing.activity.InviteActivity;
@@ -30,6 +31,7 @@ import com.hx.huixing.bean.MainPageBean;
 import com.hx.huixing.bean.ValueBean;
 import com.hx.huixing.common.net.JsonCallBack;
 import com.hx.huixing.common.net.RetrofitUtils;
+import com.hx.huixing.widget.RoundImage;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -49,7 +51,7 @@ public class ThirdFragment extends BaseFragment implements View.OnClickListener 
     /**
      * 用户头像
      */
-    private ImageView iv_user_head;
+    private RoundImage iv_user_head;
     /**
      * 用户名
      */
@@ -240,6 +242,7 @@ public class ThirdFragment extends BaseFragment implements View.OnClickListener 
                 tv_publish.setText(datasBean.getArticleCount());
                 tv_focus_count.setText(datasBean.getFollowing());
                 tv_follow_count.setText(datasBean.getFollower());
+                PicassoUtil.loadImage(mActivity, datasBean.getUserPic(), iv_user_head);
 
             }
 
@@ -274,7 +277,8 @@ public class ThirdFragment extends BaseFragment implements View.OnClickListener 
                 tv_level.setText("LV." + level);
                 /** 体力100 + ( 5 * 等级) */
                 tv_power.setText("体力值：" + datasBean.getGrade() + "/" + String.valueOf(100 + Integer.parseInt(level) * 5));
-                tv_experience.setText("经验值：" + datasBean.getExperience() + "/" + String.valueOf(100 + Integer.parseInt(level) * 5));
+                /** 经验值上限 = 3* 等级 * 等级 - 等级 + 98， */
+                tv_experience.setText("经验值：" + datasBean.getExperience() + "/" + String.valueOf(98 + 3 * Integer.parseInt(level)*Integer.parseInt(level) - Integer.parseInt(level)));
             }
 
             @Override
