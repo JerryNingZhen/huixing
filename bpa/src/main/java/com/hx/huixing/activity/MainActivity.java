@@ -9,6 +9,7 @@ import com.android.base.activity.AddArticleActivity;
 import com.android.base.utils.AppManagerUtil;
 import com.android.base.utils.IntentUtil;
 import com.android.base.utils.ToastUtil;
+import com.android.base.utils.UpdateVersionUtil;
 import com.android.base.widget.TitleView;
 import com.hx.huixing.R;
 import com.hx.huixing.activityMvp.BasePresenter;
@@ -63,6 +64,8 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void init() {
+        UpdateVersionUtil updateVersionUtil = new UpdateVersionUtil(this,false);
+        updateVersionUtil.checkUpdate();
         initFragment();
     }
 

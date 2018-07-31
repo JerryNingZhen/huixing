@@ -112,5 +112,7 @@ public class ConfigServer {
     public final static String METHOD_REGISTERUSERONAPP = "news/registerUserOnApp";
     /** 上传头像 */
     public final static String METHOD_UPLOAD ="common/upload";
+    /** 上传头像 */
+    public final static String METHOD_INQUIRYAPPVERSION ="common/inquiryAppVersion";
 
 }

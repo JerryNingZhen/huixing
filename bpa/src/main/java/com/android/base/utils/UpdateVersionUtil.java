@@ -1,18 +1,18 @@
 package com.android.base.utils;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 
-import com.hx.huixing.BuildConfig;
-import com.hx.huixing.R;
-import com.android.base.mvp.baseclass.BaseActivity;
+import com.android.base.bean.BaseBean;
 import com.android.base.bean.ResponseBean;
 import com.android.base.bean.UpdateBean;
 import com.android.base.configs.ConfigFile;
+import com.android.base.configs.ConfigServer;
 import com.android.base.configs.ConstantKey;
 import com.android.base.configs.RequestCode;
 import com.android.base.executor.BaseTask;
@@ -20,12 +20,15 @@ import com.android.base.executor.DownProgressDialogUtil;
 import com.android.base.executor.RequestExecutor;
 import com.android.base.interfaces.OnDownLoadCallBack;
 import com.android.base.mvp.model.HttpBiz;
-import com.android.base.mvp.model.TestModel;
+import com.android.base.mvp.model.HttpOkBiz;
 import com.android.base.service.UpdateService;
 import com.android.base.utils.dialog.CustomDialog;
 import com.android.base.utils.dialog.DialogUtil;
+import com.hx.huixing.BuildConfig;
+import com.hx.huixing.R;
 
 import java.io.File;
+import java.util.HashMap;
 
 /**
  * 检测更新 工具类
@@ -37,10 +40,10 @@ import java.io.File;
  */
 public class UpdateVersionUtil {
 
-    private BaseActivity activity;
+    private Activity activity;
     private boolean isShowToast = false;
 
-    public UpdateVersionUtil(BaseActivity activity, boolean isShowToast) {
+    public UpdateVersionUtil(Activity activity, boolean isShowToast) {
         this.activity = activity;
         this.isShowToast = isShowToast;
     }
@@ -60,7 +63,17 @@ public class UpdateVersionUtil {
 
             @Override
             public ResponseBean sendRequest() {
-                return TestModel.testPost1();
+                HashMap<String, String> params = new HashMap<>();
+                params.put(ConfigServer.SERVER_METHOD_KEY, ConfigServer.METHOD_INQUIRYAPPVERSION);
+                //                params.put("type", "1");
+                //                params.put("verCode", "1");
+
+                ResponseBean result = HttpOkBiz.getInstance().sendGet(params);
+                if (HttpBiz.checkSuccess(result)) {
+                    //                    result.setObject(GsonUtil.getInstance().json2Bean((String) result.getObject(), UpdateBean.class));
+                    BaseBean.setResponseObject(result, UpdateBean.class);
+                }
+                return result;
             }
 
             @Override
@@ -83,6 +96,7 @@ public class UpdateVersionUtil {
                         }, new CustomDialog.OnDialogClickListener() {
                             @Override
                             public void onClick(CustomDialog dialog, int id, Object object) {
+
                                 // TODO 下载
                                 dialog.dismiss();
                                 PermissionUtils.getInstance(new PermissionUtils.PermissionGrant() {
@@ -154,7 +168,7 @@ public class UpdateVersionUtil {
 
     private boolean isMust() {
         return false;
-//        return bean != null && (bean.getForce().equals("1"));
+        //        return bean != null && (bean.getForce().equals("1"));
     }
 
     /**
@@ -171,6 +185,9 @@ public class UpdateVersionUtil {
      *         下载路径
      */
     private void downLoadApk(final String url) {
+        if(TextUtils.isEmpty(url.trim())){
+            return;
+        }
         String apkLocal = StringUtil.getLocalCachePath(url, ConfigFile.PATH_DOWNLOAD);
         File localFile = new File(apkLocal);
 

@@ -40,11 +40,11 @@ public class UpdateBean extends BaseBean {
 
     @Override
     protected void init(JSONObject jSon) throws JSONException {
-        versionCode = (JsonUtil.optString(jSon, "verCode", ""));
+        versionCode = (JsonUtil.optString(jSon, "versionCode", ""));
         url = (JsonUtil.optString(jSon, "url", ""));
-        versionInfo = (JsonUtil.optString(jSon, "info", ""));
-        force = (JsonUtil.optString(jSon, "force", ""));
-        versionName = (JsonUtil.optString(jSon, "verName", ""));
+        versionInfo = (JsonUtil.optString(jSon, "versionInfo", ""));
+        force = (JsonUtil.optString(jSon, "isMustUpdate", ""));
+        versionName = (JsonUtil.optString(jSon, "versionName", ""));
     }
 
     public String getVersionCode() {
