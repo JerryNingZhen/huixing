@@ -292,6 +292,7 @@ public class ArticleDetailActivity extends BaseActivity implements BaseView {
         });
     }
 
+    ShareDialogUtil popupWindowUtil;
     private void share() {
         if (bean == null) {
             return;
@@ -313,7 +314,7 @@ public class ArticleDetailActivity extends BaseActivity implements BaseView {
                 R.drawable.share_wechatmoments, //
                 R.drawable.share_sina
         };
-        ShareDialogUtil popupWindowUtil = new ShareDialogUtil(ArticleDetailActivity.this, shareBean, nameItems, resItems);
+          popupWindowUtil = new ShareDialogUtil(ArticleDetailActivity.this, shareBean, nameItems, resItems);
         popupWindowUtil.show(shareBean, Gravity.BOTTOM);
     }
 
@@ -729,5 +730,13 @@ public class ArticleDetailActivity extends BaseActivity implements BaseView {
     protected void onRestart() {
         super.onRestart();
         queryArticles(commentBeans.size());
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(popupWindowUtil!=null){
+            popupWindowUtil.dismissProgress();
+        }
     }
 }

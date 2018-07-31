@@ -380,4 +380,11 @@ public class PersonalHomeActivity extends BaseActivity implements BaseView {
         super.onRestart();
         quaryReviewByUser(dataBeans.size());
     }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (adapter != null) {
+            adapter.dismissProgress();
+        }
+    }
 }

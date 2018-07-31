@@ -261,8 +261,18 @@ public class ArticleCommentDetailActivity extends BaseActivity implements BaseVi
                 R.drawable.share_wechatmoments, //
                 R.drawable.share_sina
         };
-        ShareDialogUtil popupWindowUtil = new ShareDialogUtil(this, shareBean, nameItems, resItems);
+        popupWindowUtil = new ShareDialogUtil(this, shareBean, nameItems, resItems);
         popupWindowUtil.show(shareBean, Gravity.BOTTOM);
+    }
+
+    ShareDialogUtil popupWindowUtil;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (popupWindowUtil != null) {
+            popupWindowUtil.dismissProgress();
+        }
     }
 
     public void refreshFinish() {

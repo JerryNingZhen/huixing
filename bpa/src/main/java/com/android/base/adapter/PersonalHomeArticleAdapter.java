@@ -171,8 +171,16 @@ public class PersonalHomeArticleAdapter extends SimpleBaseAdapter<ArticleDetailB
                 R.drawable.share_wechatmoments, //
                 R.drawable.share_sina
         };
-        ShareDialogUtil popupWindowUtil = new ShareDialogUtil(context, shareBean, nameItems, resItems);
+        popupWindowUtil = new ShareDialogUtil(context, shareBean, nameItems, resItems);
         popupWindowUtil.show(shareBean, Gravity.BOTTOM);
+    }
+
+    ShareDialogUtil popupWindowUtil;
+
+    public void dismissProgress() {
+        if (popupWindowUtil != null) {
+            popupWindowUtil.dismissProgress();
+        }
     }
 
     /**

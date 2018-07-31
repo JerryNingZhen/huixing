@@ -194,4 +194,11 @@ public class InviteFriendActivity extends BaseActivity implements BaseView {
         //            }
         //        });
     }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (popupWindowUtil != null) {
+            popupWindowUtil.dismissProgress();
+        }
+    }
 }
