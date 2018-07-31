@@ -34,6 +34,7 @@ import com.android.base.mvp.baseclass.BaseView;
 import com.android.base.mvp.model.HttpOkBiz;
 import com.android.base.utils.IntentUtil;
 import com.android.base.utils.LogUtil;
+import com.android.base.utils.MathUtils;
 import com.android.base.utils.ScreenUtil;
 import com.android.base.utils.StringUtil;
 import com.android.base.utils.dialog.CustomDialog;
@@ -569,7 +570,7 @@ public class ArticleDetailActivity extends BaseActivity implements BaseView {
 
                 String str = (String) result.getObject();
                 if(!TextUtils.isEmpty(str)){
-                    Double m = Double.parseDouble(str);
+                    Double m =MathUtils.str2Double(str);
                     Double n = Double.parseDouble(bean.getArticleProfit());
                     bean.setArticleProfit(String.valueOf(m+n));
                 }
