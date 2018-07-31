@@ -569,8 +569,8 @@ public class ArticleDetailActivity extends BaseActivity implements BaseView {
 
                 String str = (String) result.getObject();
                 if(!TextUtils.isEmpty(str)){
-                    int m = Integer.parseInt(str);
-                    int n = Integer.parseInt(bean.getArticleProfit());
+                    Double m = Double.parseDouble(str);
+                    Double n = Double.parseDouble(bean.getArticleProfit());
                     bean.setArticleProfit(String.valueOf(m+n));
                 }
                 txt_profit.setText(bean.getArticleProfit());
