@@ -64,7 +64,7 @@
                 android:gravity="left|top"
                 android:hint="请输入个人简介"
                 android:imeOptions="actionDone"
-                android:maxLength="4"
+                android:maxLength="30"
                 android:minHeight="120dp"
                 android:paddingBottom="@dimen/distance_15"
                 android:paddingLeft="@dimen/distance_10"

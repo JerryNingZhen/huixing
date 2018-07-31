@@ -158,6 +158,7 @@ public class RequestServer {
                     .addHeader("osVersion", String.valueOf(android.os.Build.VERSION.SDK_INT))
                     .addHeader("model", android.os.Build.MODEL)
                     .addHeader("appVersion", SystemUtil.getAppVersionName())
+                    .addHeader("appVersionCode", SystemUtil.getAppVersionCode() +"")
                     .addHeader("channel", Constant.CHANNEL)
                     .addHeader("ABI", Build.CPU_ABI)
                     .addHeader("Content-Type", "application/json; charset=utf-8")

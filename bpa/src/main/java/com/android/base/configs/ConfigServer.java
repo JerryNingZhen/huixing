@@ -107,7 +107,8 @@ public class ConfigServer {
     /** 找回密码 */
     public final static String METHOD_RECOVERPASSWORD ="news/recoverPassword";
     /** 邀请好友 */
-    public final static String H5_INVITE = "http://m.blockcomet.com/#/register/register?";
+    //http://m.huixing.io/#/inviteRegister/inviteRegister?invitingCode=12345
+    public final static String H5_INVITE = "http://m.huixing.io/#/inviteRegister/inviteRegister?";
     /** 注册 */
     public final static String METHOD_REGISTERUSERONAPP = "news/registerUserOnApp";
     /** 上传头像 */

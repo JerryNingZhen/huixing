@@ -52,7 +52,7 @@ public class FirstFragment extends BaseFragment {
 
     @Override
     public void initGetData() {
-        titles.add(getString(R.string.care));
+        titles.add(getString(R.string.dynamic));
         titles.add(getString(R.string.recomend));
         fragment.add(new CareFragment());
         fragment.add(new RecomendFragment());

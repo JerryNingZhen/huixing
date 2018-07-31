@@ -113,6 +113,7 @@
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_vertical"
             android:layout_marginTop="10dp"
+            android:visibility="gone"
             android:text="@string/what_bitian"
             android:textColor="@color/content_blue"
             android:textSize="@dimen/font_size_least" />

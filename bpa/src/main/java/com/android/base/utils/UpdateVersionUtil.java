@@ -167,8 +167,8 @@ public class UpdateVersionUtil {
     private DownProgressDialogUtil downProgressDialogUtil;
 
     private boolean isMust() {
-        return false;
-        //        return bean != null && (bean.getForce().equals("1"));
+        //return false;
+                return bean != null && (bean.getForce().equals("1"));
     }
 
     /**
