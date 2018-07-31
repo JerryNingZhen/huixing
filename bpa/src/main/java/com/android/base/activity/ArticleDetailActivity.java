@@ -569,10 +569,14 @@ public class ArticleDetailActivity extends BaseActivity implements BaseView {
                 }
 
                 String str = (String) result.getObject();
-                if(!TextUtils.isEmpty(str)){
-                    Double m =MathUtils.str2Double(str);
-                    Double n = Double.parseDouble(bean.getArticleProfit());
-                    bean.setArticleProfit(String.valueOf(m+n));
+                try {
+                    if (!TextUtils.isEmpty(str) && !str.toLowerCase().equals("null")) {
+                        Double m = MathUtils.str2Double(str);
+                        Double n = Double.parseDouble(bean.getArticleProfit());
+                        bean.setArticleProfit(String.valueOf(m + n));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
                 txt_profit.setText(bean.getArticleProfit());
                 txt_zan.setText(bean.getLikes());
