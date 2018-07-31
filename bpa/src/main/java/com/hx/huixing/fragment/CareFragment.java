@@ -109,9 +109,8 @@ public class CareFragment extends BaseFragment {
         refresh_view.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
-                getArticleList(String.valueOf(curPage), pageSize, userId, articleType);
                 curPage = 1;
-
+                getArticleList(String.valueOf(curPage), pageSize, userId, articleType);
             }
         });
 
@@ -150,7 +149,7 @@ public class CareFragment extends BaseFragment {
                 articles = bean.getDatas();
 
                 if (articles.size() > 0) {
-                    if (curPage == 0) {
+                    if (curPage == 1) {
                         listDatas.clear();
                     }
                     listDatas.addAll(articles);

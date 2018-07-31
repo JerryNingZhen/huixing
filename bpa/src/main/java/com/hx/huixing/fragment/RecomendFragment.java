@@ -149,7 +149,7 @@ public class RecomendFragment extends BaseFragment {
                 articles = bean.getDatas();
 
                 if (articles.size() > 0){
-                    if (curPage == 0){
+                    if (curPage == 1){
                         listDatas.clear();
                     }
                     listDatas.addAll(articles);
