@@ -49,7 +49,7 @@ public class ArticleDetailBean extends BaseBean {
      * userPic :
      */
 
-    private String articleProfit = "";
+    private String articleProfit = "0";
     private String createTime = "";
     private String creator = "";
     //    private String fedbackList = "";
@@ -214,7 +214,7 @@ public class ArticleDetailBean extends BaseBean {
     @Override
     protected void init(JSONObject jSon) throws JSONException {
         //        private String articleProfit = "";
-        articleProfit = JsonUtil.optString(jSon, "articleProfit", "");
+        articleProfit = JsonUtil.optString(jSon, "articleProfit", "0");
         //        private String createTime = "";
         createTime = JsonUtil.optString(jSon, "createTime", "");
         //        private String creator =
