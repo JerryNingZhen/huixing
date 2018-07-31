@@ -567,6 +567,13 @@ public class ArticleDetailActivity extends BaseActivity implements BaseView {
                     txt_zan.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.thumb_up_grey), null, null, null);
                 }
 
+                String str = (String) result.getObject();
+                if(!TextUtils.isEmpty(str)){
+                    int m = Integer.parseInt(str);
+                    int n = Integer.parseInt(bean.getArticleProfit());
+                    bean.setArticleProfit(String.valueOf(m+n));
+                }
+                txt_profit.setText(bean.getArticleProfit());
                 txt_zan.setText(bean.getLikes());
                 dismissProgress();
             }
@@ -616,7 +623,7 @@ public class ArticleDetailActivity extends BaseActivity implements BaseView {
                 txt_comment.setText(bean.getReview());
                 txt_comment_size.setText("评论（" + bean.getReview() + "）");
                 edit_comment.setText("");
-                dismissProgress();
+                // dismissProgress();
                 showToast(result.getInfo());
                 queryArticles(commentBeans.size() + 1);
             }

@@ -429,7 +429,7 @@ public class ArticleCommentDetailActivity extends BaseActivity implements BaseVi
                 bean.setReview(String.valueOf(Integer.parseInt(bean.getReview()) + 1));
 
                 edit_comment.setText("");
-                dismissProgress();
+                //                dismissProgress();
                 showToast(result.getInfo());
 
                 queryArticlesList(commentBeans.size() + 1);

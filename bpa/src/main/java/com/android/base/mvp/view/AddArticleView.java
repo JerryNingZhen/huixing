@@ -46,8 +46,6 @@ import com.android.base.utils.imageutils.ImageCompressUtil;
 import com.android.base.widget.TitleView;
 import com.hx.huixing.R;
 
-import java.io.File;
-
 /**
  * 发帖 View模块
  * <p>
@@ -227,11 +225,12 @@ public class AddArticleView extends MvpBaseView<AddArticleActivity> {
                                 if (String.valueOf(permissionNameOrCode).equals(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                                     if (isSuccess) {
                                         FileUtil.createAllFile();
-                                        Intent intent = new Intent();
-                                        //intent.setAction("android.intent.action.GET_CONTENT");
-                                        intent.setAction(Intent.ACTION_PICK);//Pick an item fromthe data
-                                        intent.setType("image/*");
-                                        baseUI.startActivityForResult(intent, RequestCode.REQUEST_CODE_CHOSE_PHOTO);
+                                        //                                        Intent intent = new Intent();
+                                        //                                        //intent.setAction("android.intent.action.GET_CONTENT");
+                                        //                                        intent.setAction(Intent.ACTION_PICK);//Pick an item fromthe data
+                                        //                                        intent.setType("image/*");
+                                        //                                        baseUI.startActivityForResult(intent, RequestCode.REQUEST_CODE_CHOSE_PHOTO);
+                                        IntentUtil.chosePhoto(baseUI);
                                     } else {
                                         DialogUtil.showMessageDg(baseUI, "温馨提示", "亲，您还没有授权存储权限", "", "知道了", null, new CustomDialog.OnDialogClickListener() {
                                             @Override
@@ -266,14 +265,15 @@ public class AddArticleView extends MvpBaseView<AddArticleActivity> {
                                         break;
                                     case PermissionUtils.REQUEST_MULTIPLE_PERMISSION:
                                         if (isSuccess) {
-                                            Intent intent = new Intent();
-                                            intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
-                                            intent.addCategory(Intent.CATEGORY_DEFAULT);              // 根据文件地址创建文件
-
+                                            //                                            Intent intent = new Intent();
+                                            //                                            intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
+                                            //                                            intent.addCategory(Intent.CATEGORY_DEFAULT);              // 根据文件地址创建文件
+                                            //
                                             imgTitle = ConfigFile.PATH_IMAGES + "/fzd_" + System.currentTimeMillis() + ".jpg";
-                                            Uri uri = Uri.fromFile(new File(imgTitle));
-                                            intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-                                            baseUI.startActivityForResult(intent, RequestCode.REQUEST_CODE_TAKE_PHOTO);
+                                            //                                            Uri uri = Uri.fromFile(new File(imgTitle));
+                                            //                                            intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+                                            //                                            baseUI.startActivityForResult(intent, RequestCode.REQUEST_CODE_TAKE_PHOTO);
+                                            IntentUtil.takePhoto(baseUI, imgTitle);
 
                                         } else {
                                             String tips = "";
