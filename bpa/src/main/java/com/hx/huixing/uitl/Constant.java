@@ -69,7 +69,7 @@ public class Constant {
 
     public static final String PLATFORM = "ANDROID";
 
-    public static final String CHANNEL = "dyt";
+    public static final String CHANNEL = "hx";
 
     public static final String USER_ID = "userID";
 

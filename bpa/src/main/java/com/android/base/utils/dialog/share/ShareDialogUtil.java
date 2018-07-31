@@ -736,8 +736,8 @@ public class ShareDialogUtil {
                 loadingDialogUtil = new LoadingDialogUtil(mContent);
             }
 
-            String processMsg = mContent.getString(R.string.share_wait);
-            loadingDialogUtil.showDialog(processMsg, false);
+//            String processMsg = mContent.getString(R.string.share_wait);
+            loadingDialogUtil.showDialog("", false);
         } catch (Exception e) {
             e.printStackTrace();
         }

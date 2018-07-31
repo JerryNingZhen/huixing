@@ -108,5 +108,7 @@ public class ConfigServer {
     public final static String METHOD_RECOVERPASSWORD ="news/recoverPassword";
     /** 邀请好友 */
     public final static String H5_INVITE = "http://m.blockcomet.com/#/register/register?";
+    /** 注册 */
+    public final static String METHOD_REGISTERUSERONAPP = "news/registerUserOnApp";
 
 }

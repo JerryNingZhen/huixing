@@ -120,7 +120,8 @@ public class CareAdapter extends BaseAdapter {
         }
 
         if (bean.getHasFollowed().equals("1")) {
-            btn_add_care.setText("已关注");
+            //btn_add_care.setText("已关注");
+            btn_add_care.setVisibility(View.GONE); //已关注就隐藏
         } else {
             btn_add_care.setText("关注");
         }

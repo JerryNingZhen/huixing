@@ -1,5 +1,6 @@
 package com.hx.huixing.activity;
 
+import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -39,6 +40,9 @@ public class EditPersonInfoActivity extends BaseActivity {
     private TextView txt_count;
     private AutoBgButton btn_register;
 
+    private String name;
+    private String selfDes;
+
     @Override
     protected int getContentViewId() {
         return R.layout.activity_edit_info;
@@ -55,13 +59,18 @@ public class EditPersonInfoActivity extends BaseActivity {
 
     @Override
     protected void initGetData() {
-
+        Bundle bundle = getIntent().getExtras();
+        name = bundle.getString("name");
+        selfDes = bundle.getString("selfDes");
     }
 
     @Override
     protected void init() {
         title_view.setLeftBtnImg();
         title_view.setTitle("个人资料");
+
+        et_name.setText(name);
+        et_advice.setText(selfDes);
     }
 
     @Override

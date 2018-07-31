@@ -311,9 +311,6 @@ public class ThirdFragment extends BaseFragment implements View.OnClickListener 
                     tv_sign.setText("签到");
                 } else if (code == 1) {
                     tv_sign.setText("已签到");
-                    //ToastUtil.showToast(mActivity, "已签到，");
-                    //rl_sign.setEnabled(false);
-
                 }
             }
 
@@ -342,11 +339,11 @@ public class ThirdFragment extends BaseFragment implements View.OnClickListener 
         RetrofitUtils.getInstance().normalGet(ConfigServer.SERVER_API_URL + ConfigServer.METHOD_SIGNIN, map, new JsonCallBack() {
             @Override
             public void next(String response) {
-                Log.e("tanjun", response);
-
                 CountBean bean = new Gson().fromJson(response, CountBean.class);
                 if ("0".equals(bean.getCode())){
-                    signToast("签到成功，已向您钱包发射0.5HUI");
+                    //signToast("签到成功，已向您钱包发射0.5HUI");
+                    ToastUtil.showToast(mActivity, "签到成功，已向您钱包发射0.5HUI");
+                    checkSignIn();
                 }else {
                     signToast(bean.getMsg());
                 }

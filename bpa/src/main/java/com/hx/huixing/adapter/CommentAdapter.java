@@ -79,8 +79,7 @@ public class CommentAdapter extends BaseAdapter {
         tv_date.setText(bean.getCreateTime());
         tv_comment.setText(bean.getContent());
 
-
-
+        btn_add_reply.setVisibility(View.GONE);
 
         return convertView;
     }

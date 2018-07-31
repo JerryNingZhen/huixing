@@ -110,7 +110,10 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
         title_view.setRightBtnTxt("编辑", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                IntentUtil.gotoActivity(PersonalInfoActivity.this, EditPersonInfoActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("name", name);
+                bundle.putString("selfDes", selfDes);
+                IntentUtil.gotoActivity(PersonalInfoActivity.this, EditPersonInfoActivity.class, bundle);
             }
         });
 

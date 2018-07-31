@@ -7,6 +7,8 @@ import com.hx.huixing.bean.UserBean;
 
 import java.util.Map;
 
+import retrofit2.http.HEAD;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.QueryMap;
 import rx.Observable;
@@ -28,6 +30,7 @@ public interface RequestBiz {
 
       /** 注册 */
       @POST("news/registerUserOnApp")
+      @Headers("Content-Type: application/json;charset=UTF-8")
       Observable<Result<Object>> registerUser(@QueryMap Map<String, String> map);
 
       /** 登录 */

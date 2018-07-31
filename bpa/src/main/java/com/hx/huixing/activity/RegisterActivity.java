@@ -1,17 +1,34 @@
 package com.hx.huixing.activity;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
+import com.alibaba.fastjson.JSONObject;
+import com.android.base.configs.ConfigServer;
 import com.android.base.utils.IntentUtil;
 import com.android.base.utils.ToastUtil;
 import com.android.base.widget.AutoBgButton;
 import com.android.base.widget.TitleView;
+import com.google.gson.Gson;
 import com.hx.huixing.R;
 import com.hx.huixing.activityMvp.contract.RegisterContract;
 import com.hx.huixing.activityMvp.presenter.RegisterPresenter;
+import com.hx.huixing.bean.CountBean;
+import com.hx.huixing.common.http.FilterSubscriber;
+import com.hx.huixing.common.net.JsonCallBack;
+import com.hx.huixing.common.net.RetrofitUtils;
 import com.hx.huixing.widget.TimeButton;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
+
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * <br> Description 注册
@@ -128,7 +145,8 @@ public class RegisterActivity extends BaseActivity<RegisterContract.RegisterPres
                     return;
                 }
 
-                mPresenter.registerUser(realName, phoneNo2, password, phoneNo2, verCode);
+                //mPresenter.registerUser(realName, phoneNo2, password, phoneNo2, verCode);
+                registerUser(realName, phoneNo2, password, phoneNo2, verCode);
 
                 break;
         }
@@ -151,7 +169,7 @@ public class RegisterActivity extends BaseActivity<RegisterContract.RegisterPres
 
     @Override
     public void showToast(String msg) {
-        ToastUtil.showLongToast(this, msg);
+        ToastUtil.showToast(this, msg);
     }
 
     @Override
@@ -166,4 +184,47 @@ public class RegisterActivity extends BaseActivity<RegisterContract.RegisterPres
         super.onDestroy();
         btn_getcode.onDestroy();
     }
+
+    public void registerUser(String realName,String userName, String userPwd, String tel, String phoneCode) {
+        JSONObject map = new JSONObject();
+
+        map.put("realName", realName);
+        map.put("userName", userName);
+        map.put("userPwd", userPwd);
+        map.put("tel", tel);
+        map.put("phoneCode", phoneCode);
+
+        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), map.toString());
+
+        RetrofitUtils.getInstance().normalPostArticle(ConfigServer.SERVER_API_URL + ConfigServer.METHOD_REGISTERUSERONAPP, requestBody, new JsonCallBack() {
+            @Override
+            public void next(String response) {
+                CountBean bean = new Gson().fromJson(response, CountBean.class);
+                int code = Integer.parseInt(bean.getCode());
+                if (code == 0){
+                    onSuccess();
+                }else {
+                    showToast(bean.getMsg());
+                    return;
+                }
+            }
+
+            @Override
+            public void error(Throwable e) {
+                Log.e("tanjun", e.toString());
+            }
+
+            @Override
+            public void startLoading() {
+
+            }
+
+            @Override
+            public void closeLoading() {
+
+            }
+        });
+
+    }
+
 }

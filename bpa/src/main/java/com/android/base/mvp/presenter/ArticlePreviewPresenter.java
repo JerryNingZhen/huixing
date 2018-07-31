@@ -193,7 +193,6 @@ public class ArticlePreviewPresenter extends MvpBasePresenter<ArticlePreviewView
                 }
                 view.dismissProgress();
                 //                view.setViewData(result.getObject());
-                view.showToast(result.getInfo());
                 view.goBack();
             }
 

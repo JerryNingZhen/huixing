@@ -160,7 +160,7 @@ public class RequestServer {
                     .addHeader("appVersion", SystemUtil.getAppVersionName())
                     .addHeader("channel", Constant.CHANNEL)
                     .addHeader("ABI", Build.CPU_ABI)
-                    .addHeader("contentType", "application/x-www-form-urlencoded")
+                    .addHeader("Content-Type", "application/json; charset=utf-8")
                     .build();
             Log.e(TAG ,  request.headers().toString());
             return chain.proceed(request);
