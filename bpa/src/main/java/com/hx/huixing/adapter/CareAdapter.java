@@ -119,6 +119,8 @@ public class CareAdapter extends BaseAdapter {
             e.printStackTrace();
         }
 
+        int day = (int)Double.parseDouble(days);
+
         if (bean.getHasFollowed().equals("1")) {
             //btn_add_care.setText("已关注");
             btn_add_care.setVisibility(View.GONE); //已关注就隐藏
@@ -126,10 +128,10 @@ public class CareAdapter extends BaseAdapter {
             btn_add_care.setText("关注");
         }
 
-        if (ComUtils.transToInt(days) == 0) {
+        if (day == 0) {
             tv_date.setText("今天");
         } else {
-            tv_date.setText(ComUtils.transToInt(days) + "天前");
+            tv_date.setText(day + "天前");
         }
         if (!TextUtils.isEmpty(bean.getTitlePage())) {
             GlideUtil.loadImage(mContext, bean.getTitlePage(), iv_content, GlideUtil.getRequestOptions().error(R.drawable.img_default_grey));
