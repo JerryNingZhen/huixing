@@ -2,9 +2,11 @@ package com.android.base.activity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.Html;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
@@ -51,6 +53,7 @@ import com.android.base.widget.view.DialogContentView;
 import com.bumptech.glide.request.RequestOptions;
 import com.hx.huixing.R;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -184,7 +187,7 @@ public class ArticleDetailActivity extends BaseActivity implements BaseView {
                         break;
                     case R.id.img_share://
 
-                        if (bean != null){
+                        if (bean != null) {
                             if (bean.getCreator().equals(BaseApplication.getInstance().getUserInfoBean().getId())) {
                                 final CustomDialog dialog = new CustomDialog(ArticleDetailActivity.this);
                                 DialogContentView contentView = new DialogContentView(ArticleDetailActivity.this, dialog, new OnDialogViewCallBack() {
@@ -293,6 +296,7 @@ public class ArticleDetailActivity extends BaseActivity implements BaseView {
     }
 
     ShareDialogUtil popupWindowUtil;
+
     private void share() {
         if (bean == null) {
             return;
@@ -314,7 +318,7 @@ public class ArticleDetailActivity extends BaseActivity implements BaseView {
                 R.drawable.share_wechatmoments, //
                 R.drawable.share_sina
         };
-          popupWindowUtil = new ShareDialogUtil(ArticleDetailActivity.this, shareBean, nameItems, resItems);
+        popupWindowUtil = new ShareDialogUtil(ArticleDetailActivity.this, shareBean, nameItems, resItems);
         popupWindowUtil.show(shareBean, Gravity.BOTTOM);
     }
 
@@ -390,7 +394,36 @@ public class ArticleDetailActivity extends BaseActivity implements BaseView {
                     dismissProgress();
                 }
                 txt_title.setText(bean.getTextTitle());
-                txt_content.setText(Html.fromHtml(bean.getTextContent()));
+                //                txt_content.setText(Html.fromHtml(bean.getTextContent()));
+
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Html.ImageGetter imgGetter = new Html.ImageGetter() {
+                            public Drawable getDrawable(String source) {
+                                Drawable drawable;
+                                try {
+                                    URL url = new URL(source);
+                                    drawable = Drawable.createFromStream(url.openStream(), "img");
+                                } catch (Exception e) {
+                                    return null;
+                                }
+                                if (drawable != null) {
+                                    drawable.setBounds(0, 0, ScreenUtil.getScreenWidthPx(), (int) (ScreenUtil.getScreenWidthPx() * 1f / drawable.getIntrinsicWidth() * drawable.getIntrinsicHeight()));
+                                }
+                                return drawable;
+                            }
+                        };
+
+                        final Spanned text = Html.fromHtml(bean.getTextContent(), imgGetter, null);
+                        txt_content.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                txt_content.setText(text);
+                            }
+                        });
+                    }
+                }).start();
 
                 String copyright = String.format(getString(R.string.activity_article_detail), StringUtil.makeColorText(bean.getRealName(), "#5c5c5c"));
                 txt_copyright.setText(Html.fromHtml(copyright));
@@ -735,7 +768,7 @@ public class ArticleDetailActivity extends BaseActivity implements BaseView {
     @Override
     protected void onResume() {
         super.onResume();
-        if(popupWindowUtil!=null){
+        if (popupWindowUtil != null) {
             popupWindowUtil.dismissProgress();
         }
     }

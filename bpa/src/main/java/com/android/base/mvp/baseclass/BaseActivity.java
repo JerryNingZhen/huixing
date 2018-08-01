@@ -1,5 +1,6 @@
 package com.android.base.mvp.baseclass;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -260,6 +261,7 @@ public abstract class BaseActivity extends FragmentActivity implements BaseUI {
                 tintManager.setTintResource(resId);
             }
         }
+        //        setStatusBarMode(this,true);
     }
 
     @SuppressWarnings("unchecked")
@@ -425,5 +427,29 @@ public abstract class BaseActivity extends FragmentActivity implements BaseUI {
                 }
             }
         });
+    }
+
+    /**
+     * 6.0以下不起效果，不能直接设置
+     * Flag只有在使用了FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS
+     * 并且没有使用 FLAG_TRANSLUCENT_STATUS的时候才有效，也就是只有在状态栏全透明的时候才有效。
+     *
+     * @param activity
+     * @param bDark
+     */
+    public static void setStatusBarMode(Activity activity, boolean bDark) {
+        //6.0以上
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            View decorView = activity.getWindow().getDecorView();
+            if (decorView != null) {
+                int vis = decorView.getSystemUiVisibility();
+                if (bDark) {
+                    vis |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;// 黑色
+                } else {
+                    vis &= ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;// 白色
+                }
+                decorView.setSystemUiVisibility(vis);
+            }
+        }
     }
 }
