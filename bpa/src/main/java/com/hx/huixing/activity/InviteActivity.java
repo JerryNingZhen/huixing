@@ -104,11 +104,6 @@ public class InviteActivity extends BaseActivity {
         mWebView.onPause();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mWebView.onResume();
-    }
 
     @Override
     protected void onDestroy() {
@@ -153,13 +148,12 @@ public class InviteActivity extends BaseActivity {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
+
                 /** 截图 */
                 mWebView.post(new Runnable() {
                     @Override
                     public void run() {
                         Bitmap bitmap = BitmapUtil.takeScreenShot4View1(InviteActivity.this, mWebView);
-                        // 保存生成的位图
-//                BitmapUtil.saveBitmapToFile(ConfigFile.PATH_IMAGES,  "screenShot.png", bitmap);
                         if (bitmap != null) {
                             try {
                                 file = new File(ConfigFile.PATH_CAMERA + "/screenShot.png");
@@ -222,4 +216,14 @@ public class InviteActivity extends BaseActivity {
         popupWindowUtil = new ShareDialogUtil(this, shareBean, nameItems, resItems);
         popupWindowUtil.show(shareBean, Gravity.BOTTOM);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mWebView.onResume();
+        if(popupWindowUtil!=null){
+            popupWindowUtil.dismissProgress();
+        }
+    }
+
 }
