@@ -37,6 +37,7 @@ import com.android.base.utils.imageutils.GetPathUtil;
 import com.android.base.utils.picasso.PicassoUtil;
 import com.android.base.widget.TitleView;
 import com.google.gson.Gson;
+import com.hx.huixing.BuildConfig;
 import com.hx.huixing.R;
 import com.hx.huixing.activityMvp.BasePresenter;
 import com.hx.huixing.bean.CountBean;
@@ -281,7 +282,7 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
         Uri uri;
         if (Build.VERSION.SDK_INT >= 24) {
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            uri = FileProvider.getUriForFile(this, "com.hxyd.dyt.fileprovider", new File(tempPath));
+            uri = FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID + ".fileProvider", new File(tempPath));
             //								uri = FileProvider.getUriForFile(RecordedOrderActvityThree.this, BuildConfig.APPLICATION_ID + ".fileProvider", new File(tempPath));
         } else {
             uri = Uri.fromFile(new File(tempPath));

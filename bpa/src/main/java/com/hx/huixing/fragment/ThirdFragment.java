@@ -184,8 +184,8 @@ public class ThirdFragment extends BaseFragment implements View.OnClickListener 
                 break;
 
             case R.id.tv_invite://邀请好友
-                //IntentUtil.gotoActivity(mActivity, InviteFriendActivity.class);
-                IntentUtil.gotoActivity(mActivity, InviteActivity.class);
+                ToastUtil.showToast(mActivity, "正在开发中");
+                //IntentUtil.gotoActivity(mActivity, InviteActivity.class);
                 break;
 
             case R.id.rl_publish://帖子
