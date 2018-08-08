@@ -25,11 +25,14 @@ import com.android.base.mvp.model.HttpOkBiz;
 import com.android.base.utils.DateUtil;
 import com.android.base.utils.IntentUtil;
 import com.android.base.utils.ToastUtil;
+import com.android.base.utils.glide.CropTransformation;
+import com.android.base.utils.glide.GlideRoundTransform;
 import com.android.base.utils.glide.GlideUtil;
 import com.android.base.utils.picasso.PicassoUtil;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.hx.huixing.R;
 import com.hx.huixing.bean.CareArticleBean;
-import com.hx.huixing.uitl.ComUtils;
 import com.hx.huixing.widget.RoundImage;
 
 import java.util.ArrayList;
@@ -88,7 +91,7 @@ public class CareAdapter extends BaseAdapter {
 
         TextView tv_coin_count; //币个数
 
-        Button btn_add_care;
+        Button btn_add_care;//关注按钮
 
         round_image = view.findViewById(R.id.round_image);
         tv_name = view.findViewById(R.id.tv_name);

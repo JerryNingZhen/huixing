@@ -1,5 +1,13 @@
 package com.hx.huixing.uitl;
 
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
+import android.graphics.RectF;
+
 /**
  * <br> Description 不好归类的方法放在这里
  * <br> Author: 谭俊
@@ -8,13 +16,5 @@ package com.hx.huixing.uitl;
  */
 public class ComUtils {
 
-    public static int transToInt(String str){
-        int result = 0;
-        if (str.contains(".")){
-            int index = str.indexOf(".");
-            result = Integer.parseInt(str.substring(0, index));
-        }
-        return result;
-    }
 
 }

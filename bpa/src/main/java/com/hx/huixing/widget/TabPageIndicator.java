@@ -58,8 +58,8 @@ public class TabPageIndicator extends HorizontalScrollView {
 
     private int indicatorColor = Color.parseColor("#ffffff");//指示线的颜色  #0075E7
     private int underlineColor = 0xFFdcdcdc;// 默认指示线的颜色
-    //private int dividerColor = 0x00000000;// 分割线的颜色
-    private int dividerColor = 0xffdddddd;// 分割线的颜色
+    private int dividerColor = 0x00000000;// 分割线的颜色
+    //private int dividerColor = 0xffdddddd;// 分割线的颜色
 
     private boolean isSameLine;// 设置导航先是否跟文字长度一至
     private boolean textAllCaps;

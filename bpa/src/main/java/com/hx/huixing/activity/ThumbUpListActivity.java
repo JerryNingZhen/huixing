@@ -121,7 +121,7 @@ public class ThumbUpListActivity extends BaseActivity {
                             list_thumbs = bean.getDatas();
 
                             if (list_thumbs.size() > 0){
-                                if (currentPage == 0){
+                                if (currentPage == 1){
                                     thumbs.clear();
                                 }
                                 thumbs.addAll(list_thumbs);
@@ -134,7 +134,7 @@ public class ThumbUpListActivity extends BaseActivity {
                             list_comments = bean.getDatas();
 
                             if (list_comments.size() > 0){
-                                if (currentPage == 0){
+                                if (currentPage == 1){
                                     comments.clear();
                                 }
                                 comments.addAll(list_comments);

@@ -10,5 +10,4 @@
         android:width="1dp"
         android:color="@color/line_grey_light" />
 
-
 </shape>

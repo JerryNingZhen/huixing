@@ -14,6 +14,8 @@ import com.amos.smartrefresh.layout.api.RefreshLayout;
 import com.amos.smartrefresh.layout.listener.OnRefreshListener;
 import com.android.base.BaseApplication;
 import com.android.base.activity.PersonalArticleActivity;
+import com.android.base.activity.PersonalFansActivity;
+import com.android.base.activity.PersonalFocusActivity;
 import com.android.base.configs.ConfigServer;
 import com.android.base.configs.ConstantKey;
 import com.android.base.utils.IntentUtil;
@@ -194,17 +196,15 @@ public class ThirdFragment extends BaseFragment implements View.OnClickListener 
                 break;
 
             case R.id.rl_focus://关注
-                ToastUtil.showToast(mActivity, getString(R.string.developing));
-                /*bundle = new Bundle();
+                bundle = new Bundle();
                 bundle.putString(ConstantKey.INTENT_KEY_ID, BaseApplication.getInstance().getUserInfoBean().getId());
-                IntentUtil.gotoActivityToTop(getActivity(), PersonalFocusActivity.class, bundle);*/
+                IntentUtil.gotoActivityToTop(getActivity(), PersonalFocusActivity.class, bundle);
                 break;
 
             case R.id.rl_fans://粉丝
-                ToastUtil.showToast(mActivity, getString(R.string.developing));
-                /*bundle = new Bundle();
+                bundle = new Bundle();
                 bundle.putString(ConstantKey.INTENT_KEY_ID, BaseApplication.getInstance().getUserInfoBean().getId());
-                IntentUtil.gotoActivityToTop(getActivity(), PersonalFansActivity.class, bundle);*/
+                IntentUtil.gotoActivityToTop(getActivity(), PersonalFansActivity.class, bundle);
                 break;
         }
     }
@@ -239,8 +239,8 @@ public class ThirdFragment extends BaseFragment implements View.OnClickListener 
                 tv_third_name.setText(datasBean.getRealName());
                 //帖子
                 tv_publish.setText(datasBean.getArticleCount());
-                tv_focus_count.setText(datasBean.getFollowing());
-                tv_follow_count.setText(datasBean.getFollower());
+                tv_focus_count.setText(datasBean.getFollowing()); //关注
+                tv_follow_count.setText(datasBean.getFollower()); //粉丝
                 PicassoUtil.loadImage(mActivity, datasBean.getUserPic(), iv_user_head);
 
             }

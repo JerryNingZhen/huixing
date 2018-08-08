@@ -5,6 +5,8 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.widget.ImageView;
 
+import com.android.base.utils.ScreenUtil;
+import com.bumptech.glide.util.Util;
 import com.hx.huixing.R;
 import com.android.base.utils.LogUtil;
 import com.bumptech.glide.Glide;
@@ -36,14 +38,10 @@ public class GlideUtil {
      * <br> UpdateAuthor: 叶青
      * <br> UpdateInfo: (此处输入修改内容,若无修改可不写.)
      *
-     * @param context
-     *         上下文
-     * @param imgPath
-     *         路径
-     * @param imageView
-     *         控件ImageView
-     * @param options
-     *         RequestOptions
+     * @param context   上下文
+     * @param imgPath   路径
+     * @param imageView 控件ImageView
+     * @param options   RequestOptions
      */
     public static void loadImage(Context context, String imgPath, ImageView imageView, RequestOptions options) {
         Glide.with(context)
@@ -143,37 +141,34 @@ public class GlideUtil {
     //        loadRoundImage(context, imgPath, imageView, R.drawable.img_default_grey_base);
     //    }
     //
-    //    /**
-    //     * 设置圆角图片
-    //     * <p>
-    //     * <br> Version: 1.0.0
-    //     * <br> CreateTime: 2016/5/9 17:36
-    //     * <br> UpdateTime: 2016/5/9 17:36
-    //     * <br> CreateAuthor:  叶青
-    //     * <br> UpdateAuthor:  叶青
-    //     * <br> UpdateInfo: (此处输入修改内容,若无修改可不写.)
-    //     *
-    //     * @param context
-    //     *         上下文
-    //     * @param imgPath
-    //     *         图片路径
-    //     * @param imageView
-    //     *         ImageView
-    //     * @param resDefaultId
-    //     *         占位图 默认图片 一般可以设置成一个加载中的进度GIF图
-    //     */
-    //    public static void loadRoundImage(Context context, String imgPath, ImageView imageView, int resDefaultId) {
-    //
-    //        if (!Util.isOnMainThread()) {
-    //            return;
-    //        }
-    //
-    //        RequestOptions options = getRequestOptions()
-    //                .transforms(new CropTransformation(CropTransformation.CropType.SQUARE), new RoundedCornersTransformation(ScreenUtil.dip2px(20), 0))//// 多重变换
-    //                .placeholder(resDefaultId);//
-    //
-    //        loadImage(context, imgPath, imageView, options);
-    //    }
+
+    /**
+     * 设置圆角图片
+     * <p>
+     * <br> Version: 1.0.0
+     * <br> CreateTime: 2016/5/9 17:36
+     * <br> UpdateTime: 2016/5/9 17:36
+     * <br> CreateAuthor:  叶青
+     * <br> UpdateAuthor:  叶青
+     * <br> UpdateInfo: (此处输入修改内容,若无修改可不写.)
+     *
+     * @param context      上下文
+     * @param imgPath      图片路径
+     * @param imageView    ImageView
+     * @param resDefaultId 占位图 默认图片 一般可以设置成一个加载中的进度GIF图
+     */
+    public static void loadRoundImage(Context context, String imgPath, ImageView imageView, int resDefaultId) {
+
+        if (!Util.isOnMainThread()) {
+            return;
+        }
+
+        RequestOptions options = getRequestOptions()
+                .transforms(new CropTransformation(CropTransformation.CropType.RECTANGLE), new RoundedCornersTransformation(ScreenUtil.dip2px(10), 0))//// 多重变换
+                .placeholder(resDefaultId);//
+
+        loadImage(context, imgPath, imageView, options);
+    }
     //
     //    /**
     //     * 设置圆角图片
