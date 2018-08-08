@@ -78,6 +78,20 @@ public class AddArticleView extends MvpBaseView<AddArticleActivity> {
         img_content = findViewByIds(R.id.img_content);
         edit_title = findViewByIds(R.id.edit_title);
         edit_content = findViewByIds(R.id.edit_content);
+
+//        RequestOptions options = GlideUtil.getRequestOptions();
+//        options.transforms(new RoundedCornersTransformation(15, 0));//// 多重变换
+//        Glide.with(baseUI)
+//                .load(R.drawable.img_default_grey)
+//                .apply(options)
+//                .into(img_content);
+//        img_content.getLayoutParams().height = ScreenUtil.getScreenWidthPx() / 3;
+        ////        Bitmap bitmap = BitmapUtil.
+        //        Resources r =baseUI.getResources();
+        //        InputStream is = r.openRawResource(R.drawable.img_default_grey);
+        //        BitmapDrawable bmpDraw = new BitmapDrawable(is);
+        //        img_content.setImageBitmap(ImageOpera.cutRound(BitmapUtil.drawableToBitmap(bmpDraw),ScreenUtil.dip2px(10)));
+
     }
 
     @Override

@@ -1,19 +1,24 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/view_group_parent"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+<RelativeLayout style="@style/view_group_parent"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
     <com.android.base.widget.TitleView
         android:id="@id/title_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"/>
 
-    <View style="@style/line_horizontal_gray_light_style" />
+    <View
+        android:id="@+id/view_line"
+        style="@style/line_horizontal_gray_light_style"
+        android:layout_below="@+id/title_view"/>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/view_bottom"
+        android:layout_below="@+id/view_line"
         android:background="@color/bg_default"
         android:fillViewport="true">
 
@@ -26,10 +31,12 @@
                 android:id="@+id/img_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/distance_15"
+                android:layout_marginRight="@dimen/distance_15"
                 android:contentDescription="@null"
                 android:gravity="center_vertical"
                 android:scaleType="fitXY"
-                android:src="@drawable/img_default_grey" />
+                android:src="@drawable/img_default_grey_round"/>
 
             <EditText
                 android:id="@+id/edit_title"
@@ -42,7 +49,7 @@
                 android:padding="@dimen/distance_15"
                 android:textColor="@color/font_black"
                 android:textColorHint="@color/font_gray"
-                android:textSize="@dimen/font_size_big" />
+                android:textSize="@dimen/font_size_big"/>
 
             <EditText
                 android:id="@+id/edit_content"
@@ -55,8 +62,87 @@
                 android:padding="@dimen/distance_15"
                 android:textColor="@color/font_gray"
                 android:textColorHint="@color/font_gray"
-                android:textSize="@dimen/font_size_normal" />
+                android:textSize="@dimen/font_size_normal"/>
 
         </LinearLayout>
     </ScrollView>
-</LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/view_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:visibility="gone"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:checked="true"
+            android:gravity="center"
+            android:padding="7dp"
+            android:src="@drawable/mine_on"/>
+
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:checked="true"
+            android:gravity="center"
+            android:padding="7dp"
+            android:src="@drawable/mine_on"/>
+
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:checked="true"
+            android:gravity="center"
+            android:padding="7dp"
+            android:src="@drawable/mine_on"/>
+
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:checked="true"
+            android:gravity="center"
+            android:padding="7dp"
+            android:src="@drawable/mine_on"/>
+
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:checked="true"
+            android:gravity="center"
+            android:padding="7dp"
+            android:src="@drawable/mine_on"/>
+
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:checked="true"
+            android:gravity="center"
+            android:padding="7dp"
+            android:src="@drawable/mine_on"/>
+
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:checked="true"
+            android:gravity="center"
+            android:padding="7dp"
+            android:src="@drawable/mine_on"/>
+    </LinearLayout>
+</RelativeLayout>

@@ -31,6 +31,7 @@
 
             <com.android.base.widget.CustomKeyBoardListView
                 android:id="@+id/lv_content"
+                android:dividerHeight="0px"
                 style="@style/list_style"/>
 
             <com.amos.smartrefresh.layout.footer.ClassicsFooter
