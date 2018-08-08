@@ -2,14 +2,12 @@ package com.hx.huixing.adapter;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.text.Html;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -25,14 +23,11 @@ import com.android.base.mvp.model.HttpOkBiz;
 import com.android.base.utils.DateUtil;
 import com.android.base.utils.IntentUtil;
 import com.android.base.utils.ToastUtil;
-import com.android.base.utils.glide.CropTransformation;
-import com.android.base.utils.glide.GlideRoundTransform;
 import com.android.base.utils.glide.GlideUtil;
 import com.android.base.utils.picasso.PicassoUtil;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.hx.huixing.R;
 import com.hx.huixing.bean.CareArticleBean;
+import com.hx.huixing.widget.RoundCornerImage;
 import com.hx.huixing.widget.RoundImage;
 
 import java.util.ArrayList;
@@ -79,7 +74,7 @@ public class CareAdapter extends BaseAdapter {
         RoundImage round_image;//用户图片
         TextView tv_name; //用户名
         TextView tv_date; //日期 四天前
-        ImageView iv_content; //文章插图
+        RoundCornerImage iv_content; //文章插图
         TextView tv_content_title;//文章标题
         TextView tv_content_brife;//摘要 50个字
 
@@ -137,9 +132,9 @@ public class CareAdapter extends BaseAdapter {
             tv_date.setText(day + "天前");
         }
         if (!TextUtils.isEmpty(bean.getTitlePage())) {
-            GlideUtil.loadImage(mContext, bean.getTitlePage(), iv_content, GlideUtil.getRequestOptions().error(R.drawable.img_default_grey));
+            GlideUtil.loadImage(mContext, bean.getTitlePage(), iv_content, GlideUtil.getRequestOptions().error(R.drawable.img_default_grey_base));
         } else {
-            GlideUtil.loadImage(mContext, "", iv_content, GlideUtil.getRequestOptions().error(R.drawable.img_default_grey));
+            GlideUtil.loadImage(mContext, "", iv_content, GlideUtil.getRequestOptions().error(R.drawable.img_default_grey_base));
         }
 
         tv_content_title.setText(bean.getTextTitle());
