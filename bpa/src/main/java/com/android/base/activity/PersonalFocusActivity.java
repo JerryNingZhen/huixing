@@ -8,6 +8,7 @@ import com.amos.smartrefresh.layout.SmartRefreshLayout;
 import com.amos.smartrefresh.layout.api.RefreshLayout;
 import com.amos.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.amos.smartrefresh.layout.listener.OnRefreshListener;
+import com.android.base.BaseApplication;
 import com.android.base.adapter.PersonalFocusAdapter;
 import com.android.base.bean.ArticleDetailBean;
 import com.android.base.bean.BaseBean;

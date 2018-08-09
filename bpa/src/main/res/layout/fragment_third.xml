@@ -61,14 +61,14 @@
 
                         <TextView
                             android:id="@+id/tv_level"
-                            android:background="@drawable/shape_level"
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
                             android:layout_marginLeft="3dp"
                             android:layout_toRightOf="@+id/tv_third_name"
-                            android:textSize="@dimen/font_size_little"
+                            android:background="@drawable/shape_level"
                             android:gravity="center"
                             android:textColor="@color/content_blue"
-                            android:layout_width="40dp"
-                            android:layout_height="wrap_content" />
+                            android:textSize="@dimen/font_size_little" />
 
                         <TextView
                             android:id="@+id/tv_power"
@@ -138,9 +138,9 @@
 
                         <TextView
                             android:id="@+id/tv_publish"
-                            android:text="0"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:text="0" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -160,10 +160,10 @@
 
                         <TextView
                             android:id="@+id/tv_focus_count"
-                            android:text="0"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true" />
+                            android:layout_centerHorizontal="true"
+                            android:text="0" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -242,14 +242,34 @@
                     android:textColor="@color/font_black"
                     android:textSize="@dimen/font_size_normal" />
 
-                <!--邀请-->
+                <!--游戏规则-->
                 <TextView
-                    android:id="@+id/tv_setting"
+                    android:id="@+id/tv_game_rule"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tv_invite"
                     android:layout_centerVertical="true"
-                    android:layout_marginTop="@dimen/distance_10"
+                    android:layout_marginTop="1px"
+                    android:background="@color/white"
+                    android:drawableLeft="@drawable/invite"
+                    android:drawablePadding="@dimen/distance_20"
+                    android:drawableRight="@drawable/right_arrow"
+                    android:gravity="center_vertical"
+                    android:minHeight="60dp"
+                    android:paddingLeft="@dimen/account_manager_ll_item_tv_marginLeft"
+                    android:paddingRight="@dimen/account_manager_ll_item_tv_marginStart"
+                    android:text="@string/game_rule"
+                    android:textColor="@color/font_black"
+                    android:textSize="@dimen/font_size_normal" />
+
+                <!--设置-->
+                <TextView
+                    android:id="@+id/tv_setting"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_game_rule"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="1px"
                     android:background="@color/white"
                     android:drawableLeft="@drawable/setting_blue"
                     android:drawablePadding="@dimen/distance_20"
