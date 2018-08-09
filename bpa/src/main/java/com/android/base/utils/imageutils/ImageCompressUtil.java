@@ -244,7 +244,7 @@ public class ImageCompressUtil {
 
         try {
             String fileName = filePath.substring(filePath.lastIndexOf("/") + 1);
-            fileName = fileName.replace(".",  "_compress+new.");
+            fileName = fileName.replace(".",  "_compress.");
             File saveimg = new File(ConfigFile.PATH_IMAGES + fileName);
             BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(saveimg));
             bitmap.compress(Bitmap.CompressFormat.JPEG, quality, bos);

@@ -409,7 +409,12 @@ public class ArticleDetailActivity extends BaseActivity implements BaseView {
                                     return null;
                                 }
                                 if (drawable != null) {
-                                    drawable.setBounds(0, 0, ScreenUtil.getScreenWidthPx(), (int) (ScreenUtil.getScreenWidthPx() * 1f / drawable.getIntrinsicWidth() * drawable.getIntrinsicHeight()));
+                                    if("http://backend.blockcomet.com/blockchain/getpic?picture=/data/NewsPaperFront/img/2018-08-09_9c28b6ec-f644-4399-8819-ea1d35bd0b8d.png".equals(source)
+                                            ||"http://backend.blockcomet.com/blockchain/getpic?picture=/data/NewsPaperFront/img/2018-08-09_1bc007fe-e276-479b-982a-09404049f7e8.png".equals(source)  ){
+                                        drawable.setBounds(0, 0, ScreenUtil.getScreenWidthPx(), 1);
+                                    }else{
+                                        drawable.setBounds(0, 0, ScreenUtil.getScreenWidthPx(), (int) (ScreenUtil.getScreenWidthPx() * 1f / drawable.getIntrinsicWidth() * drawable.getIntrinsicHeight()));
+                                    }
                                 }
                                 return drawable;
                             }

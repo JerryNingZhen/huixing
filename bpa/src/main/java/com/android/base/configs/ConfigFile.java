@@ -2,9 +2,6 @@ package com.android.base.configs;
 
 import android.os.Environment;
 
-import com.android.base.BaseApplication;
-import com.hx.huixing.R;
-
 /**
  * 文件属性类
  * <p>
@@ -19,7 +16,7 @@ public class ConfigFile {
     // *************************** 应用使用的文件路径 *****************************//
     // 公用文件路径
     /** 应用文件夹名字 */
-    private static final String PATH_BASE_NAME = BaseApplication.getInstance().getApplicationContext().getString(R.string.app_name);
+    private static final String PATH_BASE_NAME = "huixing";
     /** 应用根目录 */
     public static final String PATH_BASE = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + PATH_BASE_NAME + "/";
     /** 应用Log日志 */

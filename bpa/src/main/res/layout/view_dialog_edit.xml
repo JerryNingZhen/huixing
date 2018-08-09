@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_bg_dialog"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/distance_20"
+            android:layout_marginLeft="@dimen/distance_15"
+            android:layout_marginRight="@dimen/distance_15"
+            android:layout_marginTop="@dimen/distance_20"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/view_dialog_txt_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:text="超链接"
+                android:textColor="@color/font_black"
+                android:textSize="@dimen/font_size_middle"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+
+        <View style="@style/line_horizontal_gray_light_style"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/distance_20">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="链接标题"
+                android:textSize="@dimen/font_size_normal"/>
+
+            <EditText
+                android:id="@+id/et_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:hint="输入标题"
+                android:maxLines="1"
+                android:padding="@dimen/distance_15"
+                android:textColor="@color/font_content"
+                android:textColorHint="@color/font_gray"
+                android:textSize="@dimen/font_size_normal"/>
+        </LinearLayout>
+
+        <View style="@style/line_horizontal_gray_light_style"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/distance_20"
+                android:text="链接地址"
+                android:textSize="@dimen/font_size_normal"/>
+
+
+            <EditText
+                android:id="@+id/et_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:hint="输入网址"
+                android:maxLines="1"
+                android:padding="@dimen/distance_15"
+                android:textColor="@color/font_content"
+                android:textColorHint="@color/font_gray"
+                android:textSize="@dimen/font_size_normal"/>
+        </LinearLayout>
+
+        <View style="@style/line_horizontal_gray_light_style"/>
+
+        <LinearLayout
+            android:id="@+id/view_btn_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_left"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/selector_transparent_black_5"
+                android:padding="@dimen/distance_15"
+                android:text="@string/cancel"
+                android:textColor="@color/font_content"
+                android:textSize="@dimen/font_size_normal"/>
+
+            <View
+                android:id="@+id/view_line"
+                style="@style/line_vertical_gray_style"
+                android:background="@color/black_15"/>
+
+            <Button
+                android:id="@+id/btn_right"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/selector_transparent_black_5"
+                android:padding="@dimen/distance_15"
+                android:text="@string/sure"
+                android:textColor="@color/font_content"
+                android:textSize="@dimen/font_size_normal"/>
+        </LinearLayout>
+
+        <!-- <com.android.base.widget.AutoBgTextView
+             android:id="@+id/txt_share"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:drawableRight="@drawable/arrow_right_grey"
+             android:paddingBottom="@dimen/distance_15"
+             android:paddingLeft="@dimen/distance_10"
+             android:paddingRight="@dimen/distance_10"
+             android:paddingTop="@dimen/distance_15"
+             android:text="分享"
+             android:textColor="@color/font_content"
+             android:textSize="@dimen/font_size_normal"/>
+
+         <View style="@style/line_horizontal_gray_light_style"/>
+
+         <com.android.base.widget.AutoBgTextView
+             android:id="@+id/txt_edit"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:drawableRight="@drawable/arrow_right_grey"
+             android:paddingBottom="@dimen/distance_15"
+             android:paddingLeft="@dimen/distance_10"
+             android:paddingRight="@dimen/distance_10"
+             android:paddingTop="@dimen/distance_15"
+             android:text="编辑"
+             android:textColor="@color/font_content"
+             android:textSize="@dimen/font_size_normal"/>
+
+         <View style="@style/line_horizontal_gray_light_style"/>
+
+         <com.android.base.widget.AutoBgTextView
+             android:id="@+id/txt_del"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:drawableRight="@drawable/arrow_right_grey"
+             android:paddingBottom="@dimen/distance_15"
+             android:paddingLeft="@dimen/distance_10"
+             android:paddingRight="@dimen/distance_10"
+             android:paddingTop="@dimen/distance_15"
+             android:text="删除"
+             android:textColor="@color/font_content"
+             android:textSize="@dimen/font_size_normal"/>
+
+         <View style="@style/line_horizontal_gray_light_style"/>
+
+         <com.android.base.widget.AutoBgTextView
+             android:id="@+id/txt_cancel"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:drawableRight="@drawable/arrow_right_grey"
+             android:paddingBottom="@dimen/distance_15"
+             android:paddingLeft="@dimen/distance_10"
+             android:paddingRight="@dimen/distance_10"
+             android:paddingTop="@dimen/distance_15"
+             android:text="取消"
+             android:textColor="@color/font_content"
+             android:textSize="@dimen/font_size_normal"/>-->
+
+    </LinearLayout>
+
+</RelativeLayout>
