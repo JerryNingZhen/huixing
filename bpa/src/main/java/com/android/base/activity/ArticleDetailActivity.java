@@ -21,7 +21,6 @@ import com.amos.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.amos.smartrefresh.layout.listener.OnRefreshListener;
 import com.android.base.BaseApplication;
 import com.android.base.adapter.ArticleCommentAdapter;
-import com.android.base.bean.ArticleAddBean;
 import com.android.base.bean.ArticleCommentBean;
 import com.android.base.bean.ArticleDetailBean;
 import com.android.base.bean.BaseBean;
@@ -200,14 +199,15 @@ public class ArticleDetailActivity extends BaseActivity implements BaseView {
                                                 share();
                                                 break;
                                             case "edit"://
-                                                ArticleAddBean articleAddBean = new ArticleAddBean();
-                                                articleAddBean.setTitlePage(bean.getTitlePage());
-                                                articleAddBean.setTextContent(bean.getTextContent());
-                                                articleAddBean.setTextTitle(bean.getTextTitle());
-                                                articleAddBean.setCreateTime(bean.getCreateTime());
-                                                articleAddBean.setReviewId(bean.getReviewId());
+                                                //                                                ArticleAddBean articleAddBean = new ArticleAddBean();
+                                                //                                                articleAddBean.setTitlePage(bean.getTitlePage());
+                                                //                                                articleAddBean.setTextContent(bean.getTextContent());
+                                                //                                                articleAddBean.setTextTitle(bean.getTextTitle());
+                                                //                                                articleAddBean.setCreateTime(bean.getCreateTime());
+                                                //                                                articleAddBean.setReviewId(bean.getReviewId());
                                                 Bundle bundle = new Bundle();
-                                                bundle.putSerializable(ConstantKey.INTENT_KEY_DATA, articleAddBean);
+                                                //                                                bundle.putSerializable(ConstantKey.INTENT_KEY_DATA, articleAddBean);
+                                                bundle.putSerializable(ConstantKey.INTENT_KEY_ID, bean.getReviewId());
                                                 IntentUtil.gotoActivity(ArticleDetailActivity.this, EditArticleActivity.class, bundle);
                                                 break;
                                             case "del"://
@@ -409,10 +409,10 @@ public class ArticleDetailActivity extends BaseActivity implements BaseView {
                                     return null;
                                 }
                                 if (drawable != null) {
-                                    if("http://backend.blockcomet.com/blockchain/getpic?picture=/data/NewsPaperFront/img/2018-08-09_9c28b6ec-f644-4399-8819-ea1d35bd0b8d.png".equals(source)
-                                            ||"http://backend.blockcomet.com/blockchain/getpic?picture=/data/NewsPaperFront/img/2018-08-09_1bc007fe-e276-479b-982a-09404049f7e8.png".equals(source)  ){
+                                    if ("http://backend.blockcomet.com/blockchain/getpic?picture=/data/NewsPaperFront/img/2018-08-09_9c28b6ec-f644-4399-8819-ea1d35bd0b8d.png".equals(source)
+                                            || "http://backend.blockcomet.com/blockchain/getpic?picture=/data/NewsPaperFront/img/2018-08-09_1bc007fe-e276-479b-982a-09404049f7e8.png".equals(source)) {
                                         drawable.setBounds(0, 0, ScreenUtil.getScreenWidthPx(), 1);
-                                    }else{
+                                    } else {
                                         drawable.setBounds(0, 0, ScreenUtil.getScreenWidthPx(), (int) (ScreenUtil.getScreenWidthPx() * 1f / drawable.getIntrinsicWidth() * drawable.getIntrinsicHeight()));
                                     }
                                 }

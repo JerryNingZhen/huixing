@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.android.base.BaseApplication;
 import com.android.base.bean.ArticleAddBean;
+import com.android.base.bean.ArticleDetailBean;
 import com.android.base.bean.ResponseBean;
 import com.android.base.configs.ConfigFile;
 import com.android.base.configs.ConfigServer;
@@ -40,6 +41,7 @@ import com.android.base.utils.ScreenUtil;
 import com.android.base.utils.ToastUtil;
 import com.android.base.utils.dialog.CustomDialog;
 import com.android.base.utils.dialog.DialogUtil;
+import com.android.base.utils.gson.GsonUtil;
 import com.android.base.utils.http.HttpOkUtil;
 import com.android.base.utils.imageutils.GetPathUtil;
 import com.android.base.utils.imageutils.ImageCompressUtil;
@@ -101,33 +103,9 @@ public class EditArticleActivity extends BaseActivity implements BaseView {
     public void init(Bundle bundle) {
         titleview.setTitle("编辑文章");
         if (bundle != null) {
-            bean = (ArticleAddBean) bundle.getSerializable(ConstantKey.INTENT_KEY_DATA);
-            if (bean != null) {
-                if (!TextUtils.isEmpty(bean.getTitlePage())) {
-                    imgTitle = bean.getTitlePage();
-                    if (bean.getTitlePage().contains("storage/emulated")) {
-                        float height2Width = BitmapUtil.height2Width(bean.getTitlePage());
-                        img_content.getLayoutParams().height = (int) (ScreenUtil.getScreenWidthPx() * height2Width);
-
-                        Bitmap bitmap = ImageCompressUtil.getBitmap(bean.getTitlePage());
-                        if (bitmap != null) {
-                            //设置图片充满ImageView控件
-                            img_content.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                            //等比例缩放
-                            img_content.setAdjustViewBounds(true);
-                            img_content.setImageBitmap(bitmap);
-                            //                    bitmap.recycle();
-                            //                    PicassoUtil.loadImage(EditArticleActivity.this, imgTitle, img_content);
-                        }
-                    } else {
-                        downLoadImage();
-                    }
-                }
-                edit_title.setText(bean.getTextTitle());
-                editor.setHtml(bean.getTextContent());
-                textContent = bean.getTextContent();
-                //                edit_content.setText(Html.fromHtml(bean.getTextContent()));
-            }
+            String id = bundle.getString(ConstantKey.INTENT_KEY_ID, "");
+            //            bean = (ArticleAddBean) bundle.getSerializable(ConstantKey.INTENT_KEY_DATA);
+            quaryArticleDeatail(id);
         }
     }
 
@@ -695,6 +673,58 @@ public class EditArticleActivity extends BaseActivity implements BaseView {
     private boolean isHtml = false;
     private String textContent = "";
     public ArrayList<String> imagePaths = new ArrayList<>();
+
+
+    /**
+     * 文章详情
+     */
+    private void quaryArticleDeatail(String id) {
+        showProgress();
+        //        "reviewId":      // 查询的文章的id
+        //        "loginUser":    //  当前登录人id
+        final HashMap<String, String> params = new HashMap<>();
+        params.put(ConfigServer.SERVER_METHOD_KEY, ConfigServer.MOTHED_QUARYARTICLEDEATAIL);
+        params.put("loginUser", BaseApplication.getInstance().getUserInfoBean().getId());
+        params.put("reviewId", id);
+
+        RequestExecutor.addTask(new BaseTask() {
+            @Override
+            public ResponseBean sendRequest() {
+                return HttpOkBiz.getInstance().sendGet(params);
+            }
+
+            @Override
+            public void onSuccess(ResponseBean result) {
+                dismissProgress();
+                ArticleDetailBean detailBean = GsonUtil.getInstance().json2Bean((String) result.getObject(), ArticleDetailBean.class);
+
+                bean = new ArticleAddBean();
+                bean.setTitlePage(detailBean.getTitlePage());
+                bean.setTextContent(detailBean.getTextContent());
+                bean.setTextTitle(detailBean.getTextTitle());
+                bean.setCreateTime(detailBean.getCreateTime());
+                bean.setReviewId(detailBean.getReviewId());
+
+
+                if (bean != null) {
+                    if (!TextUtils.isEmpty(bean.getTitlePage())) {
+                        imgTitle = bean.getTitlePage();
+                        downLoadImage();
+                    }
+                    edit_title.setText(bean.getTextTitle());
+                    editor.setHtml(bean.getTextContent());
+                    textContent = bean.getTextContent();
+                    //                edit_content.setText(Html.fromHtml(bean.getTextContent()));
+                }
+            }
+
+            @Override
+            public void onFail(ResponseBean result) {
+                dismissProgress();
+                showToast(result.getInfo());
+            }
+        });
+    }
 
     public void addArticleUploadImg(final ArticleAddBean bean) {
 

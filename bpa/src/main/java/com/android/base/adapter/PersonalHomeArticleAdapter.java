@@ -12,7 +12,6 @@ import android.widget.TextView;
 import com.android.base.BaseApplication;
 import com.android.base.activity.ArticleDetailActivity;
 import com.android.base.activity.EditArticleActivity;
-import com.android.base.bean.ArticleAddBean;
 import com.android.base.bean.ArticleDetailBean;
 import com.android.base.bean.ResponseBean;
 import com.android.base.configs.ConfigServer;
@@ -69,7 +68,7 @@ public class PersonalHomeArticleAdapter extends SimpleBaseAdapter<ArticleDetailB
         ImageView img_arrow = holder.getView(R.id.img_arrow);
 
         final ArticleDetailBean bean = dataList.get(position);
-        iv_content.getLayoutParams().height=ScreenUtil.getScreenWidthPx()/2;
+        iv_content.getLayoutParams().height = ScreenUtil.getScreenWidthPx() / 2;
 
         tv_date.setText(bean.getCreateTime());
         if (!TextUtils.isEmpty(bean.getTitlePage())) {
@@ -129,14 +128,15 @@ public class PersonalHomeArticleAdapter extends SimpleBaseAdapter<ArticleDetailB
                         share(position);
                         break;
                     case "edit"://
-                        ArticleAddBean bean = new ArticleAddBean();
-                        bean.setTitlePage(dataList.get(position).getTitlePage());
-                        bean.setTextContent(dataList.get(position).getTextContent());
-                        bean.setTextTitle(dataList.get(position).getTextTitle());
-                        bean.setCreateTime(dataList.get(position).getCreateTime());
-                        bean.setReviewId(dataList.get(position).getReviewId());
+                        //                        ArticleAddBean bean = new ArticleAddBean();
+                        //                        bean.setTitlePage(dataList.get(position).getTitlePage());
+                        //                        bean.setTextContent(dataList.get(position).getTextContent());
+                        //                        bean.setTextTitle(dataList.get(position).getTextTitle());
+                        //                        bean.setCreateTime(dataList.get(position).getCreateTime());
+                        //                        bean.setReviewId(dataList.get(position).getReviewId());
                         Bundle bundle = new Bundle();
-                        bundle.putSerializable(ConstantKey.INTENT_KEY_DATA, bean);
+                        //                        bundle.putSerializable(ConstantKey.INTENT_KEY_DATA, bean);
+                        bundle.putSerializable(ConstantKey.INTENT_KEY_ID, dataList.get(position).getReviewId());
                         IntentUtil.gotoActivity(context, EditArticleActivity.class, bundle);
                         break;
                     case "del"://
