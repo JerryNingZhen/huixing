@@ -1,9 +1,13 @@
 package com.hx.huixing.activity;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.ListView;
 
+import com.amos.smartrefresh.layout.SmartRefreshLayout;
+import com.amos.smartrefresh.layout.api.RefreshLayout;
+import com.amos.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.android.base.BaseApplication;
 import com.android.base.configs.ConfigServer;
 import com.android.base.widget.TitleView;
@@ -16,6 +20,7 @@ import com.hx.huixing.bean.CommentBean;
 import com.hx.huixing.bean.ThumbBean;
 import com.hx.huixing.common.net.JsonCallBack;
 import com.hx.huixing.common.net.RetrofitUtils;
+import com.hx.huixing.widget.EmptyView;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -32,6 +37,10 @@ import java.util.TreeMap;
 public class ThumbUpListActivity extends BaseActivity {
     /** 标题 */
     private TitleView titleView;
+    /** 为空的时候加载 */
+    private EmptyView emptyView;
+    /** 刷新 */
+    private SmartRefreshLayout refresh_view;
     /** 列表 */
     private ListView list_view;
     /** 当前页 */
@@ -63,17 +72,19 @@ public class ThumbUpListActivity extends BaseActivity {
     protected void findViews() {
         titleView = findViewById(R.id.title_view);
         list_view = findViewById(R.id.list_view);
+        emptyView = findViewById(R.id.empty_view);
+        refresh_view = findViewById(R.id.refresh_view);
     }
 
     @Override
     protected void initGetData() {
-        userId = BaseApplication.getInstance().getUserInfoBean().getId();
-        password = BaseApplication.getInstance().getUserInfoBean().getUserPwd();
+        //userId = BaseApplication.getInstance().getUserInfoBean().getId();
+        //password = BaseApplication.getInstance().getUserInfoBean().getUserPwd();
         Bundle bundle = getIntent().getExtras();
         type = bundle.getString("type");
         title = bundle.getString("title");
-        //userId = "42e7ce4d-c7ad-476b-8850-1a60bba0e64a";
-        //password = "32f913adb0951b14373e444c3c4cfcc9";
+        userId = "42e7ce4d-c7ad-476b-8850-1a60bba0e64a";
+        password = "32f913adb0951b14373e444c3c4cfcc9";
 
         if (type.equals("2")){
             thumbAdapter = new GetThumbAdapter(thumbs,this);
@@ -91,10 +102,29 @@ public class ThumbUpListActivity extends BaseActivity {
         titleView.setTitle(title);
         getMessage(type);
 
+        emptyView.setInitLoadintLayoutIsDisplay(false);
+        emptyView.bindView(list_view);
+
     }
 
     @Override
     protected void widgetListener() {
+        /** 直接刷新  上拉加载 */
+        refresh_view.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                currentPage += 1;
+                getMessage(type);
+                refresh_view.finishLoadMore(1500);
+            }
+
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                currentPage = 1;
+                getMessage(type);
+                refresh_view.finishRefresh(1500);
+            }
+        });
 
     }
 
@@ -125,6 +155,10 @@ public class ThumbUpListActivity extends BaseActivity {
                                     thumbs.clear();
                                 }
                                 thumbs.addAll(list_thumbs);
+                            }else if (list_thumbs.size() == 0){
+                                if (currentPage == 1){
+                                    emptyView.empty();
+                                }
                             }
                             thumbAdapter.notifyDataSetChanged();
                             readAllMessage(type);
@@ -138,6 +172,10 @@ public class ThumbUpListActivity extends BaseActivity {
                                     comments.clear();
                                 }
                                 comments.addAll(list_comments);
+                            }else if (list_comments.size() == 0){
+                                if (currentPage == 1){
+                                    emptyView.empty();
+                                }
                             }
                             commentAdapter.notifyDataSetChanged();
                             readAllMessage(type);
@@ -147,7 +185,7 @@ public class ThumbUpListActivity extends BaseActivity {
 
                     @Override
                     public void error(Throwable e) {
-
+                        emptyView.failure();
                     }
 
                     @Override
