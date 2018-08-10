@@ -10,10 +10,10 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.text.Html;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -28,6 +28,7 @@ import com.android.base.configs.ConstantKey;
 import com.android.base.configs.RequestCode;
 import com.android.base.executor.BaseTask;
 import com.android.base.executor.RequestExecutor;
+import com.android.base.interfaces.OnDialogViewCallBack;
 import com.android.base.mvp.baseclass.MvpBaseView;
 import com.android.base.utils.BitmapUtil;
 import com.android.base.utils.DateUtil;
@@ -44,7 +45,12 @@ import com.android.base.utils.http.HttpOkUtil;
 import com.android.base.utils.imageutils.GetPathUtil;
 import com.android.base.utils.imageutils.ImageCompressUtil;
 import com.android.base.widget.TitleView;
+import com.android.base.widget.richeditor.RichEditor;
+import com.android.base.widget.view.DialogContentEditView;
 import com.hx.huixing.R;
+
+import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * 发帖 View模块
@@ -60,7 +66,9 @@ public class AddArticleView extends MvpBaseView<AddArticleActivity> {
     private TitleView titleview;
     private ImageView img_content;
     private TextView edit_title;
-    private TextView edit_content;
+    //    private TextView edit_content;
+    private RichEditor editor;
+    private View view_bottom;
     private ArticleAddBean bean;
 
     public AddArticleView(AddArticleActivity baseUI) {
@@ -77,21 +85,11 @@ public class AddArticleView extends MvpBaseView<AddArticleActivity> {
         titleview = findViewByIds(R.id.title_view);
         img_content = findViewByIds(R.id.img_content);
         edit_title = findViewByIds(R.id.edit_title);
-        edit_content = findViewByIds(R.id.edit_content);
+        //        edit_content = findViewByIds(R.id.edit_content);
+        editor = findViewByIds(R.id.editor);
+        view_bottom = findViewByIds(R.id.view_bottom);
 
-//        RequestOptions options = GlideUtil.getRequestOptions();
-//        options.transforms(new RoundedCornersTransformation(15, 0));//// 多重变换
-//        Glide.with(baseUI)
-//                .load(R.drawable.img_default_grey)
-//                .apply(options)
-//                .into(img_content);
-//        img_content.getLayoutParams().height = ScreenUtil.getScreenWidthPx() / 3;
-        ////        Bitmap bitmap = BitmapUtil.
-        //        Resources r =baseUI.getResources();
-        //        InputStream is = r.openRawResource(R.drawable.img_default_grey);
-        //        BitmapDrawable bmpDraw = new BitmapDrawable(is);
-        //        img_content.setImageBitmap(ImageOpera.cutRound(BitmapUtil.drawableToBitmap(bmpDraw),ScreenUtil.dip2px(10)));
-
+        initRichEditor();
     }
 
     @Override
@@ -122,11 +120,12 @@ public class AddArticleView extends MvpBaseView<AddArticleActivity> {
                     }
                 }
                 edit_title.setText(bean.getTextTitle());
-                edit_content.setText(Html.fromHtml(bean.getTextContent()));
+                editor.setHtml(bean.getTextContent());
+                textContent = bean.getTextContent();
+                //                edit_content.setText(Html.fromHtml(bean.getTextContent()));
             }
         }
     }
-
 
     @Override
     public void setViewData(Object object) {
@@ -142,6 +141,7 @@ public class AddArticleView extends MvpBaseView<AddArticleActivity> {
                 if (bean != null && !TextUtils.isEmpty(bean.getReviewId())) {// 编辑文章
                     baseUI.finishActivity();
                 } else {
+                    isPreview = false;
                     saveDraft();
                 }
             }
@@ -151,23 +151,25 @@ public class AddArticleView extends MvpBaseView<AddArticleActivity> {
             @Override
             public void onClick(View view) {
                 KeyboardUtil.hideKeyBord(titleview);
-                ArticleAddBean bean = checkData();
-                //                if (TextUtils.isEmpty(bean.getTitlePage())) {
-                //                    showToast("文章封面照片不能为空");
+                isPreview = true;
+                saveDraft();
+                //                ArticleAddBean bean = checkData();
+                //                //                if (TextUtils.isEmpty(bean.getTitlePage())) {
+                //                //                    showToast("文章封面照片不能为空");
+                //                //                    return;
+                //                //                }
+                //                if (TextUtils.isEmpty(bean.getTextTitle())) {
+                //                    showToast("文章标题不能为空");
                 //                    return;
                 //                }
-                if (TextUtils.isEmpty(bean.getTextTitle())) {
-                    showToast("文章标题不能为空");
-                    return;
-                }
-                if (TextUtils.isEmpty(bean.getTextContent())) {
-                    showToast("文章内容不能为空");
-                    return;
-                }
-
-                Bundle bundle = new Bundle();
-                bundle.putSerializable(ConstantKey.INTENT_KEY_DATA, bean);
-                IntentUtil.gotoActivityForResult(baseUI, ArticlePreviewActivity.class, bundle, RequestCode.REQUEST_CODE_ADD_ARTICLE);
+                //                if (TextUtils.isEmpty(bean.getTextContent())) {
+                //                    showToast("文章内容不能为空");
+                //                    return;
+                //                }
+                //
+                //                Bundle bundle = new Bundle();
+                //                bundle.putSerializable(ConstantKey.INTENT_KEY_DATA, bean);
+                //                IntentUtil.gotoActivityForResult(baseUI, ArticlePreviewActivity.class, bundle, RequestCode.REQUEST_CODE_ADD_ARTICLE);
             }
         });
 
@@ -183,10 +185,13 @@ public class AddArticleView extends MvpBaseView<AddArticleActivity> {
         img_content.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                isHtml = false;
                 checkPhoto();
             }
         });
     }
+
+    public boolean isPreview = false;
 
     /**
      * 保存草稿箱
@@ -202,6 +207,18 @@ public class AddArticleView extends MvpBaseView<AddArticleActivity> {
         baseUI.finishActivity();
     }
 
+    /**
+     * 区预览
+     */
+    public void goPreView(ArticleAddBean bean) {
+        this.bean=bean;
+        editor.setHtml(bean.getTextContent());
+        textContent = bean.getTextContent();
+        isPreview = false;
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(ConstantKey.INTENT_KEY_DATA, bean);
+        IntentUtil.gotoActivityForResult(baseUI, ArticlePreviewActivity.class, bundle, RequestCode.REQUEST_CODE_ADD_ARTICLE);
+    }
 
     private ArticleAddBean checkData() {
         if (bean == null) {
@@ -210,7 +227,8 @@ public class AddArticleView extends MvpBaseView<AddArticleActivity> {
         //        bean.setImageTitle("https://goss.vcg.com/3a750b70-faa0-11e7-a964-b7ed0e8248ba.jpg");
         bean.setTitlePage(imgTitle);
         bean.setTextTitle(edit_title.getText().toString());
-        bean.setTextContent(edit_content.getText().toString());
+        bean.setTextContent(textContent);
+        //        bean.setTextContent(edit_content.getText().toString());
         if (TextUtils.isEmpty(bean.getDraftId())) {
             if (TextUtils.isEmpty(bean.getCreateTime())) {
                 bean.setCreateTime(DateUtil.getDate());
@@ -324,7 +342,7 @@ public class AddArticleView extends MvpBaseView<AddArticleActivity> {
     /**
      * 身份证反面照片路径
      */
-    private String imgTitle = "";
+    public String imgTitle = "";
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK) {
@@ -370,14 +388,14 @@ public class AddArticleView extends MvpBaseView<AddArticleActivity> {
                         }
                         LogUtil.i(uri + ">>>>" + path + ">>>");
 
-                        imgTitle = ImageCompressUtil.compressImg(path);
-                        setViewBottom();
+                        String filePath = ImageCompressUtil.compressImg(path);
+                        setViewBottom(filePath);
                     }
                 }
             } else if (requestCode == RequestCode.REQUEST_CODE_TAKE_PHOTO) {
 
-                imgTitle = ImageCompressUtil.compressImg(imgTitle);
-                setViewBottom();
+                String filePath = ImageCompressUtil.compressImg(imgTitle);
+                setViewBottom(filePath);
             } else if (requestCode == RequestCode.REQUEST_CODE_ADD_ARTICLE) {
                 baseUI.setResult(Activity.RESULT_OK);
                 baseUI.finishActivity();
@@ -385,28 +403,35 @@ public class AddArticleView extends MvpBaseView<AddArticleActivity> {
         }
     }
 
-    private void setViewBottom() {
-        img_content.post(new Runnable() {
-            @Override
-            public void run() {
-                float height2Width = BitmapUtil.height2Width(imgTitle);
-                img_content.getLayoutParams().height = (int) (ScreenUtil.getScreenWidthPx() * height2Width);
+    private void setViewBottom(String path) {
+        if (isHtml) {
+            imagePaths.add(path);
+            editor.insertImage("file://" + path,
+                    "picvision\" style=\"width:100%;");
+        } else {
+            imgTitle = path;
+            img_content.post(new Runnable() {
+                @Override
+                public void run() {
+                    float height2Width = BitmapUtil.height2Width(imgTitle);
+                    img_content.getLayoutParams().height = (int) (ScreenUtil.getScreenWidthPx() * height2Width);
 
-                Bitmap bitmap = ImageCompressUtil.getBitmap(imgTitle);
-                if (bitmap != null) {
-                    //设置图片充满ImageView控件
-                    img_content.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                    //等比例缩放
-                    img_content.setAdjustViewBounds(true);
-                    img_content.setImageBitmap(bitmap);
-                    //                    bitmap.recycle();
-                    //                    PicassoUtil.loadImage(baseUI, imgTitle, img_content);
-                } else {
-                    ToastUtil.showToast(baseUI, "图片已损坏，请重新选择");
-                    imgTitle = "";
+                    Bitmap bitmap = ImageCompressUtil.getBitmap(imgTitle);
+                    if (bitmap != null) {
+                        //设置图片充满ImageView控件
+                        img_content.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                        //等比例缩放
+                        img_content.setAdjustViewBounds(true);
+                        img_content.setImageBitmap(bitmap);
+                        //                    bitmap.recycle();
+                        //                    PicassoUtil.loadImage(baseUI, imgTitle, img_content);
+                    } else {
+                        ToastUtil.showToast(baseUI, "图片已损坏，请重新选择");
+                        imgTitle = "";
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
 
@@ -450,4 +475,288 @@ public class AddArticleView extends MvpBaseView<AddArticleActivity> {
             }
         });
     }
+
+    private void initRichEditor() {
+        //        editor.setEditorHeight(ScreenUtil.getScreenHeightPx() / 2);
+        editor.setEditorFontSize(ScreenUtil.sp2px(20));
+        editor.setEditorFontColor(0xff999999);
+        editor.setEditorBackgroundColor(0xfff5f5f5);
+        editor.setBackgroundColor(0xfff5f5f5);
+        //editor.setBackgroundResource(R.drawable.bg);
+        editor.setPadding(ScreenUtil.dip2px(25), ScreenUtil.dip2px(25), ScreenUtil.dip2px(25), ScreenUtil.dip2px(25));
+        //editor.setBackground("https://raw.githubusercontent.com/wasabeef/art/master/chip.jpg");
+        editor.setPlaceholder("正文");
+        //editor.setInputEnabled(false);
+
+        editor.setOnTextChangeListener(new RichEditor.OnTextChangeListener() {
+            @Override
+            public void onTextChange(String text) {
+                textContent = text;
+                LogUtil.i(text);
+            }
+        });
+
+        editor.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                LogUtil.i(hasFocus + "=====>" + v.getClass().getName());
+                if (hasFocus) {
+                    view_bottom.setVisibility(View.VISIBLE);
+                    KeyboardUtil.showKeyBord(editor);
+                } else {
+                    view_bottom.setVisibility(View.GONE);
+                }
+            }
+        });
+        findViewByIds(R.id.action_undo).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editor.undo();
+            }
+        });
+
+        findViewByIds(R.id.action_redo).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editor.redo();
+            }
+        });
+
+        findViewByIds(R.id.action_bold).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editor.setBold();
+            }
+        });
+
+        findViewByIds(R.id.action_italic).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editor.setItalic();
+            }
+        });
+
+        //        findViewByIds(R.id.action_subscript).setOnClickListener(new View.OnClickListener() {
+        //            @Override
+        //            public void onClick(View v) {
+        //                editor.setSubscript();
+        //            }
+        //        });
+        //
+        //        findViewByIds(R.id.action_superscript).setOnClickListener(new View.OnClickListener() {
+        //            @Override
+        //            public void onClick(View v) {
+        //                editor.setSuperscript();
+        //            }
+        //        });
+
+        findViewByIds(R.id.action_strikethrough).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editor.setStrikeThrough();
+            }
+        });
+
+        findViewByIds(R.id.action_underline).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editor.setUnderline();
+            }
+        });
+
+        findViewByIds(R.id.action_heading1).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editor.setHeading(1);
+            }
+        });
+
+        findViewByIds(R.id.action_heading2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editor.setHeading(2);
+            }
+        });
+
+        findViewByIds(R.id.action_heading3).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editor.setHeading(3);
+            }
+        });
+
+        findViewByIds(R.id.action_heading4).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editor.setHeading(4);
+            }
+        });
+
+        findViewByIds(R.id.action_heading5).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editor.setHeading(5);
+            }
+        });
+
+        findViewByIds(R.id.action_heading6).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editor.setHeading(6);
+            }
+        });
+
+        //        // 设置字体颜色
+        //        findViewByIds(R.id.action_txt_color).setOnClickListener(new View.OnClickListener() {
+        //            private boolean isChanged;
+        //
+        //            @Override
+        //            public void onClick(View v) {
+        //                editor.setTextColor(isChanged ? Color.RED : Color.BLACK);
+        //                isChanged = !isChanged;
+        //            }
+        //        });
+        //
+        //        // 设置字体背景颜色
+        //        findViewByIds(R.id.action_bg_color).setOnClickListener(new View.OnClickListener() {
+        //            private boolean isChanged;
+        //
+        //            @Override
+        //            public void onClick(View v) {
+        //                editor.setTextBackgroundColor(isChanged ? Color.WHITE : Color.CYAN);
+        //                isChanged = !isChanged;
+        //            }
+        //        });
+        //
+        //        // 设置margin
+        //        findViewByIds(R.id.action_indent).setOnClickListener(new View.OnClickListener() {
+        //            @Override
+        //            public void onClick(View v) {
+        //                editor.setIndent();
+        //            }
+        //        });
+        //
+        //        // 设置margin
+        //        findViewByIds(R.id.action_outdent).setOnClickListener(new View.OnClickListener() {
+        //            @Override
+        //            public void onClick(View v) {
+        //                editor.setOutdent();
+        //            }
+        //        });
+
+        findViewByIds(R.id.action_align_left).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editor.setAlignLeft();
+            }
+        });
+
+        findViewByIds(R.id.action_align_center).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editor.setAlignCenter();
+            }
+        });
+
+        findViewByIds(R.id.action_align_right).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editor.setAlignRight();
+            }
+        });
+
+        findViewByIds(R.id.action_blockquote).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editor.setBlockquote();
+            }
+        });
+
+        findViewByIds(R.id.action_insert_bullets).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editor.setBullets();
+            }
+        });
+
+        findViewByIds(R.id.action_insert_numbers).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editor.setNumbers();
+            }
+        });
+
+        findViewByIds(R.id.action_insert_image).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO
+                KeyboardUtil.hideKeyBord(editor);
+                isHtml = true;
+                checkPhoto();
+                //                editor.insertImage("http://www.uiimg.com/upload/image/20171123/5a167ec5cde6b.jpg",
+                //                        "picvision\" style=\"width:100% ");
+            }
+        });
+
+        findViewByIds(R.id.action_insert_link).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                KeyboardUtil.hideKeyBord(editor);
+                // TODO 弹框
+                CustomDialog dialog = new CustomDialog(baseUI);
+                DialogContentEditView contentView = new DialogContentEditView(baseUI, dialog, new OnDialogViewCallBack() {
+                    @Override
+                    public void onResult(Map<String, String> map) {
+                        String title = "";
+                        String address = "";
+                        if (map.containsKey("title")) {
+                            title = map.get("title");
+                        }
+                        if (map.containsKey("address")) {
+                            address = map.get("address");
+                        }
+                        editor.insertLink(address, title);
+                    }
+                });
+                dialog.createDialog(contentView, false);
+                dialog.show();
+            }
+        });
+
+        ////        checkbox
+        //        findViewByIds(R.id.action_insert_checkbox).setOnClickListener(new View.OnClickListener() {
+        //            @Override
+        //            public void onClick(View v) {
+        //                editor.insertTodo();
+        //            }
+        //        });
+
+        findViewByIds(R.id.action_line).
+
+                setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        editor.insertLine();
+                    }
+                });
+        final HorizontalScrollView horizontalscrollview = findViewByIds(R.id.horizontalscrollview);
+        horizontalscrollview.setVisibility(View.GONE);
+
+        findViewByIds(R.id.action_font).
+
+                setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (horizontalscrollview.getVisibility() == View.VISIBLE) {
+                            horizontalscrollview.setVisibility(View.GONE);
+                        } else {
+                            horizontalscrollview.setVisibility(View.VISIBLE);
+                        }
+                    }
+                });
+    }
+
+    private boolean isHtml = false;
+    private String textContent = "";
+    public ArrayList<String> imagePaths = new ArrayList<>();
 }

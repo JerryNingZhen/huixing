@@ -2,7 +2,10 @@ package com.android.base.mvp.view;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -24,6 +27,8 @@ import com.android.base.utils.http.HttpOkUtil;
 import com.android.base.utils.imageutils.ImageCompressUtil;
 import com.android.base.widget.TitleView;
 import com.hx.huixing.R;
+
+import java.net.URL;
 
 /**
  * 发帖预览 View模块
@@ -92,7 +97,46 @@ public class ArticlePreviewView extends MvpBaseView<ArticlePreviewActivity> {
             }
             txt_title.setText(bean.getTextTitle());
             txt_date.setText(bean.getCreateTime());
-            txt_content.setText(bean.getTextContent());
+            //            txt_content.setText(Html.fromHtml(bean.getTextContent()));
+            //            showProgress();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    Html.ImageGetter imgGetter = new Html.ImageGetter() {
+                        public Drawable getDrawable(String source) {
+                            Drawable drawable;
+                            try {
+                                URL url = new URL(source);
+                                drawable = Drawable.createFromStream(url.openStream(), "img");
+                            } catch (Exception e) {
+                                return null;
+                            }
+                            if (drawable != null) {
+                                //        exec("javascript:RE.insertImage('" + "http://backend.blockcomet.com/blockchain/getpic?picture=/data/NewsPaperFront/img/2018-08-09_9c28b6ec-f644-4399-8819-ea1d35bd0b8d.png" + "', '" + "\" style=\"width:100%;height:1px;margin-top:30px;margin-bottom:30px;" + "');");
+                                //        exec("javascript:RE.insertImage('" + "http://backend.blockcomet.com/blockchain/getpic?picture=/data/NewsPaperFront/img/2018-08-09_1bc007fe-e276-479b-982a-09404049f7e8.png" + "', '" + "\" style=\"width:100%;height:1px;margin-top:30px;margin-bottom:30px;" + "');");
+
+                                if("http://backend.blockcomet.com/blockchain/getpic?picture=/data/NewsPaperFront/img/2018-08-09_9c28b6ec-f644-4399-8819-ea1d35bd0b8d.png".equals(source)
+                                      ||"http://backend.blockcomet.com/blockchain/getpic?picture=/data/NewsPaperFront/img/2018-08-09_1bc007fe-e276-479b-982a-09404049f7e8.png".equals(source)  ){
+                                    drawable.setBounds(0, 0, ScreenUtil.getScreenWidthPx(), 1);
+                                }else{
+                                    drawable.setBounds(0, 0, ScreenUtil.getScreenWidthPx(), (int) (ScreenUtil.getScreenWidthPx() * 1f / drawable.getIntrinsicWidth() * drawable.getIntrinsicHeight()));
+                                }
+                            }
+                            return drawable;
+                        }
+                    };
+
+                    final Spanned text = Html.fromHtml(bean.getTextContent(), imgGetter, null);
+                    txt_content.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            txt_content.setText(text);
+                            //                            dismissProgress();
+                        }
+                    });
+                }
+            }).start();
+
         }
     }
 

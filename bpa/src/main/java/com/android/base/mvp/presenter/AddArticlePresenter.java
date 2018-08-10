@@ -18,6 +18,8 @@ import org.json.JSONException;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * 发帖 Presenter模块
@@ -50,12 +52,12 @@ public class AddArticlePresenter extends MvpBasePresenter<AddArticleView> {
         addArticleUploadImg(bean);
     }
 
-    public void addArticleUploadImg(final ArticleAddBean bean) {
+    private void addArticleUploadImg(final ArticleAddBean bean) {
 
         if (TextUtils.isEmpty(bean.getTitlePage())
                 || bean.getTitlePage().startsWith("http")
                 ) {
-            addDraftServer(bean);
+            uploadContentImage(bean);
             return;
         }
 
@@ -87,10 +89,11 @@ public class AddArticlePresenter extends MvpBasePresenter<AddArticleView> {
                     JSONArray jsonArray = new JSONArray(url);
                     if (jsonArray.length() > 0) {
                         url = jsonArray.getString(0);
+                        view.imgTitle = url;
                         bean.setTitlePage(url);
                     }
                     //                bean.setTitlePage("https://goss.vcg.com/20b9d020-7e72-11e8-bef6-79929cace6d6.jpg");
-                    addDraftServer(bean);
+                    uploadContentImage(bean);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -111,7 +114,103 @@ public class AddArticlePresenter extends MvpBasePresenter<AddArticleView> {
     }
 
 
-    public void addDraftServer(final ArticleAddBean bean) {
+    private Map<String, String> map = new HashMap<>();
+
+    private void uploadContentImage(final ArticleAddBean bean) {
+        if (view == null) {
+            LogUtil.e(getClass() + " 页面已经销毁，不在进行任何操作");
+            return;
+        }
+
+        map = new HashMap<>();
+        if (view.imagePaths.size() > 0) {
+            String content = bean.getTextContent();
+            for (int i = 0; i < view.imagePaths.size(); i++) {
+                if (content.contains(view.imagePaths.get(i))) {
+                    map.put(view.imagePaths.get(i), "");
+                }
+            }
+        }
+
+        if (map.size() <= 0) {
+            addDraftServer(bean);
+            return;
+        }
+
+        view.showProgress();
+
+        Set<Map.Entry<String, String>> set = map.entrySet();
+        for (Map.Entry<String, String> entry : set) {
+            upLoad(bean, entry.getKey());
+        }
+
+    }
+
+    private void upLoad(final ArticleAddBean bean, final String path) {
+        final HashMap<String, String> params = new HashMap<>();
+        params.put(ConfigServer.SERVER_METHOD_KEY, "common/upload");
+        final HashMap<String, File> files = new HashMap<>();
+        files.put("file", new File(path));
+
+        RequestExecutor.addTask(new BaseTask() {
+            @Override
+            public ResponseBean sendRequest() {
+                return HttpOkBiz.getInstance().upLoadFile(params, files);
+            }
+
+            @Override
+            public void onSuccess(ResponseBean result) {
+                if (view == null) {
+                    LogUtil.e(getClass() + " 页面已经销毁，不在进行任何操作");
+                    return;
+                }
+                String url = (String) result.getObject();
+                try {
+                    JSONArray jsonArray = new JSONArray(url);
+                    if (jsonArray.length() > 0) {
+                        url = jsonArray.getString(0);
+                        //                        bean.setTitlePage(url);
+                        map.put(path, url);
+                    }
+
+                    boolean isFinish = true;
+                    Set<Map.Entry<String, String>> set = map.entrySet();
+                    for (Map.Entry<String, String> entry : set) {
+                        if (TextUtils.isEmpty(entry.getValue())) {
+                            isFinish = false;
+                            break;
+                        }
+                    }
+
+                    if (isFinish) {
+                        String content = bean.getTextContent();
+                        for (Map.Entry<String, String> entry : set) {
+                            content = content.replace("file://" + entry.getKey(), entry.getValue());
+                        }
+                        bean.setTextContent(content);
+                        LogUtil.i(content);
+                        view.imagePaths.clear();
+                        addDraftServer(bean);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFail(ResponseBean result) {
+                if (view == null) {
+                    LogUtil.e(getClass() + " 页面已经销毁，不在进行任何操作");
+                    return;
+                }
+                view.dismissProgress();
+                //                view.setViewData(result.getInfo());
+                view.showToast(result.getInfo());
+            }
+        });
+    }
+
+    private void addDraftServer(final ArticleAddBean bean) {
         if (TextUtils.isEmpty(bean.getTitlePage()) &&
                 TextUtils.isEmpty(bean.getTextContent()) &&
                 TextUtils.isEmpty(bean.getTextTitle())
@@ -153,8 +252,16 @@ public class AddArticlePresenter extends MvpBasePresenter<AddArticleView> {
                     return;
                 }
                 view.dismissProgress();
-                view.showToast(result.getInfo());
-                view.goBack();
+
+                // TODO 后台需要发挥草稿id 解析出草稿ID
+                //                String id = (String) result.getObject();
+                //                bean.setDraftId(id);
+                if (view.isPreview) {
+                    view.goPreView(bean);
+                } else {
+                    view.showToast(result.getInfo());
+                    view.goBack();
+                }
             }
 
             @Override

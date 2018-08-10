@@ -22,12 +22,15 @@ import com.android.base.executor.RequestExecutor;
 import com.android.base.interfaces.OnDialogViewCallBack;
 import com.android.base.mvp.model.HttpOkBiz;
 import com.android.base.utils.IntentUtil;
+import com.android.base.utils.ScreenUtil;
 import com.android.base.utils.ToastUtil;
 import com.android.base.utils.dialog.CustomDialog;
 import com.android.base.utils.dialog.DialogUtil;
 import com.android.base.utils.dialog.share.ShareBean;
 import com.android.base.utils.dialog.share.ShareDialogUtil;
+import com.android.base.utils.glide.CropTransformation;
 import com.android.base.utils.glide.GlideUtil;
+import com.android.base.utils.glide.RoundedCornersTransformation;
 import com.android.base.widget.view.DialogContentView;
 import com.hx.huixing.R;
 
@@ -70,9 +73,9 @@ public class PersonalHomeArticleAdapter extends SimpleBaseAdapter<ArticleDetailB
 
         tv_date.setText(bean.getCreateTime());
         if (!TextUtils.isEmpty(bean.getTitlePage())) {
-            GlideUtil.loadImage(context, bean.getTitlePage(), iv_content, GlideUtil.getRequestOptions());
+            GlideUtil.loadImage(context, bean.getTitlePage(), iv_content, GlideUtil.getRequestOptions().transforms(new CropTransformation(CropTransformation.CropType.RECTANGLE), new RoundedCornersTransformation(ScreenUtil.dip2px(10), 0)));
         } else {
-            GlideUtil.loadImage(context, "", iv_content, GlideUtil.getRequestOptions().error(R.drawable.img_default_grey));
+            GlideUtil.loadImage(context, "", iv_content, GlideUtil.getRequestOptions().error(R.drawable.img_default_grey).transforms(new CropTransformation(CropTransformation.CropType.RECTANGLE), new RoundedCornersTransformation(ScreenUtil.dip2px(10), 0)));
         }
         tv_content_title.setText(bean.getTextTitle());
         tv_content.setText(Html.fromHtml(bean.getTextContent()));
