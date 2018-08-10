@@ -30,14 +30,20 @@ import java.util.TreeMap;
 public class MessageActivity extends BaseActivity implements View.OnClickListener {
 
     private TitleView title_view;
-    private TextView tv_comment_count;
-    private TextView tv_thumb_up;
 
-    private TextView tv_thumb_num;
-    private TextView tv_comment_num;
+    private TextView tv_comment_count;//评论
+    private TextView tv_thumb_up; //点赞
+    private TextView tv_new_focus;//新关注
+    private TextView tv_reward_count;//奖励
+    private TextView tv_notice_count;//社区公告
 
-    private FrameLayout fl_thumb;
-    private FrameLayout fl_comment;
+    /** 显示个数 */
+    private TextView tv_thumb_num; //点赞
+    private TextView tv_comment_num; //评论
+    private TextView tv_care_num;//新关注个数
+    private TextView tv_reward_num;//奖励个数
+    private TextView tv_notice_num;//社区公告个数
+
 
     @Override
     protected int getContentViewId() {
@@ -47,14 +53,18 @@ public class MessageActivity extends BaseActivity implements View.OnClickListene
     @Override
     protected void findViews() {
         title_view = findViewById(R.id.title_view);
+
         tv_thumb_up = findViewById(R.id.tv_thumb_up);
         tv_comment_count = findViewById(R.id.tv_comment_count);
+        tv_new_focus = findViewById(R.id.tv_new_focus);
+        tv_reward_count = findViewById(R.id.tv_reward_count);
+        tv_notice_count = findViewById(R.id.tv_notice_count);
 
         tv_thumb_num = findViewById(R.id.tv_thumb_num);
         tv_comment_num = findViewById(R.id.tv_comment_num);
-
-        fl_thumb = findViewById(R.id.fl_thumb);
-        fl_comment = findViewById(R.id.fl_comment);
+        tv_care_num = findViewById(R.id.tv_care_num);
+        tv_reward_num = findViewById(R.id.tv_reward_num);
+        tv_notice_num = findViewById(R.id.tv_notice_num);
 
     }
 
@@ -74,14 +84,15 @@ public class MessageActivity extends BaseActivity implements View.OnClickListene
     protected void init() {
         title_view.setLeftBtnImg();
         title_view.setTitle(R.string.message);
-        tv_thumb_up.setOnClickListener(this);
-        tv_comment_count.setOnClickListener(this);
     }
 
     @Override
     protected void widgetListener() {
-        /*fl_thumb.setOnClickListener(this);
-        fl_comment.setOnClickListener(this);*/
+        tv_thumb_up.setOnClickListener(this);
+        tv_comment_count.setOnClickListener(this);
+        tv_new_focus.setOnClickListener(this);
+        tv_reward_count.setOnClickListener(this);
+        tv_notice_count.setOnClickListener(this);
     }
 
     @Override
@@ -105,6 +116,18 @@ public class MessageActivity extends BaseActivity implements View.OnClickListene
                 bundle2.putString("title", "评论");
                 IntentUtil.gotoActivity(this, ThumbUpListActivity.class, bundle2);
                 break;
+
+            case R.id.tv_new_focus: //新关注
+
+                break;
+
+            case R.id.tv_reward_count: //奖励通知
+
+                break;
+            case R.id.tv_notice_count: //社区公告
+
+                break;
+
         }
     }
 

@@ -54,8 +54,6 @@
                 android:text="@string/thumb_up"
                 android:textColor="@color/font_black"
                 android:textSize="@dimen/font_size_normal" />
-
-
         </FrameLayout>
 
         <View
@@ -105,6 +103,136 @@
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:background="@color/line_grey_light" />
+
+        <FrameLayout
+            android:id="@+id/fl_new_focus"
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
+            <!--评论或消息-->
+
+            <TextView
+                android:id="@+id/tv_new_focus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:background="@color/white"
+                android:drawableLeft="@drawable/care"
+                android:drawablePadding="@dimen/distance_15"
+                android:drawableRight="@drawable/right_arrow"
+                android:gravity="center_vertical"
+                android:minHeight="60dp"
+                android:minWidth="140dp"
+                android:paddingLeft="@dimen/account_manager_ll_item_tv_marginLeft"
+                android:paddingRight="@dimen/account_manager_ll_item_tv_marginStart"
+                android:text="@string/new_foucs"
+                android:textColor="@color/font_black"
+                android:textSize="@dimen/font_size_normal" />
+
+            <TextView
+                android:id="@+id/tv_care_num"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:gravity="center"
+                android:minHeight="60dp"
+                android:minWidth="140dp"
+                android:visibility="gone"
+                android:layout_gravity="center"
+                android:background="@drawable/shape_red_circular"
+                android:textColor="@color/font_white"
+                android:textSize="@dimen/font_size_normal" />
+        </FrameLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/line_grey_light" />
+
+        <FrameLayout
+            android:id="@+id/fl_reward_notice"
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
+            <!--评论或消息-->
+
+            <TextView
+                android:id="@+id/tv_reward_count"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:background="@color/white"
+                android:drawableLeft="@drawable/reward"
+                android:drawablePadding="@dimen/distance_15"
+                android:drawableRight="@drawable/right_arrow"
+                android:gravity="center_vertical"
+                android:minHeight="60dp"
+                android:minWidth="140dp"
+                android:paddingLeft="@dimen/account_manager_ll_item_tv_marginLeft"
+                android:paddingRight="@dimen/account_manager_ll_item_tv_marginStart"
+                android:text="@string/reward_notice"
+                android:textColor="@color/font_black"
+                android:textSize="@dimen/font_size_normal" />
+
+            <TextView
+                android:id="@+id/tv_reward_num"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:gravity="center"
+                android:minHeight="60dp"
+                android:minWidth="140dp"
+                android:visibility="gone"
+                android:layout_gravity="center"
+                android:background="@drawable/shape_red_circular"
+                android:textColor="@color/font_white"
+                android:textSize="@dimen/font_size_normal" />
+        </FrameLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/line_grey_light" />
+
+        <FrameLayout
+            android:id="@+id/fl_notice"
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
+            <!--评论或消息-->
+
+            <TextView
+                android:id="@+id/tv_notice_count"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:background="@color/white"
+                android:drawableLeft="@drawable/notice"
+                android:drawablePadding="@dimen/distance_15"
+                android:drawableRight="@drawable/right_arrow"
+                android:gravity="center_vertical"
+                android:minHeight="60dp"
+                android:minWidth="140dp"
+                android:paddingLeft="@dimen/account_manager_ll_item_tv_marginLeft"
+                android:paddingRight="@dimen/account_manager_ll_item_tv_marginStart"
+                android:text="@string/notice"
+                android:textColor="@color/font_black"
+                android:textSize="@dimen/font_size_normal" />
+
+            <TextView
+                android:id="@+id/tv_notice_num"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:gravity="center"
+                android:minHeight="60dp"
+                android:minWidth="140dp"
+                android:visibility="gone"
+                android:layout_gravity="center"
+                android:background="@drawable/shape_red_circular"
+                android:textColor="@color/font_white"
+                android:textSize="@dimen/font_size_normal" />
+        </FrameLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/line_grey_light" />
+
     </LinearLayout>
 
 

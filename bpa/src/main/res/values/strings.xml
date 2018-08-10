@@ -181,6 +181,9 @@
     <!--消息-->
     <string name="thumb_up">获赞</string>
     <string name="comment">评论或@</string>
+    <string name="notice">社区公告</string>
+    <string name="reward_notice">奖励通知</string>
+    <string name="new_foucs">新关注</string>
     <string name="message">消息</string>
     <string name="response">回复</string>
     <string name="about">关于我们</string>
