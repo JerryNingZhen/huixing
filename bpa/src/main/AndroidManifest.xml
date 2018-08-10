@@ -224,6 +224,11 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden"/>
         <activity
+            android:name="com.android.base.activity.EditArticleActivity"
+            android:configChanges="screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
+        <activity
             android:name="com.android.base.activity.InviteFriendActivity"
             android:configChanges="screenSize|orientation"
             android:screenOrientation="portrait"
@@ -239,6 +244,10 @@
             android:configChanges="screenSize|orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden"/>
+        <activity android:name=".activity.ExchangeRecordActivity"
+                  android:configChanges="screenSize|orientation"
+                  android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustResize|stateHidden"/>
         <!--设置-->
         <activity
             android:name=".activity.SettingActivity"
@@ -438,7 +447,6 @@
                 <data android:scheme="tencent100371282" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.ExchangeRecordActivity" />
 
         <!-- ********************************************************************* -->
     </application>

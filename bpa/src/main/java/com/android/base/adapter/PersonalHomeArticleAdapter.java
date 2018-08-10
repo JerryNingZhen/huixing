@@ -10,8 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.base.BaseApplication;
-import com.android.base.activity.AddArticleActivity;
 import com.android.base.activity.ArticleDetailActivity;
+import com.android.base.activity.EditArticleActivity;
 import com.android.base.bean.ArticleAddBean;
 import com.android.base.bean.ArticleDetailBean;
 import com.android.base.bean.ResponseBean;
@@ -28,11 +28,10 @@ import com.android.base.utils.dialog.CustomDialog;
 import com.android.base.utils.dialog.DialogUtil;
 import com.android.base.utils.dialog.share.ShareBean;
 import com.android.base.utils.dialog.share.ShareDialogUtil;
-import com.android.base.utils.glide.CropTransformation;
 import com.android.base.utils.glide.GlideUtil;
-import com.android.base.utils.glide.RoundedCornersTransformation;
 import com.android.base.widget.view.DialogContentView;
 import com.hx.huixing.R;
+import com.hx.huixing.widget.RoundCornerImage;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -61,7 +60,7 @@ public class PersonalHomeArticleAdapter extends SimpleBaseAdapter<ArticleDetailB
     public View getItemView(final int position, View convertView, ViewHolder holder) {
         TextView tv_content_title = holder.getView(R.id.tv_content_title);//文章标题
         TextView tv_content = holder.getView(R.id.tv_content);//摘要
-        ImageView iv_content = holder.getView(R.id.iv_content); //文章插图
+        RoundCornerImage iv_content = holder.getView(R.id.iv_content); //文章插图
 
         TextView txt_zan = holder.getView(R.id.txt_zan);
         TextView txt_comment = holder.getView(R.id.txt_comment);//评论个数
@@ -70,12 +69,13 @@ public class PersonalHomeArticleAdapter extends SimpleBaseAdapter<ArticleDetailB
         ImageView img_arrow = holder.getView(R.id.img_arrow);
 
         final ArticleDetailBean bean = dataList.get(position);
+        iv_content.getLayoutParams().height=ScreenUtil.getScreenWidthPx()/2;
 
         tv_date.setText(bean.getCreateTime());
         if (!TextUtils.isEmpty(bean.getTitlePage())) {
-            GlideUtil.loadImage(context, bean.getTitlePage(), iv_content, GlideUtil.getRequestOptions().transforms(new CropTransformation(CropTransformation.CropType.RECTANGLE), new RoundedCornersTransformation(ScreenUtil.dip2px(10), 0)));
+            GlideUtil.loadImage(context, bean.getTitlePage(), iv_content, GlideUtil.getRequestOptions());
         } else {
-            GlideUtil.loadImage(context, "", iv_content, GlideUtil.getRequestOptions().error(R.drawable.img_default_grey).transforms(new CropTransformation(CropTransformation.CropType.RECTANGLE), new RoundedCornersTransformation(ScreenUtil.dip2px(10), 0)));
+            GlideUtil.loadImage(context, "", iv_content, GlideUtil.getRequestOptions().error(R.drawable.img_default_grey));
         }
         tv_content_title.setText(bean.getTextTitle());
         tv_content.setText(Html.fromHtml(bean.getTextContent()));
@@ -137,7 +137,7 @@ public class PersonalHomeArticleAdapter extends SimpleBaseAdapter<ArticleDetailB
                         bean.setReviewId(dataList.get(position).getReviewId());
                         Bundle bundle = new Bundle();
                         bundle.putSerializable(ConstantKey.INTENT_KEY_DATA, bean);
-                        IntentUtil.gotoActivity(context, AddArticleActivity.class, bundle);
+                        IntentUtil.gotoActivity(context, EditArticleActivity.class, bundle);
                         break;
                     case "del"://
                         DialogUtil.showMessageDg(context, "确定删除文章？", "", "取消", "删除", null, new CustomDialog.OnDialogClickListener() {

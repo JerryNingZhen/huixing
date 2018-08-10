@@ -163,6 +163,14 @@ public class ArticlePreviewView extends MvpBaseView<ArticlePreviewActivity> {
         titleview.setRightBtnTxt("发布", new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(bean!=null&& !TextUtils.isEmpty(bean.getReviewId())){
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable(ConstantKey.INTENT_KEY_ID, bean.getReviewId());
+                    baseUI.setResult(Activity.RESULT_OK);
+                    showToast("修改成功");
+                    IntentUtil.gotoActivityToTopAndFinish(baseUI, ArticleDetailActivity.class, bundle);
+                    return;
+                }
                 //                if (TextUtils.isEmpty(bean.getTitlePage())) {
                 //                    showToast("文章封面照片不能为空");
                 //                    return;

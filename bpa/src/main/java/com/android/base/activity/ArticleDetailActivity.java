@@ -208,7 +208,7 @@ public class ArticleDetailActivity extends BaseActivity implements BaseView {
                                                 articleAddBean.setReviewId(bean.getReviewId());
                                                 Bundle bundle = new Bundle();
                                                 bundle.putSerializable(ConstantKey.INTENT_KEY_DATA, articleAddBean);
-                                                IntentUtil.gotoActivity(ArticleDetailActivity.this, AddArticleActivity.class, bundle);
+                                                IntentUtil.gotoActivity(ArticleDetailActivity.this, EditArticleActivity.class, bundle);
                                                 break;
                                             case "del"://
                                                 DialogUtil.showMessageDg(ArticleDetailActivity.this, "确定删除文章？", "", "取消", "删除", null, new CustomDialog.OnDialogClickListener() {

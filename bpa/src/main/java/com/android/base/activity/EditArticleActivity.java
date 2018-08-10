@@ -1,4 +1,4 @@
-package com.android.base.mvp.view;
+package com.android.base.activity;
 
 import android.Manifest;
 import android.app.Activity;
@@ -17,9 +17,7 @@ import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.base.activity.AddArticleActivity;
-import com.android.base.activity.ArticleDraftActivity;
-import com.android.base.activity.ArticlePreviewActivity;
+import com.android.base.BaseApplication;
 import com.android.base.bean.ArticleAddBean;
 import com.android.base.bean.ResponseBean;
 import com.android.base.configs.ConfigFile;
@@ -29,9 +27,10 @@ import com.android.base.configs.RequestCode;
 import com.android.base.executor.BaseTask;
 import com.android.base.executor.RequestExecutor;
 import com.android.base.interfaces.OnDialogViewCallBack;
-import com.android.base.mvp.baseclass.MvpBaseView;
+import com.android.base.mvp.baseclass.BaseActivity;
+import com.android.base.mvp.baseclass.BaseView;
+import com.android.base.mvp.model.HttpOkBiz;
 import com.android.base.utils.BitmapUtil;
-import com.android.base.utils.DateUtil;
 import com.android.base.utils.FileUtil;
 import com.android.base.utils.IntentUtil;
 import com.android.base.utils.KeyboardUtil;
@@ -49,19 +48,24 @@ import com.android.base.widget.richeditor.RichEditor;
 import com.android.base.widget.view.DialogContentEditView;
 import com.hx.huixing.R;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 /**
- * 发帖 View模块
+ * 编辑界面
  * <p>
  * <br> Author: 叶青
  * <br> Version: 1.0.0
  * <br> Date: 2016年12月11日
  * <br> Copyright: Copyright © 2016 xTeam Technology. All rights reserved.
  */
-public class AddArticleView extends MvpBaseView<AddArticleActivity> {
-
+public class EditArticleActivity extends BaseActivity implements BaseView {
     /** TitleView */
     private TitleView titleview;
     private ImageView img_content;
@@ -71,8 +75,9 @@ public class AddArticleView extends MvpBaseView<AddArticleActivity> {
     private View view_bottom;
     private ArticleAddBean bean;
 
-    public AddArticleView(AddArticleActivity baseUI) {
-        super(baseUI);
+    @Override
+    public void initVP() {
+        mvpView = this;
     }
 
     @Override
@@ -94,8 +99,7 @@ public class AddArticleView extends MvpBaseView<AddArticleActivity> {
 
     @Override
     public void init(Bundle bundle) {
-        //titleview.setTitle(baseUI.getString(R.string.activity_image_browse));
-
+        titleview.setTitle("编辑文章");
         if (bundle != null) {
             bean = (ArticleAddBean) bundle.getSerializable(ConstantKey.INTENT_KEY_DATA);
             if (bean != null) {
@@ -113,7 +117,7 @@ public class AddArticleView extends MvpBaseView<AddArticleActivity> {
                             img_content.setAdjustViewBounds(true);
                             img_content.setImageBitmap(bitmap);
                             //                    bitmap.recycle();
-                            //                    PicassoUtil.loadImage(baseUI, imgTitle, img_content);
+                            //                    PicassoUtil.loadImage(EditArticleActivity.this, imgTitle, img_content);
                         }
                     } else {
                         downLoadImage();
@@ -128,60 +132,34 @@ public class AddArticleView extends MvpBaseView<AddArticleActivity> {
     }
 
     @Override
-    public void setViewData(Object object) {
-
-    }
-
-    @Override
     public void widgetListener() {
-        titleview.setLeftBtnTxt("取消", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                KeyboardUtil.hideKeyBord(titleview);
-                if (bean != null && !TextUtils.isEmpty(bean.getReviewId())) {// 编辑文章
-                    baseUI.finishActivity();
-                } else {
-                    isPreview = false;
-                    saveDraft();
-                }
-            }
-        });
+        titleview.setLeftBtnTxt();
 
         titleview.setRightBtnTxt("预览", new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 KeyboardUtil.hideKeyBord(titleview);
-                isPreview = true;
-                saveDraft();
-                //                ArticleAddBean bean = checkData();
-                //                //                if (TextUtils.isEmpty(bean.getTitlePage())) {
-                //                //                    showToast("文章封面照片不能为空");
-                //                //                    return;
-                //                //                }
-                //                if (TextUtils.isEmpty(bean.getTextTitle())) {
-                //                    showToast("文章标题不能为空");
-                //                    return;
-                //                }
-                //                if (TextUtils.isEmpty(bean.getTextContent())) {
-                //                    showToast("文章内容不能为空");
-                //                    return;
-                //                }
-                //
-                //                Bundle bundle = new Bundle();
-                //                bundle.putSerializable(ConstantKey.INTENT_KEY_DATA, bean);
-                //                IntentUtil.gotoActivityForResult(baseUI, ArticlePreviewActivity.class, bundle, RequestCode.REQUEST_CODE_ADD_ARTICLE);
+                // TODO 更新
+
+                bean.setTitlePage(imgTitle);
+
+                bean.setTextTitle(edit_title.getText().toString());
+
+                bean.setTextContent(textContent);
+
+                if (TextUtils.isEmpty(bean.getTextTitle())) {
+                    showToast("文章标题不能为空");
+                    return;
+                }
+                if (TextUtils.isEmpty(bean.getTextContent())) {
+                    showToast("文章内容不能为空");
+                    return;
+                }
+
+                addArticleUploadImg(bean);
             }
         });
 
-        if (bean != null && !TextUtils.isEmpty(bean.getReviewId())) {// 编辑文章
-        } else {
-            titleview.setRightBtnImgNew(R.drawable.icon_draft_right, new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    IntentUtil.gotoActivityToTopForResult(baseUI, ArticleDraftActivity.class, RequestCode.REQUEST_CODE_ADD_ARTICLE);
-                }
-            });
-        }
         img_content.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -191,59 +169,22 @@ public class AddArticleView extends MvpBaseView<AddArticleActivity> {
         });
     }
 
-    public boolean isPreview = false;
+    @Override
+    public void setViewData(Object object) {
 
-    /**
-     * 保存草稿箱
-     */
-    public void saveDraft() {
-        baseUI.getMvpPresenter().addDraft(checkData());
     }
 
-    /**
-     * 返回事件
-     */
-    public void goBack() {
-        baseUI.finishActivity();
-    }
-
-    /**
-     * 区预览
-     */
-    public void goPreView(ArticleAddBean bean) {
-        this.bean=bean;
-        editor.setHtml(bean.getTextContent());
-        textContent = bean.getTextContent();
-        isPreview = false;
-        Bundle bundle = new Bundle();
-        bundle.putSerializable(ConstantKey.INTENT_KEY_DATA, bean);
-        IntentUtil.gotoActivityForResult(baseUI, ArticlePreviewActivity.class, bundle, RequestCode.REQUEST_CODE_ADD_ARTICLE);
-    }
-
-    private ArticleAddBean checkData() {
-        if (bean == null) {
-            bean = new ArticleAddBean();
-        }
-        //        bean.setImageTitle("https://goss.vcg.com/3a750b70-faa0-11e7-a964-b7ed0e8248ba.jpg");
-        bean.setTitlePage(imgTitle);
-        bean.setTextTitle(edit_title.getText().toString());
-        bean.setTextContent(textContent);
-        //        bean.setTextContent(edit_content.getText().toString());
-        if (TextUtils.isEmpty(bean.getDraftId())) {
-            if (TextUtils.isEmpty(bean.getCreateTime())) {
-                bean.setCreateTime(DateUtil.getDate());
-            }
-        } else {
-            bean.setUpdateTime(DateUtil.getDate());
-        }
-        return bean;
-    }
 
     private boolean isCamera = false;
     private boolean isStorage = false;
+    /**
+     * 身份证反面照片路径
+     */
+    public String imgTitle = "";
+    public String imgTitleTemp = "";
 
     private void checkPhoto() {
-        DialogUtil.showIosDialog(baseUI, null, baseUI.getResources().getStringArray(R.array.image_operation), Gravity.BOTTOM, null, new CustomDialog.OnDialogClickListener() {
+        DialogUtil.showIosDialog(EditArticleActivity.this, null, EditArticleActivity.this.getResources().getStringArray(R.array.image_operation), Gravity.BOTTOM, null, new CustomDialog.OnDialogClickListener() {
 
             @Override
             public void onClick(CustomDialog dialog, int id, Object object) {
@@ -261,10 +202,10 @@ public class AddArticleView extends MvpBaseView<AddArticleActivity> {
                                         //                                        //intent.setAction("android.intent.action.GET_CONTENT");
                                         //                                        intent.setAction(Intent.ACTION_PICK);//Pick an item fromthe data
                                         //                                        intent.setType("image/*");
-                                        //                                        baseUI.startActivityForResult(intent, RequestCode.REQUEST_CODE_CHOSE_PHOTO);
-                                        IntentUtil.chosePhoto(baseUI);
+                                        //                                        EditArticleActivity.this.startActivityForResult(intent, RequestCode.REQUEST_CODE_CHOSE_PHOTO);
+                                        IntentUtil.chosePhoto(EditArticleActivity.this);
                                     } else {
-                                        DialogUtil.showMessageDg(baseUI, "温馨提示", "亲，您还没有授权存储权限", "", "知道了", null, new CustomDialog.OnDialogClickListener() {
+                                        DialogUtil.showMessageDg(EditArticleActivity.this, "温馨提示", "亲，您还没有授权存储权限", "", "知道了", null, new CustomDialog.OnDialogClickListener() {
                                             @Override
                                             public void onClick(CustomDialog dialog, int id, Object object) {
                                                 dialog.dismiss();
@@ -273,7 +214,7 @@ public class AddArticleView extends MvpBaseView<AddArticleActivity> {
                                     }
                                 }
                             }
-                        }).requestPermission(baseUI, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                        }).requestPermission(EditArticleActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
                         break;
                     case 0:// 相机
                         // 权限数组
@@ -302,10 +243,10 @@ public class AddArticleView extends MvpBaseView<AddArticleActivity> {
                                             //                                            intent.addCategory(Intent.CATEGORY_DEFAULT);              // 根据文件地址创建文件
                                             //
                                             imgTitleTemp = ConfigFile.PATH_IMAGES + "/fzd_" + System.currentTimeMillis() + ".jpg";
-                                            //                                            Uri uri = Uri.fromFile(new File(imgTitle));
+                                            //                                            Uri uri = Uri.fromFile(new File(imgTitleTemp));
                                             //                                            intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-                                            //                                            baseUI.startActivityForResult(intent, RequestCode.REQUEST_CODE_TAKE_PHOTO);
-                                            IntentUtil.takePhoto(baseUI, imgTitleTemp);
+                                            //                                            EditArticleActivity.this.startActivityForResult(intent, RequestCode.REQUEST_CODE_TAKE_PHOTO);
+                                            IntentUtil.takePhoto(EditArticleActivity.this, imgTitleTemp);
 
                                         } else {
                                             String tips = "";
@@ -322,7 +263,7 @@ public class AddArticleView extends MvpBaseView<AddArticleActivity> {
                                                     tips = tips.replaceFirst("、", "");
                                                 }
                                                 tips = "亲，您还没有授权" + tips + "权限";
-                                                DialogUtil.showMessageDg(baseUI, "温馨提示", tips, "", "知道了", null, new CustomDialog.OnDialogClickListener() {
+                                                DialogUtil.showMessageDg(EditArticleActivity.this, "温馨提示", tips, "", "知道了", null, new CustomDialog.OnDialogClickListener() {
                                                     @Override
                                                     public void onClick(CustomDialog dialog, int id, Object object) {
                                                         dialog.dismiss();
@@ -332,20 +273,15 @@ public class AddArticleView extends MvpBaseView<AddArticleActivity> {
                                         }
                                 }
                             }
-                        }).requestPermission(baseUI, REQUEST_PERMISSIONS);
+                        }).requestPermission(EditArticleActivity.this, REQUEST_PERMISSIONS);
                         break;
                 }
             }
         });
     }
 
-    /**
-     * 身份证反面照片路径
-     */
-    public String imgTitle = "";
-    public String imgTitleTemp = "";
-
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == RequestCode.REQUEST_CODE_CHOSE_PHOTO) {
                 if (data != null) {
@@ -357,12 +293,12 @@ public class AddArticleView extends MvpBaseView<AddArticleActivity> {
                         //判断手机系统版本号
                         if (Build.VERSION.SDK_INT >= 19) {
                             //4.4及以上系统使用这个方法处理图片
-                            path = GetPathUtil.getPath(baseUI, uri);
+                            path = GetPathUtil.getPath(EditArticleActivity.this, uri);
                         } else {
                             //4.4以下系统使用这个方法处理图片
                             path = null;
                             //通过Uri和selection来获取真实的图片路径
-                            Cursor cursor = baseUI.getContentResolver().query(uri, null, null, null, null);
+                            Cursor cursor = EditArticleActivity.this.getContentResolver().query(uri, null, null, null, null);
                             if (cursor != null) {
                                 if (cursor.moveToFirst()) {
                                     path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
@@ -374,7 +310,7 @@ public class AddArticleView extends MvpBaseView<AddArticleActivity> {
 
                     if (!TextUtils.isEmpty(path)) {
                         //                        if (FileUtil.getFileSize(path) / 1024 < 300) {
-                        //                            ToastUtil.showToast(baseUI, "图片像素太低，请重新上传");
+                        //                            ToastUtil.showToast(EditArticleActivity.this, "图片像素太低，请重新上传");
                         //                            return;
                         //                        }
                         // 解析本地图片，获得图片尺寸
@@ -383,7 +319,7 @@ public class AddArticleView extends MvpBaseView<AddArticleActivity> {
                         options.inJustDecodeBounds = true;
                         BitmapFactory.decodeFile(path, options);
                         if (options.outWidth == -1 || options.outHeight == -1) {
-                            ToastUtil.showToast(baseUI, "图片已损坏，请重新选择");
+                            ToastUtil.showToast(EditArticleActivity.this, "图片已损坏，请重新选择");
                             LogUtil.i("图片已损坏，请重新选择");
                             return;
                         }
@@ -398,8 +334,8 @@ public class AddArticleView extends MvpBaseView<AddArticleActivity> {
                 String filePath = ImageCompressUtil.compressImg(imgTitleTemp);
                 setViewBottom(filePath);
             } else if (requestCode == RequestCode.REQUEST_CODE_ADD_ARTICLE) {
-                baseUI.setResult(Activity.RESULT_OK);
-                baseUI.finishActivity();
+                EditArticleActivity.this.setResult(Activity.RESULT_OK);
+                EditArticleActivity.this.finishActivity();
             }
         }
     }
@@ -425,16 +361,15 @@ public class AddArticleView extends MvpBaseView<AddArticleActivity> {
                         img_content.setAdjustViewBounds(true);
                         img_content.setImageBitmap(bitmap);
                         //                    bitmap.recycle();
-                        //                    PicassoUtil.loadImage(baseUI, imgTitle, img_content);
+                        //                    PicassoUtil.loadImage(EditArticleActivity.this, imgTitle, img_content);
                     } else {
-                        ToastUtil.showToast(baseUI, "图片已损坏，请重新选择");
+                        ToastUtil.showToast(EditArticleActivity.this, "图片已损坏，请重新选择");
                         imgTitle = "";
                     }
                 }
             });
         }
     }
-
 
     private void downLoadImage() {
 
@@ -465,7 +400,7 @@ public class AddArticleView extends MvpBaseView<AddArticleActivity> {
                     img_content.setAdjustViewBounds(true);
                     img_content.setImageBitmap(bitmap);
                     //                    bitmap.recycle();
-                    //                    PicassoUtil.loadImage(baseUI, imgTitle, img_content);
+                    //                    PicassoUtil.loadImage(EditArticleActivity.this, imgTitle, img_content);
                 }
                 dismissProgress();
             }
@@ -704,8 +639,8 @@ public class AddArticleView extends MvpBaseView<AddArticleActivity> {
             public void onClick(View v) {
                 KeyboardUtil.hideKeyBord(editor);
                 // TODO 弹框
-                CustomDialog dialog = new CustomDialog(baseUI);
-                DialogContentEditView contentView = new DialogContentEditView(baseUI, dialog, new OnDialogViewCallBack() {
+                CustomDialog dialog = new CustomDialog(EditArticleActivity.this);
+                DialogContentEditView contentView = new DialogContentEditView(EditArticleActivity.this, dialog, new OnDialogViewCallBack() {
                     @Override
                     public void onResult(Map<String, String> map) {
                         String title = "";
@@ -760,4 +695,182 @@ public class AddArticleView extends MvpBaseView<AddArticleActivity> {
     private boolean isHtml = false;
     private String textContent = "";
     public ArrayList<String> imagePaths = new ArrayList<>();
+
+    public void addArticleUploadImg(final ArticleAddBean bean) {
+
+        if (TextUtils.isEmpty(bean.getTitlePage())
+                || bean.getTitlePage().startsWith("http")
+                ) {
+            uploadContentImage(bean);
+            return;
+        }
+
+        showProgress();
+        final HashMap<String, String> params = new HashMap<>();
+        params.put(ConfigServer.SERVER_METHOD_KEY, "common/upload");
+        final HashMap<String, File> files = new HashMap<>();
+        files.put("file", new File(bean.getTitlePage()));
+
+        RequestExecutor.addTask(new BaseTask() {
+            @Override
+            public ResponseBean sendRequest() {
+                return HttpOkBiz.getInstance().upLoadFile(params, files);
+            }
+
+            @Override
+            public void onSuccess(ResponseBean result) {
+
+                String url = (String) result.getObject();
+                try {
+                    JSONArray jsonArray = new JSONArray(url);
+                    if (jsonArray.length() > 0) {
+                        url = jsonArray.getString(0);
+                        bean.setTitlePage(url);
+                    }
+                    //                bean.setTitlePage("https://goss.vcg.com/20b9d020-7e72-11e8-bef6-79929cace6d6.jpg");
+                    uploadContentImage(bean);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFail(ResponseBean result) {
+                dismissProgress();
+                showToast(result.getInfo());
+            }
+        });
+
+    }
+
+
+    private Map<String, String> map = new HashMap<>();
+
+    private void uploadContentImage(final ArticleAddBean bean) {
+
+        map = new HashMap<>();
+        if (imagePaths.size() > 0) {
+            String content = bean.getTextContent();
+            for (int i = 0; i < imagePaths.size(); i++) {
+                if (content.contains(imagePaths.get(i))) {
+                    map.put(imagePaths.get(i), "");
+                }
+            }
+        }
+
+        if (map.size() <= 0) {
+            addArticle(bean);
+            return;
+        }
+
+        showProgress();
+
+        Set<Map.Entry<String, String>> set = map.entrySet();
+        for (Map.Entry<String, String> entry : set) {
+            upLoad(bean, entry.getKey());
+        }
+
+    }
+
+    private void upLoad(final ArticleAddBean bean, final String path) {
+        final HashMap<String, String> params = new HashMap<>();
+        params.put(ConfigServer.SERVER_METHOD_KEY, "common/upload");
+        final HashMap<String, File> files = new HashMap<>();
+        files.put("file", new File(path));
+
+        RequestExecutor.addTask(new BaseTask() {
+            @Override
+            public ResponseBean sendRequest() {
+                return HttpOkBiz.getInstance().upLoadFile(params, files);
+            }
+
+            @Override
+            public void onSuccess(ResponseBean result) {
+                String url = (String) result.getObject();
+                try {
+                    JSONArray jsonArray = new JSONArray(url);
+                    if (jsonArray.length() > 0) {
+                        url = jsonArray.getString(0);
+                        //                        bean.setTitlePage(url);
+                        map.put(path, url);
+                    }
+
+                    boolean isFinish = true;
+                    Set<Map.Entry<String, String>> set = map.entrySet();
+                    for (Map.Entry<String, String> entry : set) {
+                        if (TextUtils.isEmpty(entry.getValue())) {
+                            isFinish = false;
+                            break;
+                        }
+                    }
+
+                    if (isFinish) {
+                        String content = bean.getTextContent();
+                        for (Map.Entry<String, String> entry : set) {
+                            content = content.replace("file://" + entry.getKey(), entry.getValue());
+                        }
+                        textContent = content;
+                        bean.setTextContent(content);
+                        LogUtil.i(content);
+                        imagePaths.clear();
+                        addArticle(bean);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFail(ResponseBean result) {
+                dismissProgress();
+                showToast(result.getInfo());
+            }
+        });
+    }
+
+    public void addArticle(final ArticleAddBean bean) {
+        showProgress();
+
+        final HashMap<String, String> params = new HashMap<>();
+        params.put(ConfigServer.SERVER_METHOD_KEY, ConfigServer.MOTHED_ADDREVIEW);
+        params.put("textTitle", bean.getTextTitle());
+        params.put("textContent", bean.getTextContent());
+        params.put("type", "4");
+        params.put("creator", BaseApplication.getInstance().getUserInfoBean().getId());
+        params.put("password", BaseApplication.getInstance().getUserInfoBean().getUserPwd());
+        params.put("titlePage", bean.getTitlePage());
+
+
+        RequestExecutor.addTask(new BaseTask() {
+            @Override
+            public ResponseBean sendRequest() {
+                if (!TextUtils.isEmpty(bean.getReviewId())) {
+                    params.put("reviewId", bean.getReviewId());
+                    params.put(ConfigServer.SERVER_METHOD_KEY, ConfigServer.MOTHED_UPDATAREVIEW);
+                }
+                return HttpOkBiz.getInstance().sendPost(params);
+            }
+
+            @Override
+            public void onSuccess(ResponseBean result) {
+                dismissProgress();
+                // 编辑文章
+                //                Bundle bundle = new Bundle();
+                //                bundle.putSerializable(ConstantKey.INTENT_KEY_ID, bean.getReviewId());
+                //                IntentUtil.gotoActivityToTopAndFinish(EditArticleActivity.this, ArticleDetailActivity.class, bundle);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(ConstantKey.INTENT_KEY_DATA, bean);
+                IntentUtil.gotoActivityForResult(EditArticleActivity.this, ArticlePreviewActivity.class, bundle, RequestCode.REQUEST_CODE_ADD_ARTICLE);
+                //showToast(result.getInfo());
+            }
+
+            @Override
+            public void onFail(ResponseBean result) {
+                dismissProgress();
+                showToast(result.getInfo());
+            }
+        });
+    }
+
 }
