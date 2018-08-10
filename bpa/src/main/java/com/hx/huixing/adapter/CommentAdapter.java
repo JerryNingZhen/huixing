@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
+import android.text.TextUtils;
 import android.text.style.BackgroundColorSpan;
 import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
@@ -12,10 +13,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.base.utils.StringUtil;
+import com.android.base.utils.ToastUtil;
 import com.android.base.utils.picasso.PicassoUtil;
 import com.hx.huixing.R;
 import com.hx.huixing.bean.CommentBean;
@@ -58,12 +62,15 @@ public class CommentAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView = LayoutInflater.from(mContext).inflate(R.layout.adapter_comment, null);
+        final RelativeLayout view_bottom = convertView.findViewById(R.id.view_bottom);
         RoundImage round_image = convertView.findViewById(R.id.round_image);
         TextView tv_name = convertView.findViewById(R.id.tv_name);
         TextView tv_date = convertView.findViewById(R.id.tv_date);
         TextView tv_title_comment = convertView.findViewById(R.id.tv_title_comment);
         Button btn_add_reply = convertView.findViewById(R.id.btn_add_reply);
         TextView tv_comment = convertView.findViewById(R.id.tv_comment);
+        final EditText edit_comment = convertView.findViewById(R.id.edit_comment); //内容
+        Button btn_send = convertView.findViewById(R.id.btn_send); //发表按钮
 
         /** 数据 */
         CommentBean.DatasBean bean = listDatas.get(position);
@@ -77,9 +84,26 @@ public class CommentAdapter extends BaseAdapter {
         tv_name.setText(bean.getRealName());
         tv_title_comment.setText(Html.fromHtml(mContext.getString(R.string.comment_article)+ StringUtil.makeColorText(title, "#0765a8")));
         tv_date.setText(bean.getCreateTime());
-        tv_comment.setText(bean.getContent());
+        tv_comment.setText(bean.getContent()); //回复
 
-        btn_add_reply.setVisibility(View.GONE);
+        btn_add_reply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                view_bottom.setVisibility(View.VISIBLE);
+            }
+        });
+
+        /** 表达评论 */
+        /*btn_send.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (TextUtils.isEmpty(edit_comment.getText().toString().trim())){
+                    ToastUtil.showToast(mContext, "评论内容不能为空");
+                    return;
+                }
+
+            }
+        });*/
 
         return convertView;
     }
