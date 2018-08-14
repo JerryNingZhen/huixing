@@ -119,5 +119,7 @@ public class ConfigServer {
     public final static String METHOD_QUARYATTENTIONDATA = "attention/quaryAttentionData";
     /** 关注的人的文章 */
     public final static String METHOD_SELECTFOLLOWINGARTICLE = "attention/selectFollowingArticle";
+    /** 交易记录 */
+    public final static String METHOD_QUERYCHAINCOINRECORD = "chainCoinWallet/queryChainCoinRecord";
 
 }

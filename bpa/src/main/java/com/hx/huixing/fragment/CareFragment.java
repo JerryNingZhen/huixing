@@ -14,6 +14,7 @@ import com.amos.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.amos.smartrefresh.layout.listener.OnRefreshListener;
 import com.android.base.BaseApplication;
 import com.android.base.configs.ConfigFile;
+import com.android.base.configs.ConfigServer;
 import com.android.base.configs.ConstantKey;
 import com.android.base.utils.FileUtil;
 import com.android.base.utils.NetWorkUtil;
@@ -129,10 +130,58 @@ public class CareFragment extends BaseFragment {
      *
      * @param currentPage
      * @param pageSize
-     * @param loginUser
+     * @param userId
      * @param type
      */
-    private void getArticleList(final String currentPage, final String pageSize, String loginUser, String type) {
+    private void getArticleList(final String currentPage, final String pageSize, String userId, String type){
+        final Map map = new TreeMap();
+        map.put("currentPage", currentPage);
+        map.put("pageSize", pageSize);
+        map.put("like", "");
+        map.put("userId", userId);
+        map.put("type", type);
+        RetrofitUtils.getInstance().normalGet(Constant.BASE_URL + ConfigServer.METHOD_SELECTFOLLOWINGARTICLE, map, new JsonCallBack() {
+            @Override
+            public void next(String response) {
+                ArrayList<CareArticleBean.DatasBean> articles = new ArrayList<>();
+
+                CareArticleBean bean = new Gson().fromJson(response, CareArticleBean.class);
+                articles = bean.getDatas();
+
+                if (articles.size() > 0) {
+                    if (curPage == 1) {
+                        listDatas.clear();
+                    }
+                    listDatas.addAll(articles);
+                    CareFragmentPermissionsDispatcher.ShowPermissionWithPermissionCheck(CareFragment.this);
+                }
+                mAdapter.notifyDataSetChanged();
+                ((BaseActivity) getActivity()).dismissProgress();
+
+                refresh_view.finishLoadMore();
+                refresh_view.finishRefresh();
+            }
+
+            @Override
+            public void error(Throwable e) {
+                mActivity.dismissProgress();
+                refresh_view.finishLoadMore();
+                refresh_view.finishRefresh();
+            }
+
+            @Override
+            public void startLoading() {
+
+            }
+
+            @Override
+            public void closeLoading() {
+
+            }
+        });
+    }
+
+    /*private void getArticleList(final String currentPage, final String pageSize, String loginUser, String type) {
         final Map map = new TreeMap();
         map.put("currentPage", currentPage);
         map.put("pageSize", pageSize);
@@ -180,8 +229,7 @@ public class CareFragment extends BaseFragment {
 
             }
         });
-
-    }
+    }*/
 
 
     @NeedsPermission({Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE})

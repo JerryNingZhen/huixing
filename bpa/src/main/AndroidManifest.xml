@@ -265,12 +265,6 @@
             android:configChanges="screenSize|orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden"/>
-        <!--交易记录-->
-        <activity android:name=".activity.ExchangeRecordActivity"
-            android:configChanges="screenSize|orientation"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize|stateHidden"/>
-
         <!-- 图片glide加载流程 -->
         <activity
             android:name="com.android.base.activity.base.Item1Activity"

@@ -5,6 +5,7 @@ import android.view.View;
 
 import com.android.base.adapter.SimpleBaseAdapter;
 import com.hx.huixing.R;
+import com.hx.huixing.bean.SignBean;
 
 import java.util.ArrayList;
 
@@ -15,7 +16,7 @@ import java.util.ArrayList;
  * <br> Date: 2018/8/9
  * <br> Copyright: Copyright © 2016 xTeam Technology. All rights reserved.
  */
-public class ExchangeAdapter extends SimpleBaseAdapter {
+public class ExchangeAdapter extends SimpleBaseAdapter<SignBean.DatasBean> {
 
 
     public ExchangeAdapter(Context context, ArrayList datas) {
@@ -29,6 +30,6 @@ public class ExchangeAdapter extends SimpleBaseAdapter {
 
     @Override
     public View getItemView(int position, View convertView, ViewHolder holder) {
-        return null;
+        return convertView;
     }
 }

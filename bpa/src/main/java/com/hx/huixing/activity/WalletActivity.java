@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.android.base.BaseApplication;
 import com.android.base.configs.ConfigServer;
+import com.android.base.utils.IntentUtil;
 import com.android.base.utils.PreferencesUtil;
 import com.android.base.utils.ToastUtil;
 import com.android.base.widget.TitleView;
@@ -107,7 +108,7 @@ public class WalletActivity extends BaseActivity implements View.OnClickListener
                 break;
 
             case R.id.tv_exchange_record:
-
+                IntentUtil.gotoActivity(WalletActivity.this, ExchangeRecordActivity.class);
                 break;
 
             case R.id.tv_money_code:
