@@ -18,6 +18,7 @@ import com.android.base.utils.gson.GsonUtil;
 import com.android.base.widget.CustomKeyBoardListView;
 import com.android.base.widget.TitleView;
 import com.hx.huixing.R;
+import com.hx.huixing.adapter.FocusAdapter;
 import com.hx.huixing.bean.FocusFanBean;
 import com.hx.huixing.common.net.JsonCallBack;
 import com.hx.huixing.common.net.RetrofitUtils;
@@ -43,9 +44,8 @@ public class PersonalFocusActivity extends BaseActivity implements BaseView {
     private String id = "";
 
     private int currentPage = 1;
-    //private ArrayList<PersonalFocusBean> dataBeans = new ArrayList<>();
     private ArrayList<FocusFanBean.DatasBean> dataBeans = new ArrayList<>();
-    private PersonalFocusAdapter adapter;
+    private FocusAdapter mAdapter;
 
     @Override
     public void initVP() {
@@ -71,12 +71,12 @@ public class PersonalFocusActivity extends BaseActivity implements BaseView {
         //id = BaseApplication.getInstance().getUserInfoBean().getId();
         if (bundle != null) {// 要查询的用户id
             id = bundle.getString(ConstantKey.INTENT_KEY_ID, "");
-            //id = "f8585ac0-1e34-4992-9c9f-9b5fa4b85edc";
+            id = "f8585ac0-1e34-4992-9c9f-9b5fa4b85edc";
         }
 
         // TODO: 2018/8/12  
-        //adapter = new PersonalFocusAdapter(this, dataBeans);
-        lv_content.setAdapter(adapter);
+        mAdapter = new FocusAdapter(this, dataBeans);
+        lv_content.setAdapter(mAdapter);
 
         title_view.setTitle("关注");
         showProgress(false);
@@ -204,7 +204,7 @@ public class PersonalFocusActivity extends BaseActivity implements BaseView {
                     }
                     dataBeans.addAll(focusList);
                 }
-                adapter.notifyDataSetChanged();
+                mAdapter.notifyDataSetChanged();
                 dismissProgress();
                 refreshFinish();
             }

@@ -1,5 +1,6 @@
 package com.hx.huixing.bean;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -8,7 +9,7 @@ import java.util.ArrayList;
  * <br> PackageName com.tan.mvpdemo.activityMvp
  * <br> Date: 2018/8/12
  */
-public class FocusFanBean {
+public class FocusFanBean implements Serializable {
 
     /**
      * code : 0
@@ -54,7 +55,7 @@ public class FocusFanBean {
         this.datas = datas;
     }
 
-    public static class DatasBean {
+    public static class DatasBean implements Serializable{
         /**
          * followStatus : 1
          * follower : 10
@@ -70,7 +71,7 @@ public class FocusFanBean {
         private String following;
         private String personStringro;
         private String realName;
-        private String userId;
+        private String userId; //用户id
         private String userPic;
 
         public String getFollowStatus() {
