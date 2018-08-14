@@ -8,8 +8,6 @@ import com.amos.smartrefresh.layout.SmartRefreshLayout;
 import com.amos.smartrefresh.layout.api.RefreshLayout;
 import com.amos.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.amos.smartrefresh.layout.listener.OnRefreshListener;
-import com.android.base.BaseApplication;
-import com.android.base.adapter.PersonalFocusAdapter;
 import com.android.base.configs.ConfigServer;
 import com.android.base.configs.ConstantKey;
 import com.android.base.mvp.baseclass.BaseActivity;
@@ -18,7 +16,7 @@ import com.android.base.utils.gson.GsonUtil;
 import com.android.base.widget.CustomKeyBoardListView;
 import com.android.base.widget.TitleView;
 import com.hx.huixing.R;
-import com.hx.huixing.adapter.FocusAdapter;
+import com.hx.huixing.adapter.FocusFansAdapter;
 import com.hx.huixing.bean.FocusFanBean;
 import com.hx.huixing.common.net.JsonCallBack;
 import com.hx.huixing.common.net.RetrofitUtils;
@@ -45,7 +43,7 @@ public class PersonalFocusActivity extends BaseActivity implements BaseView {
 
     private int currentPage = 1;
     private ArrayList<FocusFanBean.DatasBean> dataBeans = new ArrayList<>();
-    private FocusAdapter mAdapter;
+    private FocusFansAdapter mAdapter;
 
     @Override
     public void initVP() {
@@ -74,8 +72,7 @@ public class PersonalFocusActivity extends BaseActivity implements BaseView {
             id = "f8585ac0-1e34-4992-9c9f-9b5fa4b85edc";
         }
 
-        // TODO: 2018/8/12  
-        mAdapter = new FocusAdapter(this, dataBeans);
+        mAdapter = new FocusFansAdapter(this, dataBeans);
         lv_content.setAdapter(mAdapter);
 
         title_view.setTitle("关注");

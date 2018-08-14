@@ -33,9 +33,9 @@ import java.util.HashMap;
  * <br> PackageName com.tan.mvpdemo.activityMvp
  * <br> Date: 2018/8/12
  */
-public class FocusAdapter extends SimpleBaseAdapter<FocusFanBean.DatasBean> {
+public class FocusFansAdapter extends SimpleBaseAdapter<FocusFanBean.DatasBean> {
 
-    public FocusAdapter(Context context, ArrayList<FocusFanBean.DatasBean> datas) {
+    public FocusFansAdapter(Context context, ArrayList<FocusFanBean.DatasBean> datas) {
         super(context, datas);
     }
 

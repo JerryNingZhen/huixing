@@ -117,5 +117,7 @@ public class ConfigServer {
     public final static String METHOD_INQUIRYAPPVERSION ="common/inquiryAppVersion";
     /** 关注人列表 & 粉丝列表 1为查看关注的人，4为查看粉丝*/
     public final static String METHOD_QUARYATTENTIONDATA = "attention/quaryAttentionData";
+    /** 关注的人的文章 */
+    public final static String METHOD_SELECTFOLLOWINGARTICLE = "attention/selectFollowingArticle";
 
 }
