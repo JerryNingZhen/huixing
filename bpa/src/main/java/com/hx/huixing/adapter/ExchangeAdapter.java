@@ -2,7 +2,9 @@ package com.hx.huixing.adapter;
 
 import android.content.Context;
 import android.view.View;
+import android.widget.TextView;
 
+import com.alibaba.fastjson.serializer.BeanContext;
 import com.android.base.adapter.SimpleBaseAdapter;
 import com.hx.huixing.R;
 import com.hx.huixing.bean.SignBean;
@@ -30,6 +32,15 @@ public class ExchangeAdapter extends SimpleBaseAdapter<SignBean.DatasBean> {
 
     @Override
     public View getItemView(int position, View convertView, ViewHolder holder) {
+        TextView tv_title = holder.getView(R.id.tv_title); //如 文章收益
+        TextView tv_time = holder.getView(R.id.tv_time); //时间
+        TextView tv_earn = holder.getView(R.id.tv_earn); //+10HUI
+
+        SignBean.DatasBean bean = dataList.get(position);
+        tv_title.setText(bean.getActionDetail());
+        tv_time.setText(bean.getCreateTime());
+        tv_earn.setText("+" + bean.getCoinCurrency() + bean.getCoinName());
+
         return convertView;
     }
 }

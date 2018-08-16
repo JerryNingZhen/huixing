@@ -68,6 +68,10 @@ public class ExchangeRecordActivity extends BaseActivity {
     protected void init() {
         title_view.setLeftBtnImg();
         title_view.setTitle(R.string.exchange_record);
+
+        mAdapter = new ExchangeAdapter(ExchangeRecordActivity.this, datasBeans);
+        lv_content.setAdapter(mAdapter);
+
         showProgress(false);
         queryChainCoinRecord(currentPage);
     }
@@ -102,8 +106,8 @@ public class ExchangeRecordActivity extends BaseActivity {
     }
 
     /** 获取交易纪录 */
-    private void queryChainCoinRecord(int currentPage){
-        Map<String, String> map = new TreeMap<>();
+    private void queryChainCoinRecord(final int currentPage){
+        final Map<String, String> map = new TreeMap<>();
         map.put("currentPage", currentPage+"");
         map.put("pageSize", pageSize);
         map.put("creator", id);
@@ -112,11 +116,18 @@ public class ExchangeRecordActivity extends BaseActivity {
             public void next(String response) {
                 ArrayList<SignBean.DatasBean> signList = new ArrayList<>();
 
+                SignBean bean = GsonUtil.getInstance().gson.fromJson(response, SignBean.class);
+
+                signList = bean.getDatas();
+                if (signList.size() > 0){
+                    if (currentPage == 1){
+                        datasBeans.clear();
+                    }
+                    datasBeans.addAll(signList);
+                }
+                mAdapter.notifyDataSetChanged();
                 refreshFinish();
                 dismissProgress();
-                SignBean bean = GsonUtil.getInstance().gson.fromJson(response, SignBean.class);
-                signList = bean.getDatas();
-
             }
 
             @Override
