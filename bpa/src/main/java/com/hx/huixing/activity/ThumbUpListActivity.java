@@ -115,17 +115,22 @@ public class ThumbUpListActivity extends BaseActivity {
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
                 currentPage += 1;
                 getMessage(type);
-                refresh_view.finishLoadMore(1500);
+
             }
 
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 currentPage = 1;
                 getMessage(type);
-                refresh_view.finishRefresh(1500);
+
             }
         });
 
+    }
+
+    private void finishRefreshLoad(){
+        refresh_view.finishLoadMore();
+        refresh_view.finishRefresh();
     }
 
     @Override
@@ -145,6 +150,7 @@ public class ThumbUpListActivity extends BaseActivity {
                     @Override
                     public void next(String response) {
                         Log.e("tanjun", response);
+                        finishRefreshLoad();
                         if (type.equals("2")){ //点赞
                             ArrayList<ThumbBean.DatasBean> list_thumbs = new ArrayList<>();
                             ThumbBean bean = new Gson().fromJson(response, ThumbBean.class);
@@ -186,6 +192,7 @@ public class ThumbUpListActivity extends BaseActivity {
                     @Override
                     public void error(Throwable e) {
                         emptyView.failure();
+                        finishRefreshLoad();
                     }
 
                     @Override

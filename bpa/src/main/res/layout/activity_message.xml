@@ -104,11 +104,11 @@
             android:layout_height="1px"
             android:background="@color/line_grey_light" />
 
-        <FrameLayout
+        <!--<FrameLayout
             android:id="@+id/fl_new_focus"
             android:layout_width="match_parent"
             android:layout_height="60dp">
-            <!--评论或消息-->
+            &lt;!&ndash;评论或消息&ndash;&gt;
 
             <TextView
                 android:id="@+id/tv_new_focus"
@@ -140,9 +140,9 @@
                 android:background="@drawable/shape_red_circular"
                 android:textColor="@color/font_white"
                 android:textSize="@dimen/font_size_normal" />
-        </FrameLayout>
+        </FrameLayout>-->
 
-        <View
+        <!--<View
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:background="@color/line_grey_light" />
@@ -151,7 +151,7 @@
             android:id="@+id/fl_reward_notice"
             android:layout_width="match_parent"
             android:layout_height="60dp">
-            <!--评论或消息-->
+            &lt;!&ndash;评论或消息&ndash;&gt;
 
             <TextView
                 android:id="@+id/tv_reward_count"
@@ -183,9 +183,9 @@
                 android:background="@drawable/shape_red_circular"
                 android:textColor="@color/font_white"
                 android:textSize="@dimen/font_size_normal" />
-        </FrameLayout>
+        </FrameLayout>-->
 
-        <View
+       <!-- <View
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:background="@color/line_grey_light" />
@@ -194,7 +194,7 @@
             android:id="@+id/fl_notice"
             android:layout_width="match_parent"
             android:layout_height="60dp">
-            <!--评论或消息-->
+            &lt;!&ndash;评论或消息&ndash;&gt;
 
             <TextView
                 android:id="@+id/tv_notice_count"
@@ -226,7 +226,7 @@
                 android:background="@drawable/shape_red_circular"
                 android:textColor="@color/font_white"
                 android:textSize="@dimen/font_size_normal" />
-        </FrameLayout>
+        </FrameLayout>-->
 
         <View
             android:layout_width="match_parent"

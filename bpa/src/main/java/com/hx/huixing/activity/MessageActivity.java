@@ -33,16 +33,16 @@ public class MessageActivity extends BaseActivity implements View.OnClickListene
 
     private TextView tv_comment_count;//评论
     private TextView tv_thumb_up; //点赞
-    private TextView tv_new_focus;//新关注
+/*    private TextView tv_new_focus;//新关注
     private TextView tv_reward_count;//奖励
-    private TextView tv_notice_count;//社区公告
+    private TextView tv_notice_count;//社区公告*/
 
     /** 显示个数 */
     private TextView tv_thumb_num; //点赞
     private TextView tv_comment_num; //评论
-    private TextView tv_care_num;//新关注个数
+/*    private TextView tv_care_num;//新关注个数
     private TextView tv_reward_num;//奖励个数
-    private TextView tv_notice_num;//社区公告个数
+    private TextView tv_notice_num;//社区公告个数*/
 
 
     @Override
@@ -56,15 +56,15 @@ public class MessageActivity extends BaseActivity implements View.OnClickListene
 
         tv_thumb_up = findViewById(R.id.tv_thumb_up);
         tv_comment_count = findViewById(R.id.tv_comment_count);
-        tv_new_focus = findViewById(R.id.tv_new_focus);
+/*        tv_new_focus = findViewById(R.id.tv_new_focus);
         tv_reward_count = findViewById(R.id.tv_reward_count);
-        tv_notice_count = findViewById(R.id.tv_notice_count);
+        tv_notice_count = findViewById(R.id.tv_notice_count);*/
 
         tv_thumb_num = findViewById(R.id.tv_thumb_num);
         tv_comment_num = findViewById(R.id.tv_comment_num);
-        tv_care_num = findViewById(R.id.tv_care_num);
+/*        tv_care_num = findViewById(R.id.tv_care_num);
         tv_reward_num = findViewById(R.id.tv_reward_num);
-        tv_notice_num = findViewById(R.id.tv_notice_num);
+        tv_notice_num = findViewById(R.id.tv_notice_num);*/
 
     }
 
@@ -90,9 +90,9 @@ public class MessageActivity extends BaseActivity implements View.OnClickListene
     protected void widgetListener() {
         tv_thumb_up.setOnClickListener(this);
         tv_comment_count.setOnClickListener(this);
-        tv_new_focus.setOnClickListener(this);
+/*        tv_new_focus.setOnClickListener(this);
         tv_reward_count.setOnClickListener(this);
-        tv_notice_count.setOnClickListener(this);
+        tv_notice_count.setOnClickListener(this);*/
     }
 
     @Override

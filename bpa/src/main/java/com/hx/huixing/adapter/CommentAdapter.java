@@ -62,7 +62,6 @@ public class CommentAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView = LayoutInflater.from(mContext).inflate(R.layout.adapter_comment, null);
-        final RelativeLayout view_bottom = convertView.findViewById(R.id.view_bottom);
         RoundImage round_image = convertView.findViewById(R.id.round_image);
         TextView tv_name = convertView.findViewById(R.id.tv_name);
         TextView tv_date = convertView.findViewById(R.id.tv_date);
@@ -86,10 +85,11 @@ public class CommentAdapter extends BaseAdapter {
         tv_date.setText(bean.getCreateTime());
         tv_comment.setText(bean.getContent()); //回复
 
+        /** 回复 */
         btn_add_reply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                view_bottom.setVisibility(View.VISIBLE);
+
             }
         });
 
