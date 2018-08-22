@@ -116,18 +116,6 @@ public class MessageActivity extends BaseActivity implements View.OnClickListene
                 bundle2.putString("title", "评论");
                 IntentUtil.gotoActivity(this, ThumbUpListActivity.class, bundle2);
                 break;
-
-            case R.id.tv_new_focus: //新关注
-
-                break;
-
-            case R.id.tv_reward_count: //奖励通知
-
-                break;
-            case R.id.tv_notice_count: //社区公告
-
-                break;
-
         }
     }
 

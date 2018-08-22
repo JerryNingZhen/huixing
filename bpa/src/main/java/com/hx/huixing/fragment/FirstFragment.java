@@ -3,18 +3,32 @@ package com.hx.huixing.fragment;
 import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.android.base.BaseApplication;
+import com.android.base.configs.ConfigServer;
 import com.android.base.utils.IntentUtil;
 import com.android.base.utils.ScreenUtil;
+import com.google.gson.Gson;
 import com.hx.huixing.R;
 import com.hx.huixing.activity.MainActivity;
 import com.hx.huixing.activity.MessageActivity;
 import com.hx.huixing.adapter.BasePagerAdapter;
+import com.hx.huixing.bean.CommentBean;
+import com.hx.huixing.bean.CountBean;
+import com.hx.huixing.bean.ThumbBean;
+import com.hx.huixing.common.net.JsonCallBack;
+import com.hx.huixing.common.net.RetrofitUtils;
 import com.hx.huixing.widget.TabPageIndicator;
 
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * <br> Description
@@ -34,7 +48,7 @@ public class FirstFragment extends BaseFragment {
 
     private MainActivity mActivity;
 
-    private Button btn_notice;
+    private ImageView iv_msg;
 
     @Override
     protected int getContentViewId() {
@@ -46,7 +60,7 @@ public class FirstFragment extends BaseFragment {
         mActivity = ((MainActivity) getActivity());
         indicator = findViewByIds(R.id.indicator);
         mViewPager = findViewByIds(R.id.viewpager);
-        btn_notice = findViewByIds(R.id.btn_notice);
+        iv_msg = findViewByIds(R.id.iv_msg);
 
     }
 
@@ -69,13 +83,17 @@ public class FirstFragment extends BaseFragment {
     @Override
     protected void widgetListener() {
         /** 消息 */
-        btn_notice.setOnClickListener(new View.OnClickListener() {
+        iv_msg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                IntentUtil.gotoActivity(mActivity, MessageActivity.class);
+               // IntentUtil.gotoActivity(mActivity, MessageActivity.class);
             }
         });
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     /** 设置上面的导航 */
@@ -101,4 +119,5 @@ public class FirstFragment extends BaseFragment {
             e.printStackTrace();
         }
     }
+
 }

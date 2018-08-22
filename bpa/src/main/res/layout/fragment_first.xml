@@ -13,9 +13,9 @@
         android:layout_width="match_parent"
         android:layout_height="55dp" />
 
-    <Button
-        android:id="@+id/btn_notice"
-        android:background="@drawable/bell_big"
+    <ImageView
+        android:id="@+id/iv_msg"
+        android:src="@drawable/icon_msg"
         android:layout_alignParentRight="true"
         android:layout_marginRight="20dp"
         android:layout_centerVertical="true"
