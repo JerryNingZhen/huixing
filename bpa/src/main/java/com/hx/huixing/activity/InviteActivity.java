@@ -34,6 +34,8 @@ import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Field;
 
+import cn.sharesdk.framework.Platform;
+
 /**
  * <br> Description 邀请好友
  * <br> Author: 谭俊
@@ -207,6 +209,7 @@ public class InviteActivity extends BaseActivity {
         shareBean.setTextContent("邀请好友 赚彗星币");
         shareBean.setTitle("邀请好友");
         shareBean.setContentUrl(builder.toString());
+        shareBean.setContentType(Platform.SHARE_IMAGE + "");
 
         String[] nameItems = getResources().getStringArray(R.array.share_types);
         Integer[] resItems = new Integer[]{R.drawable.share_wechat, //

@@ -86,7 +86,7 @@ public class FirstFragment extends BaseFragment {
         iv_msg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               // IntentUtil.gotoActivity(mActivity, MessageActivity.class);
+                IntentUtil.gotoActivity(mActivity, MessageActivity.class);
             }
         });
     }
@@ -94,6 +94,7 @@ public class FirstFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
+        countNotReadMessage();
     }
 
     /** 设置上面的导航 */
@@ -119,5 +120,60 @@ public class FirstFragment extends BaseFragment {
             e.printStackTrace();
         }
     }
+
+    /**
+     *  查询消息条数
+     *  要查看的消息的类型，传整数数组，
+     * 2为点赞的未读消息，3为评论的未读消息
+     * 7为点赞评论的，1为回复别人的评论
+     */
+    private void countNotReadMessage(){
+        Map<String, String> map = new TreeMap<>();
+        map.put("userId", "42e7ce4d-c7ad-476b-8850-1a60bba0e64a");
+        map.put("userPwd", "32f913adb0951b14373e444c3c4cfcc9");
+        //map.put("userId", BaseApplication.getInstance().getUserInfoBean().getId());
+        //map.put("password", BaseApplication.getInstance().getUserInfoBean().getUserPwd());
+        map.put("type", "2,3,7,1");
+
+        RetrofitUtils.getInstance().normalGet(ConfigServer.SERVER_API_URL + ConfigServer.METHOD_COUNTNOTREADMESSAGE, map, new JsonCallBack() {
+            @Override
+            public void next(String response) {
+                CountBean bean = new Gson().fromJson(response, CountBean.class);
+                if (bean != null){
+                    int msgCount = Integer.parseInt(bean.getDatas());
+                    if (msgCount == 0){
+                        /** 消息为0 */
+                        iv_msg.setImageResource(R.drawable.icon_msg);
+                    }else if (msgCount > 0){
+                        /** 消息不为0 */
+                        iv_msg.setImageResource(R.drawable.icon_msg_spot);
+                    }
+                }else {
+                    iv_msg.setImageResource(R.drawable.icon_msg);
+                }
+
+
+            }
+
+            @Override
+            public void error(Throwable e) {
+                Log.e("tanjun",e.toString());
+
+            }
+
+            @Override
+            public void startLoading() {
+
+            }
+
+            @Override
+            public void closeLoading() {
+
+            }
+        });
+
+    }
+
+
 
 }

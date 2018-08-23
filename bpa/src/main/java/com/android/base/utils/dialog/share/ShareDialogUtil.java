@@ -298,6 +298,7 @@ public class ShareDialogUtil {
         Platform.ShareParams sp = new Platform.ShareParams();
         try {
             if (shareBean != null) {
+                String type = shareBean.getContentType();
                 if (QQ.NAME.equals(platform)) {// qq好友分享
 
                     if (shareBean.getTextContent() != null) {
@@ -320,7 +321,13 @@ public class ShareDialogUtil {
                     }
 
                 } else if (Wechat.NAME.equals(platform)) {// 微信好友分享
-                    sp.setShareType(Platform.SHARE_WEBPAGE);
+                    if (TextUtils.isEmpty(type)){
+                        sp.setShareType(Platform.SHARE_WEBPAGE);
+                    }else {
+                        sp.setShareType(Integer.parseInt(type));
+                    }
+
+
                     if (shareBean.getTextContent() != null) {
                         String text = shareBean.getTextContent();
                         if (text.getBytes().length > 1024) {
@@ -374,7 +381,11 @@ public class ShareDialogUtil {
                     }
 
                 } else if (WechatMoments.NAME.equals(platform)) {// 微信朋友圈分享
-
+                    if (TextUtils.isEmpty(type)){
+                        sp.setShareType(Platform.SHARE_WEBPAGE);
+                    }else {
+                        sp.setShareType(Integer.parseInt(type));
+                    }
                     sp.setShareType(Platform.SHARE_WEBPAGE);
                     if (shareBean.getTextContent() != null) {
                         String text = shareBean.getTextContent();

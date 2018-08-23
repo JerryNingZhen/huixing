@@ -3,13 +3,19 @@ package com.hx.huixing.activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import com.amos.smartrefresh.layout.SmartRefreshLayout;
 import com.amos.smartrefresh.layout.api.RefreshLayout;
 import com.amos.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.android.base.BaseApplication;
 import com.android.base.configs.ConfigServer;
+import com.android.base.utils.KeyboardUtil;
 import com.android.base.widget.TitleView;
 import com.google.gson.Gson;
 import com.hx.huixing.R;
@@ -20,6 +26,7 @@ import com.hx.huixing.bean.CommentBean;
 import com.hx.huixing.bean.ThumbBean;
 import com.hx.huixing.common.net.JsonCallBack;
 import com.hx.huixing.common.net.RetrofitUtils;
+import com.hx.huixing.uitl.ComUtils;
 import com.hx.huixing.widget.EmptyView;
 
 import java.util.ArrayList;
@@ -43,6 +50,13 @@ public class ThumbUpListActivity extends BaseActivity {
     private SmartRefreshLayout refresh_view;
     /** 列表 */
     private ListView list_view;
+
+
+    /** 回复 */
+    public RelativeLayout rlReply;
+    public EditText etReplyContent;
+    public Button btnSend;
+
     /** 当前页 */
     private int currentPage = 1;
     private String pageSize = "10";
@@ -74,6 +88,10 @@ public class ThumbUpListActivity extends BaseActivity {
         list_view = findViewById(R.id.list_view);
         emptyView = findViewById(R.id.empty_view);
         refresh_view = findViewById(R.id.refresh_view);
+
+        rlReply = findViewById(R.id.rl_reply_content);
+        etReplyContent = findViewById(R.id.et_reply_content);
+        btnSend = findViewById(R.id.btn_send);
     }
 
     @Override
@@ -90,7 +108,7 @@ public class ThumbUpListActivity extends BaseActivity {
             thumbAdapter = new GetThumbAdapter(thumbs,this);
             list_view.setAdapter(thumbAdapter);
         }else if (type.equals("3")){
-            commentAdapter = new CommentAdapter(comments, this);
+            commentAdapter = new CommentAdapter(comments, this, ThumbUpListActivity.this);
             list_view.setAdapter(commentAdapter);
         }
 

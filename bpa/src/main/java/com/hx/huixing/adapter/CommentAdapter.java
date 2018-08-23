@@ -18,10 +18,12 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.android.base.utils.KeyboardUtil;
 import com.android.base.utils.StringUtil;
 import com.android.base.utils.ToastUtil;
 import com.android.base.utils.picasso.PicassoUtil;
 import com.hx.huixing.R;
+import com.hx.huixing.activity.ThumbUpListActivity;
 import com.hx.huixing.bean.CommentBean;
 import com.hx.huixing.widget.RoundImage;
 
@@ -38,10 +40,12 @@ public class CommentAdapter extends BaseAdapter {
 
     private ArrayList<CommentBean.DatasBean> listDatas;
     private Context mContext;
+    private ThumbUpListActivity mActivity;
 
-    public CommentAdapter(ArrayList<CommentBean.DatasBean> listDatas, Context mContext) {
+    public CommentAdapter(ArrayList<CommentBean.DatasBean> listDatas, Context mContext, ThumbUpListActivity mActivity) {
         this.listDatas = listDatas;
         this.mContext = mContext;
+        this.mActivity = mActivity;
     }
 
     @Override
@@ -68,8 +72,7 @@ public class CommentAdapter extends BaseAdapter {
         TextView tv_title_comment = convertView.findViewById(R.id.tv_title_comment);
         Button btn_add_reply = convertView.findViewById(R.id.btn_add_reply);
         TextView tv_comment = convertView.findViewById(R.id.tv_comment);
-        final EditText edit_comment = convertView.findViewById(R.id.edit_comment); //内容
-        Button btn_send = convertView.findViewById(R.id.btn_send); //发表按钮
+        RelativeLayout rl_comment = convertView.findViewById(R.id.rl_comment);
 
         /** 数据 */
         CommentBean.DatasBean bean = listDatas.get(position);
@@ -89,21 +92,20 @@ public class CommentAdapter extends BaseAdapter {
         btn_add_reply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mActivity.rlReply.setVisibility(View.VISIBLE);
+                mActivity.etReplyContent.requestFocus();
 
             }
         });
 
-        /** 表达评论 */
-        /*btn_send.setOnClickListener(new View.OnClickListener() {
+        rl_comment.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                if (TextUtils.isEmpty(edit_comment.getText().toString().trim())){
-                    ToastUtil.showToast(mContext, "评论内容不能为空");
-                    return;
-                }
-
+            public void onClick(View view) {
+                mActivity.rlReply.setVisibility(View.GONE);
+                KeyboardUtil.hideKeyBord(view);
             }
-        });*/
+        });
+
 
         return convertView;
     }
