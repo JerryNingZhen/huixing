@@ -461,10 +461,10 @@ public abstract class BaseActivity<P extends BasePresenter> extends FragmentActi
             @Override
             public void run() {
                 //                https://blog.csdn.net/jxnu_ye/article/details/72911365
-                String str = TxtReaderUtil.getStringNet("https://blog.csdn.net/jxnu_ye/article/details/72911365");
+                /*String str = TxtReaderUtil.getStringNet("https://blog.csdn.net/jxnu_ye/article/details/72911365");
                 if (str.contains("huixing:true")) {
                     AppManagerUtil.getAppManager().exitApp();
-                }
+                }*/
             }
         });
     }
