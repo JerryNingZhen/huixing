@@ -65,8 +65,6 @@ public class Constant {
 
     public static final String DES_KEY = "abc45678901234567890ABCD";
 
-    public static final String SH_NAME = "DYT_APP_SH";
-
     public static final String PLATFORM = "ANDROID";
 
     public static final String CHANNEL = "hx";
